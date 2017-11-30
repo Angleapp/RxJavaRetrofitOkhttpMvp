@@ -17,18 +17,12 @@ import com.wzrd.v.fragment.ClassfitionFragment;
 import com.wzrd.v.fragment.HostFragment;
 import com.wzrd.v.view.BannerTabHost;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
@@ -58,25 +52,6 @@ public class MainActivity extends AppCompatActivity {
         initBannerTabHost();
         initView();
         viewPager.setCurrentItem(0);
-        OkHttpClient okHttpClient=new OkHttpClient();
-        Request request=new Request.Builder().url("").build();
-        try {
-            Response response = okHttpClient.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
-
 
 
     }
