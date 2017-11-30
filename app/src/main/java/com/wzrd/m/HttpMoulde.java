@@ -22,7 +22,6 @@ public class HttpMoulde<T> {
 
 
     private static final String BASE_URL = "http://baobab.kaiyanapp.com/api/" ;
-
     private static final int TIME_OUT = 4;
     private Retrofit retrofit;
     private Apiservers apiService;
@@ -65,8 +64,6 @@ public class HttpMoulde<T> {
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observable);
-
-
 
     }
 
