@@ -22,7 +22,7 @@ public class HttpMoulde<T> {
 
 
     private static final String BASE_URL = "http://baobab.kaiyanapp.com/api/" ;
-//    "http://baobab.kaiyanapp.com/api/"     "http://aqbj.cscec2b.cn:5003/pm/"
+
     private static final int TIME_OUT = 4;
     private Retrofit retrofit;
     private Apiservers apiService;

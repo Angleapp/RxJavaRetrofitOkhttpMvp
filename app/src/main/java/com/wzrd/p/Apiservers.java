@@ -11,7 +11,7 @@ import retrofit2.http.Query;
  * Created by lk on 2017/9/18.
  */
 
-public interface Apiservers<T extends Class> {
+public interface Apiservers {
 
     @GET("pm/interfacesManager.do?method=getSafeUserLogin")
     Observable<Loginbeen> getData(@Query("loginname") String loginname, @Query("password") String password, @Query("appName") String appName);
