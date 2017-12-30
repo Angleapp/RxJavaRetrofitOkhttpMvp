@@ -9,10 +9,10 @@
         android:layout_height="match_parent">
 
 
-        <com.github.jdsjlzx.recyclerview.LuRecyclerView
-            android:id="@+id/lrv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--<com.github.jdsjlzx.recyclerview.LuRecyclerView-->
+            <!--android:id="@+id/lrv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

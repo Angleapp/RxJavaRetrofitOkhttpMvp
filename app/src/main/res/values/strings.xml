@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Rxjava+Retrofit+Okhttp+Mvp</string>
+    <!--app名称-->
+    <string name="app_name">哈哈</string>
     <string name="login_loading">处理中...</string>
     <string name="url">http://avatar.csdn.net/4/0/7/1_zhuhai__yizhi.jpg</string>
+    <string name="phone">输入手机号</string>
+
+
 </resources>

@@ -9,9 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.interfaces.OnLoadMoreListener;
-import com.github.jdsjlzx.recyclerview.LuRecyclerView;
-import com.github.jdsjlzx.recyclerview.LuRecyclerViewAdapter;
 import com.wzrd.R;
 import com.wzrd.m.been.MoviceBeen;
 import com.wzrd.p.ParsetPresenter;
@@ -33,8 +30,8 @@ import butterknife.Unbinder;
 public class ClassfitionFragment extends BaseFragment<ResultView, ParsetPresenter> {
 
     Unbinder unbinder;
-    @BindView(R.id.lrv)
-    LuRecyclerView lrv;
+//    @BindView(R.id.lrv)
+//    LuRecyclerView lrv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
 
@@ -77,25 +74,25 @@ public class ClassfitionFragment extends BaseFragment<ResultView, ParsetPresente
         List<MoviceBeen.ItemListBean> itemList = moviceBeen.getItemList();
         LyAadapter testRBadapter = new LyAadapter(getActivity(), itemList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        lrv.setLayoutManager(layoutManager);
-        LuRecyclerViewAdapter luRecyclerViewAdapter = new LuRecyclerViewAdapter(testRBadapter);
-        lrv.setAdapter(luRecyclerViewAdapter);
-        testRBadapter.setDataList(itemList);
-//        luRecyclerViewAdapter.addHeaderView(new SampleHeader(getActivity()));
-        lrv.refreshComplete(10);
-        lrv.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-
-
-            presenter.parsemovice("", "36");
-
-            }
-        });
-        //设置底部加载颜色
-        lrv.setFooterViewColor(R.color.colorAccent, R.color.colorAccent, android.R.color.white);
-        //设置底部加载文字提示
-        lrv.setFooterViewHint("拼命加载中", "已经全部为你呈现了", "网络不给力啊，点击再试一次吧");
+//        lrv.setLayoutManager(layoutManager);
+//        LuRecyclerViewAdapter luRecyclerViewAdapter = new LuRecyclerViewAdapter(testRBadapter);
+//        lrv.setAdapter(luRecyclerViewAdapter);
+//        testRBadapter.setDataList(itemList);
+////        luRecyclerViewAdapter.addHeaderView(new SampleHeader(getActivity()));
+//        lrv.refreshComplete(10);
+//        lrv.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//
+//
+//            presenter.parsemovice("", "36");
+//
+//            }
+//        });
+//        //设置底部加载颜色
+//        lrv.setFooterViewColor(R.color.colorAccent, R.color.colorAccent, android.R.color.white);
+//        //设置底部加载文字提示
+//        lrv.setFooterViewHint("拼命加载中", "已经全部为你呈现了", "网络不给力啊，点击再试一次吧");
 
 
     }
