@@ -18,6 +18,7 @@
             style="@style/phone_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -29,11 +30,13 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shapedittext"
-                android:paddingBottom="18dp"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:hint="123" />
+                android:drawableLeft="@mipmap/ic_launcher"
+                android:drawablePadding="3dp"
+                android:gravity="center|left"
+                android:hint="123"
+                android:phoneNumber="true" />
 
         </LinearLayout>
 
@@ -41,26 +44,25 @@
             style="@style/phone_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_security"
+                style="@style/text_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="请输入验证码" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="验证码错误" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="horizontal">
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/shapedittext"
                     android:hint="123" />
 
