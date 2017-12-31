@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
+import com.wzrd.v.view.GlideCircleTransform;
 
 /**
  * Created by lk on 2017/10/31.
@@ -20,12 +21,18 @@ public class ImageViewAttrAdapter {
 
             Glide.with(view.getContext())
                     .load(imageUrl)
-                    .placeholder(R.mipmap.dafen)
+                    .centerCrop()
                     .error(R.mipmap.feilei_on)
                     .into(view);
 
         }else{
-            view.setImageResource(R.mipmap.dafen_on);
+//            http://img.kaiyanapp.com/d89390927060bfc8b9c8a0befbf8dc5e.png?imageMogr2/quality/60/format/jpg
+            int resource = R.mipmap.feilei_on;
+            Glide.with(view.getContext())
+                    .load(resource)
+                    .bitmapTransform(new GlideCircleTransform(view.getContext()))
+                    .error(R.mipmap.feilei_on)
+                    .into(view);
         }
 
     }
