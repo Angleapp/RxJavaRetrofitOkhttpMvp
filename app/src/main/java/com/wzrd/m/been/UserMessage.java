@@ -1,9 +1,12 @@
 package com.wzrd.m.been;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 
+import com.wzrd.m.utils.Constants;
+import com.wzrd.m.utils.RxPermission;
 import com.wzrd.v.activity.welcome.IconActivity;
 
 /**
@@ -35,20 +38,28 @@ public class UserMessage {
 
     /**
      * 选择头像的监听
+     *
      * @param view
      */
-    public void onClickView(View view){
-        Intent intent = new Intent();
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType(IMAGE_TYPE);
-        if (Build.VERSION.SDK_INT <19) {
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-        }else {
-            intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        }
+    public void onClickView(View view) {
+        IconActivity activity = (IconActivity) view.getRootView().getContext();
+        boolean rxrequest = RxPermission.rxrequest(activity, Constants.RDWISDPREMISS,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (rxrequest) {
+
+
+            Intent intent = new Intent();
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType(IMAGE_TYPE);
+            if (Build.VERSION.SDK_INT < 19) {
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+            } else {
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+            }
 //        Log.e("view","view-->"+view.getContext());
-        IconActivity activity= (IconActivity) view.getRootView().getContext();
-        activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+
+            activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+        }
 
     }
 }
