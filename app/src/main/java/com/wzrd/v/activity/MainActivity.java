@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.v.adapter.ViewPagerFragmentAdapter;
 import com.wzrd.v.fragment.AusleseFragment;
 import com.wzrd.v.fragment.ClassfitionFragment;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         initBannerTabHost();
         initView();
         viewPager.setCurrentItem(0);
+        ActivityCollector.addActivity(this);
 
 
     }
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                ActivityCollector.finishAll();
                 finish();
             }
         });

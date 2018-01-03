@@ -93,5 +93,6 @@ public class UserMessage extends BaseObservable {
         IconActivity activity = (IconActivity) view.getRootView().getContext();
         Intent intent = new Intent(activity, BindingLoversActivity.class);
         activity.startActivity(intent);
+
     }
 }

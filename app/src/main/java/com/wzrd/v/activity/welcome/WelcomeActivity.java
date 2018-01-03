@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.p.RxTimerPresenter;
 import com.wzrd.v.view.interf.TimerView;
@@ -34,6 +35,7 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        ActivityCollector.addActivity(this);
         ButterKnife.bind(this);
     }
 

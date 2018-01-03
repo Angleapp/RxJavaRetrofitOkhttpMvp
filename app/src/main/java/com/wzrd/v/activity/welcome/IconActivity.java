@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.wzrd.R;
 import com.wzrd.databinding.ActivityIconBinding;
 import com.wzrd.m.been.UserMessage;
+import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.m.utils.Savephoto;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.yalantis.ucrop.UCrop;
@@ -39,6 +40,7 @@ public class IconActivity extends AppCompatActivity {
 //        binding.setMainPrecenter(new MainActivityPresenter(this));
         userMessage.setIconpath(SharedPreferencesUtil.getString(IconActivity.this, "icon", null));
         binding.setItembeen(userMessage);
+        ActivityCollector.addActivity(this);
 
     }
 
