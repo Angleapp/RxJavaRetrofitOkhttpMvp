@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/ucrop_height_wrapper_controls"
         android:layout_above="@+id/wrapper_states"
+        android:visibility="gone"
         android:background="@color/ucrop_color_widget_background">
 
         <LinearLayout
@@ -38,6 +39,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/ucrop_color_widget_background"
         android:baselineAligned="false"
+        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal">
 

@@ -21,7 +21,8 @@ public class ImageViewAttrAdapter {
 
             Glide.with(view.getContext())
                     .load(imageUrl)
-                    .centerCrop()
+                    .placeholder(R.mipmap.feilei_on)
+                    .bitmapTransform(new GlideCircleTransform(view.getContext()))
                     .error(R.mipmap.feilei_on)
                     .into(view);
 
