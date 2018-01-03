@@ -34,7 +34,7 @@
             android:layout_margin="1dp"
             android:layout_marginBottom="5dp"
             app:LeftIcon="@drawable/select_left_icon_selector"
-            app:TabText="精选" />
+            app:TabText="新建" />
 
         <com.wzrd.v.view.BannerTabHost
             android:id="@+id/tab_classfition"
@@ -45,7 +45,7 @@
             app:CheckState="false"
             android:layout_marginBottom="5dp"
             app:LeftIcon="@drawable/task_left_icon_classfition"
-            app:TabText="分类" />
+            app:TabText="定时" />
 
         <com.wzrd.v.view.BannerTabHost
             android:id="@+id/tab_host"
@@ -56,6 +56,17 @@
             app:CheckState="false"
             android:layout_marginBottom="5dp"
             app:LeftIcon="@drawable/task_left_icon_host"
-            app:TabText="热门" />
+            app:TabText="联系人" />
+
+        <com.wzrd.v.view.BannerTabHost
+            android:id="@+id/tab_mine"
+            style="@style/BannerTabHost"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_margin="1dp"
+            app:CheckState="false"
+            android:layout_marginBottom="5dp"
+            app:LeftIcon="@drawable/task_left_icon_host"
+            app:TabText="我的" />
     </LinearLayout>
 </LinearLayout>

@@ -15,10 +15,11 @@ import com.wzrd.R;
 
 public class ContactFragment extends Fragment {
     private View view;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      inflater.inflate(R.layout.contact_fragment,null);
+        view= inflater.inflate(R.layout.contact_fragment, null);
         return view;
     }
 }

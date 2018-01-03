@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.RxPermission;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.v.activity.welcome.BindingLoversActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
 
@@ -91,6 +92,7 @@ public class UserMessage extends BaseObservable {
 
     public void onNextClickView(View view){
         IconActivity activity = (IconActivity) view.getRootView().getContext();
+        SharedPreferencesUtil.saveString(activity,"nickname",this.nickname);
         Intent intent = new Intent(activity, BindingLoversActivity.class);
         activity.startActivity(intent);
 

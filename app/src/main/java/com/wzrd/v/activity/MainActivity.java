@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import com.wzrd.R;
 import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.v.adapter.ViewPagerFragmentAdapter;
-import com.wzrd.v.fragment.AusleseFragment;
-import com.wzrd.v.fragment.ClassfitionFragment;
-import com.wzrd.v.fragment.HostFragment;
+import com.wzrd.v.fragment.main.ContactFragment;
+import com.wzrd.v.fragment.main.MineFragment;
+import com.wzrd.v.fragment.main.NewFragment;
+import com.wzrd.v.fragment.main.TimingFragment;
 import com.wzrd.v.view.BannerTabHost;
 
 import java.util.ArrayList;
@@ -36,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
     BannerTabHost tabHost;
     @BindView(R.id.activity_main)
     LinearLayout activityMain;
+    @BindView(R.id.tab_mine)
+    BannerTabHost tabMine;
     private List<Fragment> mList = new ArrayList<>();
     private List<BannerTabHost> bannerList = new ArrayList<>();
-    private AusleseFragment ausleseFragment;
-    private ClassfitionFragment classfitionFragment;
-    private HostFragment hostFragment;
+    private NewFragment newFragment;
+    private TimingFragment timingFragment;
+    private ContactFragment contactFragment;
+    private MineFragment mineFragment;
     private int preItem = 0;
 
 
@@ -60,14 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initView() {
-        ausleseFragment = new AusleseFragment();
-        classfitionFragment = new ClassfitionFragment();
-        hostFragment = new HostFragment();
-        mList.add(ausleseFragment);
-        mList.add(classfitionFragment);
-        mList.add(hostFragment);
-//        viewPager.setNoScroll(true);
-        viewPager.setOffscreenPageLimit(3);
+        newFragment = new NewFragment();
+        timingFragment = new TimingFragment();
+        contactFragment = new ContactFragment();
+        mineFragment = new MineFragment();
+        mList.add(newFragment);
+        mList.add(timingFragment);
+        mList.add(contactFragment);
+        mList.add(mineFragment);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new ViewPagerFragmentAdapter(getSupportFragmentManager(), mList));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -96,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
                         tabHost.setRbtLeftIconChecked(true);
                         preItem = 2;
                         break;
+                    case 3:
+                        viewPager.setCurrentItem(3);
+                        bannerList.get(preItem).setRbtLeftIconChecked(false);
+                        tabMine.setRbtLeftIconChecked(true);
+                        preItem = 3;
+                        break;
                 }
 
             }
@@ -113,11 +124,12 @@ public class MainActivity extends AppCompatActivity {
         bannerList.add(tabAuslese);
         bannerList.add(tabClassfition);
         bannerList.add(tabHost);
+        bannerList.add(tabMine);
 
     }
 
 
-    @OnClick({R.id.tab_auslese, R.id.tab_classfition, R.id.tab_host})
+    @OnClick({R.id.tab_auslese, R.id.tab_classfition, R.id.tab_host,R.id.tab_mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tab_auslese:
@@ -139,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
                 tabHost.setRbtLeftIconChecked(true);
                 preItem = 2;
                 break;
+
+            case R.id.tab_mine:
+                viewPager.setCurrentItem(3);
+                bannerList.get(preItem).setRbtLeftIconChecked(false);
+                tabMine.setRbtLeftIconChecked(true);
+                preItem = 3;
+                break;
         }
     }
 
@@ -156,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setMessage("确定退出程序");
-        dialog.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -165,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dialog.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {

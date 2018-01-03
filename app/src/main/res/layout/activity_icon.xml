@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"
                 android:hint="昵称"
-                android:text="@={itembeen.nickname }" />
+                android:text="@={itembeen.nickname}" />
 
             />
         </android.support.design.widget.TextInputLayout>

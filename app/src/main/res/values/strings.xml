@@ -6,6 +6,6 @@
     <string name="phone">输入手机号</string>
     <string name="lovers">和TA绑定成为情侣</string>
     <string name="lovers_phone">输入手机号or打开通讯录</string>
-
     <string name="no_bindinglove">暂不绑定</string>
+    <string name="unlovers">解除与爱人之间的绑定</string>
 </resources>
