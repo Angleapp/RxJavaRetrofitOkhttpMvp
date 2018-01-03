@@ -53,7 +53,7 @@
             android:layout_marginTop="45dp"
             android:background="@drawable/btn_bg_shap"
             android:onClick="@{itembeen.onNextClickView}"
-            android:text="下一步" />
+            android:text="@{itembeen.pathfrom}" />
 
 
     </LinearLayout>

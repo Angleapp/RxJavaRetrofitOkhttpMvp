@@ -29,7 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="60dp"
-            app:imageUrl="@{itembeen.userMessage.iconpath}" />
+            app:imageUrl="@{itembeen.userMessage.iconpath}"
+            android:onClick="@{itembeen.onModifyClickView}"
+            />
 
         <ImageView
             android:layout_width="match_parent"

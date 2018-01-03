@@ -22,21 +22,31 @@ public class UserMessage extends BaseObservable {
 
     private String nickname;//昵称
     private String iconpath;//头像地址
+    private String pathfrom;//那个页面跳转过来的
     private final String IMAGE_TYPE = "image/*";
     public static final int IMAGE_REQUEST_CODE = 0x102;
 
-    public UserMessage(String nickname, String iconpath) {
+    public UserMessage(String nickname, String iconpath, String pathfrom) {
         this.nickname = nickname;
         this.iconpath = iconpath;
+        this.pathfrom = pathfrom;
 //
     }
 
     public UserMessage() {
     }
 
+    public String getPathfrom() {
+        return pathfrom;
+    }
+
+    public void setPathfrom(String pathfrom) {
+        this.pathfrom = pathfrom;
+    }
+
     public String getNickname() {
 
-        return  this.nickname;
+        return this.nickname;
     }
 
     public void setNickname(String nickname) {
@@ -77,24 +87,31 @@ public class UserMessage extends BaseObservable {
 
     /**
      * editview 内容改变的监听
+     *
      * @param
      */
-    public void onChangClickView(Editable view){
+    public void onChangClickView(Editable view) {
 
-        this.nickname=view.toString();
+        this.nickname = view.toString();
         setNickname(this.nickname);
     }
 
     /**
      * 点击下一步的监听
+     *
      * @param view
      */
 
-    public void onNextClickView(View view){
+    public void onNextClickView(View view) {
         IconActivity activity = (IconActivity) view.getRootView().getContext();
-        SharedPreferencesUtil.saveString(activity,"nickname",this.nickname);
-        Intent intent = new Intent(activity, BindingLoversActivity.class);
-        activity.startActivity(intent);
+        SharedPreferencesUtil.saveString(activity, "nickname", this.nickname);
+        if ("下一步".equals(this.pathfrom)) {
+            Intent intent = new Intent(activity, BindingLoversActivity.class);
+            activity.startActivity(intent);
+        } else {
+            activity.finish();
+        }
+
 
     }
 }

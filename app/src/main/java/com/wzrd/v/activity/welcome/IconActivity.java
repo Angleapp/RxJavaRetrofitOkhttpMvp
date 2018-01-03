@@ -30,15 +30,20 @@ public class IconActivity extends AppCompatActivity {
     private String TAG = "tag";
     private ActivityIconBinding binding;
     private UserMessage userMessage;
+    private String pathfrom = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_icon);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_icon);
+        pathfrom = (String) getIntent().getExtras().get("pathfrom");
+        if (pathfrom == null) {
+            pathfrom = "下一步";
+        }
         userMessage = new UserMessage();
-//        binding.setMainPrecenter(new MainActivityPresenter(this));
         userMessage.setIconpath(SharedPreferencesUtil.getString(IconActivity.this, "icon", null));
+        userMessage.setNickname(SharedPreferencesUtil.getString(IconActivity.this, "nickname", null));
+        userMessage.setPathfrom(pathfrom);
         binding.setItembeen(userMessage);
         ActivityCollector.addActivity(this);
 
@@ -86,7 +91,7 @@ public class IconActivity extends AppCompatActivity {
                     savephoto.save(bm, filePath);
                     File file1 = new File(filePath);
                     String nickname = ((EditText) binding.getRoot().findViewById(R.id.et_nickname)).getText().toString();
-                    binding.setItembeen(new UserMessage(nickname, filePath));
+                    binding.setItembeen(new UserMessage(nickname, filePath, pathfrom));
                     break;
                 default:
                     break;

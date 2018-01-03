@@ -49,17 +49,14 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
             case R.id.et_code:
                 break;
             case R.id.tv_sendsecurity:
-                RxTimerPresenter presenter=new RxTimerPresenter(WelcomeActivity.this);
+                RxTimerPresenter presenter = new RxTimerPresenter(WelcomeActivity.this);
                 presenter.timer(10);
                 break;
             case R.id.bt_send:
 //                send();
-                Intent intent=new Intent(WelcomeActivity.this,IconActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, IconActivity.class);
+                intent.putExtra("path","下一步");
                 startActivity(intent);
-
-
-
-
 
 
                 break;
@@ -72,10 +69,10 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
 
     private void send() {
         boolean mobileNO = Utils.isMobileNO(etPhonenum.getText().toString());
-        if(mobileNO){
+        if (mobileNO) {
 
-        }else{
-            Utils.ToastShort(WelcomeActivity.this,"请输入正确的手机号");
+        } else {
+            Utils.ToastShort(WelcomeActivity.this, "请输入正确的手机号");
         }
     }
 
@@ -87,7 +84,7 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
 
     @Override
     public void onRefresh(Object message) {
-        tvSendsecurity.setText(message+"可以重新发送");
+        tvSendsecurity.setText(message + "可以重新发送");
     }
 
     @Override
@@ -99,6 +96,6 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
     @Override
     public void onBegin(Object message) {
         tvSendsecurity.setEnabled(false);
-        tvSendsecurity.setText(message+"可以重新发送");
+        tvSendsecurity.setText(message + "可以重新发送");
     }
 }
