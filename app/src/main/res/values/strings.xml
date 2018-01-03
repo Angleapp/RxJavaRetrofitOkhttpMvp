@@ -4,6 +4,8 @@
     <string name="login_loading">处理中...</string>
     <string name="url">http://avatar.csdn.net/4/0/7/1_zhuhai__yizhi.jpg</string>
     <string name="phone">输入手机号</string>
+    <string name="lovers">和TA绑定成为情侣</string>
+    <string name="lovers_phone">输入手机号or打开通讯录</string>
 
 
 </resources>

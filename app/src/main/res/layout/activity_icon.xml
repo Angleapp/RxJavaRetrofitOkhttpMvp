@@ -4,18 +4,9 @@
 
 
     <data>
-
-
-
         <variable
             name="itembeen"
             type="com.wzrd.m.been.UserMessage" />
-        <variable
-            name="mainPrecenter"
-            type="com.wzrd.m.been.MainActivityPresenter"/>
-
-
-
     </data>
 
     <LinearLayout
@@ -45,8 +36,8 @@
                 android:id="@+id/et_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="昵称"
                 android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"
+                android:hint="昵称"
                 android:text="@={itembeen.nickname }" />
 
             />
@@ -61,6 +52,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="45dp"
             android:background="@drawable/btn_bg_shap"
+            android:onClick="@{itembeen.onNextClickView}"
             android:text="下一步" />
 
 

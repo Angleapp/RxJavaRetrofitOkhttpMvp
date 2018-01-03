@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Build;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.RxPermission;
+import com.wzrd.v.activity.welcome.BindingLoversActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
 
 
@@ -78,14 +78,20 @@ public class UserMessage extends BaseObservable {
      * editview 内容改变的监听
      * @param
      */
-
-
     public void onChangClickView(Editable view){
 
         this.nickname=view.toString();
         setNickname(this.nickname);
-
-        Log.e("321","3213"+view.toString());
     }
 
+    /**
+     * 点击下一步的监听
+     * @param view
+     */
+
+    public void onNextClickView(View view){
+        IconActivity activity = (IconActivity) view.getRootView().getContext();
+        Intent intent = new Intent(activity, BindingLoversActivity.class);
+        activity.startActivity(intent);
+    }
 }

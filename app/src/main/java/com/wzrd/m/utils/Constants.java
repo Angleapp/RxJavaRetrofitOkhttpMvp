@@ -15,4 +15,6 @@ public class Constants {
     public static boolean isshow=true;
 
     public static final String RDWISDPREMISS="您已经把读取sd卡权限拒绝了，请重新开启后再次使用";
+
+    public static final String RDWISDCONTANTS="您已经把读取联系人的权限拒绝了，请重新开启后再次使用";
 }
