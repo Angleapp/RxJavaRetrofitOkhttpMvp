@@ -1,8 +1,9 @@
-package com.wzrd.m.db;
+package com.wzrd.m.db.manger;
 
 import android.content.Context;
 
 import com.wzrd.m.been.User;
+import com.wzrd.m.db.GreenDaoHelper;
 import com.wzrd.m.db.gen.DaoSession;
 import com.wzrd.m.db.gen.UserDao;
 

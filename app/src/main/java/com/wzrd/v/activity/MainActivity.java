@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.m.db.manger.ContactsManager;
+import com.wzrd.m.db.manger.UserFormManager;
+import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.v.adapter.ViewPagerFragmentAdapter;
 import com.wzrd.v.fragment.main.ContactFragment;
@@ -58,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         initView();
         viewPager.setCurrentItem(0);
         ActivityCollector.addActivity(this);
+        UserFormManager.getInstance(MainActivity.this);
+        UserManager.getInstance(MainActivity.this);
+        ContactsManager.getInstance(MainActivity.this);
+
+
 
 
     }

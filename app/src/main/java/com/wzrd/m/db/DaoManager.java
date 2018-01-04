@@ -13,7 +13,7 @@ import org.greenrobot.greendao.query.QueryBuilder;
 
 public class DaoManager {
     private static final String TAG = DaoManager.class.getSimpleName();
-    private static final String DB_NAME = "test";  //声明数据库
+    private static final String DB_NAME = "wzrd";  //声明数据库
     private volatile static DaoManager manager; //多线程名称
     private static DaoMaster.DevOpenHelper helper;
 

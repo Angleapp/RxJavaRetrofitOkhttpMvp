@@ -93,6 +93,7 @@ public class GreenDaoHelper extends Application {
                             }
                             Boolean istrue= new File(dbDir).exists();
                             String dbPath = dbDir + "/" + name;// 数据库路径
+                            Log.e("dbPath","dbPath-->"+dbPath);
                             // 数据库文件是否创建成功
                             boolean isFileCreateSuccess = false;
                             // 判断文件是否存在，不存在则创建该文件
@@ -142,7 +143,7 @@ public class GreenDaoHelper extends Application {
                         return SQLiteDatabase.openOrCreateDatabase(getDatabasePath(name), null);
                     }
                 };
-                DaoMaster.OpenHelper helper = new MySQLiteOpenHelper(wrapper, "test" + ".db", null);
+                DaoMaster.OpenHelper helper = new MySQLiteOpenHelper(wrapper, "wzrd" + ".db", null);
                 daoMaster = new DaoMaster(helper.getWritableDatabase()); //获取未加密的数据库
             } catch (Exception e) {
                 e.printStackTrace();

@@ -26,13 +26,10 @@ public class RelifePopupWindow extends PopupWindow {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        mMenuView = inflater.inflate(R.layout.dailog_relife_pop, null);
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.dailog_relife_pop, null, false);
         TextView tv_tile= (TextView) binding.getRoot().findViewById(R.id.tv_tile);
         TextView tv_qx= (TextView) (TextView) binding.getRoot().findViewById(R.id.tv_qx);
         TextView tv_sure= (TextView) (TextView) binding.getRoot().findViewById(R.id.tv_sure);
-
-        //设置SelectPicPopupWindow的View
         this.setContentView(binding.getRoot());
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
         this.setWidth(3*widthPixels / 4);
