@@ -44,4 +44,10 @@
 
     </style>
 
+
+    <style name="AnimBottom">
+        <item name="android:activityOpenEnterAnimation">@anim/popup_enter_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/popup_exit_anim</item>
+    </style>
+
 </resources>
