@@ -60,7 +60,7 @@ public class LoveUser extends BaseObservable {
 
     public void onClickContacts(View view) {
 
-        final BindingLoversActivity activity ;
+        final BindingLoversActivity activity;
         if (Build.VERSION.SDK_INT > 21) {
             activity = (BindingLoversActivity) view.getContext();
         } else {
@@ -108,24 +108,24 @@ public class LoveUser extends BaseObservable {
                 });
 
 
-
-
     }
 
     /**
      * 绑定情侣
+     *
      * @param view
      */
 
     public void onClickBinding(View view) {
         Context context = view.getRootView().getContext();
 //        BindingLoversActivity activity = (BindingLoversActivity) context;
-        SharedPreferencesUtil.saveString(context,"lovephone",lovephone);
-        Utils.ToastShort(context,"绑定成功");
+        SharedPreferencesUtil.saveString(context, "lovephone", lovephone);
+        Utils.ToastShort(context, "绑定成功");
     }
 
     /**
      * 暂不绑定情侣
+     *
      * @param view
      */
     public void onClickNoBinding(View view) {
