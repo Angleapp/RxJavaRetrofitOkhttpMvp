@@ -7,11 +7,16 @@ import android.os.Build;
 import android.text.Editable;
 import android.view.View;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.m.utils.Constants;
-import com.wzrd.m.utils.RxPermission;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.welcome.BindingLoversActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -25,6 +30,7 @@ public class UserMessage extends BaseObservable {
     private String pathfrom;//那个页面跳转过来的
     private final String IMAGE_TYPE = "image/*";
     public static final int IMAGE_REQUEST_CODE = 0x102;
+    private IconActivity activity;
 
     public UserMessage(String nickname, String iconpath, String pathfrom) {
         this.nickname = nickname;
@@ -68,20 +74,62 @@ public class UserMessage extends BaseObservable {
      * @param view
      */
     public void onClickView(View view) {
-        IconActivity activity = (IconActivity) view.getRootView().getContext();
-        boolean rxrequest = RxPermission.rxrequest(activity, Constants.RDWISDPREMISS,
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (rxrequest) {
-            Intent intent = new Intent();
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType(IMAGE_TYPE);
-            if (Build.VERSION.SDK_INT < 19) {
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-            } else {
-                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            }
-            activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+
+        if (Build.VERSION.SDK_INT > 21) {
+            activity = (IconActivity) view.getContext();
+        } else {
+            activity = (IconActivity) view.getRootView().getContext();
         }
+
+
+        RxPermissions rxPermissions = new RxPermissions(activity);
+        rxPermissions
+                .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribe(new Observer<Boolean>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        /**
+                         * aBoolean为true  同意权限
+                         * aBoolean为false 没同意权限
+                         */
+
+                        if (!aBoolean) {
+                            Utils.ToastShort(activity, Constants.RDWISDPREMISS);
+                        } else {
+
+                            Intent intent = new Intent();
+                            intent.addCategory(Intent.CATEGORY_OPENABLE);
+                            intent.setType(IMAGE_TYPE);
+                            if (Build.VERSION.SDK_INT < 19) {
+                                intent.setAction(Intent.ACTION_GET_CONTENT);
+                            } else {
+                                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                            }
+                            activity.startActivityForResult(intent, IMAGE_REQUEST_CODE);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
 
     }
 
@@ -103,7 +151,12 @@ public class UserMessage extends BaseObservable {
      */
 
     public void onNextClickView(View view) {
-        IconActivity activity = (IconActivity) view.getRootView().getContext();
+        IconActivity activity;
+        if (Build.VERSION.SDK_INT > 21) {
+            activity = (IconActivity) view.getContext();
+        } else {
+            activity = (IconActivity) view.getRootView().getContext();
+        }
         SharedPreferencesUtil.saveString(activity, "nickname", this.nickname);
         if ("下一步".equals(this.pathfrom)) {
             Intent intent = new Intent(activity, BindingLoversActivity.class);
@@ -111,7 +164,7 @@ public class UserMessage extends BaseObservable {
         } else {
             activity.finish();
         }
-
-
     }
+
+
 }
