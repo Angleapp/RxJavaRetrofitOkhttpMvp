@@ -9,7 +9,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.been.TSYSUSER;
+import com.wzrd.m.db.manger.ContactsManager;
+import com.wzrd.m.db.manger.UserFormManager;
+import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.ActivityCollector;
+import com.wzrd.m.utils.DateUtils;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.p.RxTimerPresenter;
 import com.wzrd.v.view.interf.TimerView;
@@ -36,6 +42,9 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         ActivityCollector.addActivity(this);
+        UserFormManager.getInstance(WelcomeActivity.this);
+        UserManager.getInstance(WelcomeActivity.this);
+        ContactsManager.getInstance(WelcomeActivity.this);
         ButterKnife.bind(this);
     }
 
@@ -53,10 +62,9 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
                 presenter.timer(10);
                 break;
             case R.id.bt_send:
-//                send();
-                Intent intent = new Intent(WelcomeActivity.this, IconActivity.class);
-                intent.putExtra("path","下一步");
-                startActivity(intent);
+                send();
+
+
 
 
                 break;
@@ -68,9 +76,22 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
      */
 
     private void send() {
-        boolean mobileNO = Utils.isMobileNO(etPhonenum.getText().toString());
+        String phonenum=etPhonenum.getText().toString();
+        boolean mobileNO = Utils.isMobileNO(phonenum);
         if (mobileNO) {
-
+            SharedPreferencesUtil.saveString(WelcomeActivity.this,"userphonenum",phonenum);
+            UserManager manager=new UserManager(WelcomeActivity.this);
+            TSYSUSER modile=new TSYSUSER();
+            modile.setT_sys_id(phonenum);
+            modile.setT_sys_userid(phonenum);
+            modile.setT_sys_modify_id(phonenum);
+            modile.setT_sys_userphone(phonenum);
+            modile.setT_sys_username(phonenum);
+            modile.setT_sys_modify_time(DateUtils.getCurrentDate());
+            manager.insertUser(modile);
+            Intent intent = new Intent(WelcomeActivity.this, IconActivity.class);
+            intent.putExtra("path","下一步");
+            startActivity(intent);
         } else {
             Utils.ToastShort(WelcomeActivity.this, "请输入正确的手机号");
         }

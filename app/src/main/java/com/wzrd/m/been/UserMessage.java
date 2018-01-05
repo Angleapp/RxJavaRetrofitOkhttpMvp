@@ -8,15 +8,21 @@ import android.text.Editable;
 import android.view.View;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.Constants;
+import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.welcome.BindingLoversActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
 
+import java.util.List;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+
+import static com.wzrd.m.utils.SharedPreferencesUtil.getString;
 
 
 /**
@@ -157,7 +163,34 @@ public class UserMessage extends BaseObservable {
         } else {
             activity = (IconActivity) view.getRootView().getContext();
         }
+        UserManager manager = new UserManager(activity);
+        List<TSYSUSER> user = manager.getByUserid(SharedPreferencesUtil.getString(activity, "userphonenum", ""));
+
         SharedPreferencesUtil.saveString(activity, "nickname", this.nickname);
+        if (user != null&&user.size()>0) {
+            String usernum = getString(activity, "userphonenum", null);
+            String icon = SharedPreferencesUtil.getString(activity, "icon", "");
+            if (usernum != null) {
+                TSYSUSER modlie = new TSYSUSER();
+                String userphone = user.get(0).getT_sys_id();
+                modlie.setT_sys_modify_time(DateUtils.getCurrentDate());
+                modlie.setT_sys_id(usernum);
+                modlie.setT_sys_username(this.nickname);
+                modlie.setT_sys_usericonpath(icon);
+                modlie.setT_sys_id(userphone);
+                modlie.setT_sys_userid(userphone);
+                modlie.setT_sys_modify_id(userphone);
+                modlie.setT_sys_userphone(userphone);
+                modlie.setT_sys_username(userphone);
+                modlie.setT_sys_lover_name(user.get(0).getT_sys_lover_name());
+                modlie.setT_sys_loverphone(user.get(0).getT_sys_loverphone());
+                manager.insertUser(modlie);
+            }
+
+
+        }
+
+
         if ("下一步".equals(this.pathfrom)) {
             Intent intent = new Intent(activity, BindingLoversActivity.class);
             activity.startActivity(intent);

@@ -7,6 +7,8 @@ import com.wzrd.m.db.GreenDaoHelper;
 import com.wzrd.m.db.gen.DaoSession;
 import com.wzrd.m.db.gen.TSYSUSERDao;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.List;
 
 /**
@@ -78,11 +80,18 @@ public class UserManager {
         return mUserDao.loadAll();
     }
 
-//    public List<User> getByF_FORM_IDs(ArrayList<String> F_FORM_IDs){
-//        QueryBuilder<User> builder = mUserDao.queryBuilder();
-//        QueryBuilder<User> Users = builder.where(UserDao.Properties.F_FORM_ID.in(F_FORM_IDs));
-//        return Users.list();
-//    }
+    public List<TSYSUSER> getByUserName(String  username){
+        QueryBuilder<TSYSUSER> builder = mUserDao.queryBuilder();
+        QueryBuilder<TSYSUSER> Users = builder.where(TSYSUSERDao.Properties.T_sys_username.eq(username));
+        return Users.list();
+    }
+
+
+    public List<TSYSUSER> getByUserid(String  id){
+        QueryBuilder<TSYSUSER> builder = mUserDao.queryBuilder();
+        QueryBuilder<TSYSUSER> Users = builder.where(TSYSUSERDao.Properties.T_sys_id.eq(id));
+        return Users.list();
+    }
 
 
 

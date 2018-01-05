@@ -1,7 +1,6 @@
 package com.wzrd.m.been;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.os.Build;
@@ -9,7 +8,9 @@ import android.view.View;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.m.contacts.ContactsActivity;
+import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.Constants;
+import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.MainActivity;
@@ -117,10 +118,39 @@ public class LoveUser extends BaseObservable {
      */
 
     public void onClickBinding(View view) {
-        Context context = view.getRootView().getContext();
-//        BindingLoversActivity activity = (BindingLoversActivity) context;
-        SharedPreferencesUtil.saveString(context, "lovephone", lovephone);
-        Utils.ToastShort(context, "绑定成功");
+
+        BindingLoversActivity activity;
+        if (Build.VERSION.SDK_INT > 21) {
+            activity = (BindingLoversActivity) view.getContext();
+        } else {
+            activity = (BindingLoversActivity) view.getRootView().getContext();
+        }
+
+
+        SharedPreferencesUtil.saveString(activity, "lovephone", lovephone);
+        SharedPreferencesUtil.saveString(activity, "lovename", lovename);
+        Utils.ToastShort(activity, "绑定成功");
+        String userphone = SharedPreferencesUtil.getString(activity, "userphonenum", null);
+        if (userphone != null) {
+            UserManager manager = new UserManager(activity);
+            TSYSUSER modile = new TSYSUSER();
+            modile.setT_sys_id(userphone);
+            modile.setT_sys_userid(userphone);
+            modile.setT_sys_modify_id(userphone);
+            modile.setT_sys_userphone(userphone);
+            modile.setT_sys_username(userphone);
+            modile.setT_sys_lover_name(this.lovename);
+            modile.setT_sys_loverphone(lovephone);
+            modile.setT_sys_modify_time(DateUtils.getCurrentDate());
+            modile.setT_sys_username(SharedPreferencesUtil.getString(activity, "nickname", ""));
+            modile.setT_sys_usericonpath(SharedPreferencesUtil.getString(activity, "icon", ""));
+            manager.insertUser(modile);
+        }
+
+        activity.startActivity(new Intent(activity, MainActivity.class));
+        activity.finish();
+
+
     }
 
     /**
@@ -129,10 +159,12 @@ public class LoveUser extends BaseObservable {
      * @param view
      */
     public void onClickNoBinding(View view) {
-        Context context = view.getContext();
-        BindingLoversActivity activity = (BindingLoversActivity) context;
-//        SharedPreferencesUtil.saveString(context,"lovephone",lovephone);
-//        Utils.ToastShort(context,"绑定成功");
+        BindingLoversActivity activity;
+        if (Build.VERSION.SDK_INT > 21) {
+            activity = (BindingLoversActivity) view.getContext();
+        } else {
+            activity = (BindingLoversActivity) view.getRootView().getContext();
+        }
 
         activity.startActivity(new Intent(activity, MainActivity.class));
         activity.finish();

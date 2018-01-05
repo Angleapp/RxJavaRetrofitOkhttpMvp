@@ -19,7 +19,8 @@ public class BindingLoversActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         bindingLoversActivity = DataBindingUtil.setContentView(BindingLoversActivity.this, R.layout.activity_binding_lovers);
         LoveUser user = new LoveUser();
-        user.setLovephone(SharedPreferencesUtil.getString(this,"lovephone",null));
+        user.setLovephone(SharedPreferencesUtil.getString(this, "lovephone", null));
+        user.setLovename(SharedPreferencesUtil.getString(this, "lovename", null));
         bindingLoversActivity.setItembeen(user);
         ActivityCollector.addActivity(this);
     }
@@ -32,8 +33,9 @@ public class BindingLoversActivity extends AppCompatActivity {
         if (LoveUser.LOVERESULT == resultCode && data != null) {
             String name = (String) data.getExtras().get("lovename");
             String lovenum = (String) data.getExtras().get("lovenum");
+
 //            Log.e("model", "model-->" + name + lovenum);
-            bindingLoversActivity.setItembeen(new LoveUser(name,lovenum));
+            bindingLoversActivity.setItembeen(new LoveUser(name, lovenum));
 
         }
 
