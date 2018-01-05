@@ -59,4 +59,11 @@
         <enum name="content" value="4"/>
     </attr><attr format="boolean" name="layout_content_fixed"/></declare-styleable>
 
+
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
+
 </resources>

@@ -1,21 +1,33 @@
 package com.wzrd.v.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
+import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.been.TSYSUSER;
+import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.v.activity.contacts.AddContactsActivity;
+import com.wzrd.v.adapter.ReclycleContactAdapter;
+import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.fragment.base.NoNetBaseLayFragment;
 import com.wzrd.v.view.GlideCircleTransform;
+import com.wzrd.v.view.SwipeMenuLayout;
 
 import java.util.List;
 
@@ -40,7 +52,18 @@ public class ContactFragment extends NoNetBaseLayFragment {
     @BindView(R.id.iv_add_family)
     ImageView ivAddFamily;
     Unbinder unbinder;
+    @BindView(R.id.btnDelete)
+    Button btnDelete;
+    @BindView(R.id.rv_contacts)
+    RecyclerView rvContacts;
+    @BindView(R.id.sm)
+    SwipeMenuLayout sm;
     private View view;
+    private List<TSYSCONTANTS> tsyscontantsList;
+    private String TAG = "ContactFragment";
+    private String id;
+    private UserManager manager;
+    private List<TSYSUSER> userName;
 
     @Nullable
     @Override
@@ -49,15 +72,21 @@ public class ContactFragment extends NoNetBaseLayFragment {
         unbinder = ButterKnife.bind(this, view);
         isPrepared = true;
         lazyLoad();
-
         return view;
     }
 
+    /**
+     * 从数据库中取值
+     */
     private void initdata() {
-        String id = SharedPreferencesUtil.getString(getActivity(), "userphonenum", "");
-        UserManager manager = new UserManager(getActivity());
-        List<TSYSUSER> userName = manager.getByUserid(id);
+        id = SharedPreferencesUtil.getString(getActivity(), "userphonenum", "");
+
+        manager = new UserManager(getActivity());
+        userName = manager.getByUserid(id);
         if (userName != null && userName.size() > 0) {
+            tvAddlover.setVisibility(View.GONE);
+
+            sm.setVisibility(View.VISIBLE);
             tvAddlover.setVisibility(View.GONE);
             Glide.with(view.getContext())
                     .load(userName.get(0).getT_sys_usericonpath())
@@ -66,7 +95,14 @@ public class ContactFragment extends NoNetBaseLayFragment {
                     .error(R.mipmap.feilei_on)
                     .into(ivLoverIocn);
             tvLoverName.setText(userName.get(0).getT_sys_lover_name());
+        } else {
+            sm.setVisibility(View.GONE);
+            tvAddlover.setVisibility(View.VISIBLE);
         }
+
+        ContactsManager contactsManager = new ContactsManager(getActivity());
+        tsyscontantsList = contactsManager.getByid(id);
+
 
     }
 
@@ -76,14 +112,39 @@ public class ContactFragment extends NoNetBaseLayFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_addlover, R.id.ll_lover, R.id.iv_add_family})
+    @Override
+    public void onResume() {
+        super.onResume();
+        isPrepared = true;
+        lazyLoad();
+    }
+
+    @OnClick({R.id.tv_addlover, R.id.ll_lover, R.id.iv_add_family, R.id.btnDelete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_addlover:
+                Intent intent1 = new Intent(getActivity(), AddContactsActivity.class);
+                intent1.putExtra("message", "love");
+                startActivity(intent1);
+
                 break;
             case R.id.ll_lover:
+
                 break;
             case R.id.iv_add_family:
+                Intent intent = new Intent(getActivity(), AddContactsActivity.class);
+                intent.putExtra("message", "contact");
+                startActivity(intent);
+                break;
+            case R.id.btnDelete:
+//                Utils.ToastShort(getActivity(), "删除");
+                if (userName != null && userName.size() > 0) {
+                    manager.deleteUser(userName.get(0));
+                }
+
+                sm.setVisibility(View.GONE);
+                tvAddlover.setVisibility(View.VISIBLE);
+
                 break;
         }
     }
@@ -94,5 +155,37 @@ public class ContactFragment extends NoNetBaseLayFragment {
             return;
         }
         initdata();
+        setadapter();
+        setonclick();
+    }
+
+    /**
+     * 设置adapter
+     */
+    private void setadapter() {
+
+        ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList);
+        Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
+        rvContacts.addItemDecoration(new RecycleViewDivider(
+                getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvContacts.setLayoutManager(mLayoutManager);
+        rvContacts.setAdapter(adapter);
+
+    }
+
+    private void setonclick() {
+        rvContacts.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
+                    if (null != viewCache) {
+                        viewCache.smoothClose();
+                    }
+                }
+                return false;
+            }
+        });
     }
 }

@@ -90,7 +90,9 @@ public class LoveUser extends BaseObservable {
                         if (!aBoolean) {
                             Utils.ToastShort(activity, Constants.RDWISDCONTANTS);
                         } else {
-                            activity.startActivityForResult(new Intent(activity, ContactsActivity.class), LOVERESULT);
+                            Intent intent = new Intent(activity, ContactsActivity.class);
+                            intent.putExtra("pathfrom", "love");
+                            activity.startActivityForResult(intent, LOVERESULT);
 
                         }
 

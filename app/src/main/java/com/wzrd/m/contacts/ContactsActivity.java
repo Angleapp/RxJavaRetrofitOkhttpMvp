@@ -46,11 +46,13 @@ public class ContactsActivity extends Activity {
 
 	/** 根据拼音来排列ListView里面的数据类 */
 	private PinyinComparator pinyinComparator;
+	private 	String pathfrom;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_contacts);
+	 pathfrom=	getIntent().getExtras().getString("pathfrom");
 		init();
 	}
 

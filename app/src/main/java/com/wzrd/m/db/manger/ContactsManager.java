@@ -7,6 +7,8 @@ import com.wzrd.m.db.GreenDaoHelper;
 import com.wzrd.m.db.gen.DaoSession;
 import com.wzrd.m.db.gen.TSYSCONTANTSDao;
 
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.List;
 
 /**
@@ -78,11 +80,11 @@ public class ContactsManager {
         return mUserDao.loadAll();
     }
 
-//    public List<User> getByF_FORM_IDs(ArrayList<String> F_FORM_IDs){
-//        QueryBuilder<User> builder = mUserDao.queryBuilder();
-//        QueryBuilder<User> Users = builder.where(UserDao.Properties.F_FORM_ID.in(F_FORM_IDs));
-//        return Users.list();
-//    }
+    public List<TSYSCONTANTS> getByid(String id){
+        QueryBuilder<TSYSCONTANTS> builder = mUserDao.queryBuilder();
+        QueryBuilder<TSYSCONTANTS> Users = builder.where(TSYSCONTANTSDao.Properties.T_sys_userid.in(id));
+        return Users.list();
+    }
 
 
 
