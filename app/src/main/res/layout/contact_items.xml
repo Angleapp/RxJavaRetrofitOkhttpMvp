@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.wzrd.v.view.SwipeMenuLayout
+        android:id="@+id/sm"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        android:paddingBottom="1dp"
+        app:ios="false"
+        app:leftSwipe="true"
+        app:swipeEnable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+
+            >
+
+            <ImageView
+                android:id="@+id/iv_contact_iocn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/dafen_on" />
+
+            <TextView
+                android:id="@+id/tv_contact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:gravity="left|center"
+                android:paddingLeft="10dp"
+                android:text=""
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_delcontact"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="#ff4a57"
+            android:text="删除"
+            android:textColor="@android:color/white" />
+    </com.wzrd.v.view.SwipeMenuLayout>
+
+</android.support.constraint.ConstraintLayout>
