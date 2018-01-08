@@ -1,5 +1,6 @@
 package com.wzrd.v.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.v.activity.message.MessagesActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +107,8 @@ public class NewFragment extends Fragment {
             case R.id.short_video:
                 break;
             case R.id.message:
+                Intent intent = new Intent(getActivity(), MessagesActivity.class);
+                startActivity(intent);
                 break;
             case R.id.virtual_gifts:
                 break;

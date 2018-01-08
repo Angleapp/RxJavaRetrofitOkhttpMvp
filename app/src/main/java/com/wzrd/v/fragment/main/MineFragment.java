@@ -19,8 +19,6 @@ import com.wzrd.m.utils.SharedPreferencesUtil;
  */
 
 public class MineFragment extends Fragment {
-
-    private View view;
     private MineAndLover mineAndLover;
     private MineFragmnetBinding binding;
 
