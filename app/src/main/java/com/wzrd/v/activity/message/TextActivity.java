@@ -131,8 +131,6 @@ public class TextActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (TEXT_IMAGE_REQUEST_CODE == requestCode && data != null) {
-
-
             Uri resultUri = data.getData();
             Bitmap bm = null;
             ContentResolver cr = this.getContentResolver();
@@ -153,7 +151,6 @@ public class TextActivity extends AppCompatActivity {
             savephoto.save(bm, filePath);
             Drawable d = Drawable.createFromPath(filePath);
             flText.setBackground(d);
-
         }
 
 

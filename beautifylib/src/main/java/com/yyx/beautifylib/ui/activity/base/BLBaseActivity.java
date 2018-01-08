@@ -33,7 +33,7 @@ public abstract class BLBaseActivity extends AppCompatActivity{
         setContentView(getLayoutId());
         mInstance = this;
         mInflater = LayoutInflater.from(this);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setStatusBarColor(BLConfigManager.getStatusBarColor());
     }
 
