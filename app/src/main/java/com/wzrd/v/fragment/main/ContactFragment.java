@@ -126,10 +126,8 @@ public class ContactFragment extends NoNetBaseLayFragment {
                 Intent intent1 = new Intent(getActivity(), AddContactsActivity.class);
                 intent1.putExtra("message", "love");
                 startActivity(intent1);
-
                 break;
             case R.id.ll_lover:
-
                 break;
             case R.id.iv_add_family:
                 Intent intent = new Intent(getActivity(), AddContactsActivity.class);
@@ -137,7 +135,7 @@ public class ContactFragment extends NoNetBaseLayFragment {
                 startActivity(intent);
                 break;
             case R.id.btnDelete:
-//                Utils.ToastShort(getActivity(), "删除");
+
                 if (userName != null && userName.size() > 0) {
                     manager.deleteUser(userName.get(0));
                 }
@@ -148,6 +146,7 @@ public class ContactFragment extends NoNetBaseLayFragment {
                 break;
         }
     }
+
 
     @Override
     public void lazyLoad() {
@@ -174,6 +173,9 @@ public class ContactFragment extends NoNetBaseLayFragment {
 
     }
 
+    /**
+     * 点击空白部分消失  删除
+     */
     private void setonclick() {
         rvContacts.setOnTouchListener(new View.OnTouchListener() {
             @Override
