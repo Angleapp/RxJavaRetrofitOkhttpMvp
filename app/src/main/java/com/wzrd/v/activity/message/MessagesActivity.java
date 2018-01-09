@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,12 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
-import com.yyx.beautifylib.model.BLBeautifyParam;
-import com.yyx.beautifylib.ui.activity.BLBeautifyImageActivity;
-import com.yyx.beautifylib.utils.ActivityUtils;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.wzrd.v.view.popup.PhotoPopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,14 +40,13 @@ public class MessagesActivity extends AppCompatActivity {
     private static final int MESSIMAGE_REQUEST_CODE = 0x104;
     private static final int REQUEST_CODE_BEAUTIFY_IMAGE = 0x105;
     public static final String KEY = "beautify_image";
-
-
-
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_messages);
+        view = getLayoutInflater().inflate(R.layout.activity_messages,null);
+        setContentView(view);
         ButterKnife.bind(this);
     }
 
@@ -69,9 +64,12 @@ public class MessagesActivity extends AppCompatActivity {
             case R.id.ll_camera:
 
 
+
                 break;
             case R.id.ll_phone_album:
-                strartcamera();
+
+                startActivity(new Intent(this, PhotoljActivity.class));
+//                strartcamera();
 
                 break;
         }
@@ -137,13 +135,13 @@ public class MessagesActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==MESSIMAGE_REQUEST_CODE&&data!=null){
-                    Intent intent = new Intent(MessagesActivity.this, BLBeautifyImageActivity.class);
-            List<String> list=new ArrayList();
-            BLBeautifyParam param = new BLBeautifyParam();
-            list.add(data.getData()+"");
-        intent.putExtra(KEY, param);
-        ActivityUtils.startActivityForResult(MessagesActivity.this, intent, REQUEST_CODE_BEAUTIFY_IMAGE);
+        if (requestCode == MESSIMAGE_REQUEST_CODE && data != null) {
+            PhotoPopupWindow popupWindow = new PhotoPopupWindow(MessagesActivity.this, data.getData());
+            popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+
+
+
         }
 
     }

@@ -43,6 +43,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".v.activity.message.TextActivity"
             android:screenOrientation="portrait" ></activity>
+
+        <activity android:name=".v.activity.message.PhotoljActivity">
+
+        </activity>
     </application>
 
 </manifest>
