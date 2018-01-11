@@ -112,7 +112,7 @@ public class PhotoljActivity extends AppCompatActivity implements View.OnClickLi
                          */
 
                         if (!aBoolean) {
-                            Toast.makeText(activity, "No RxPermissions", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "No Permissions For Read", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent intent = new Intent();
                             intent.addCategory(Intent.CATEGORY_OPENABLE);
