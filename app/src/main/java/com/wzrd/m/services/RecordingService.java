@@ -16,7 +16,7 @@ import java.util.TimerTask;
 
 /**
  * 录音的 Service
- *
+ * <p>
  * Created by developerHaoz on 2017/8/12.
  */
 
@@ -59,7 +59,6 @@ public class RecordingService extends Service {
 
     public void startRecording() {
         setFileNameAndPath();
-
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -84,10 +83,10 @@ public class RecordingService extends Service {
 
         do {
             count++;
-            mFileName = Utils.getuuid()+ ".mp3";
+            mFileName = Utils.getuuid() + ".mp3";
             mFilePath = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
 //          mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            mFilePath=mFilePath+"/"+ mFileName;
+            mFilePath = mFilePath + "/" + mFileName;
             f = new File(mFilePath);
         } while (f.exists() && !f.isDirectory());
     }

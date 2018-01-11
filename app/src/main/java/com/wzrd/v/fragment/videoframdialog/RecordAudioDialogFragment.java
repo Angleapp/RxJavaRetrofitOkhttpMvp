@@ -26,7 +26,7 @@ import java.io.File;
 /**
  * 开始录音的 DialogFragment
  *
- * Created by developerHaoz on 2017/8/12.
+ * Created by lk on 2017/8/12.
  */
 
 public class RecordAudioDialogFragment extends DialogFragment {
@@ -67,7 +67,7 @@ public class RecordAudioDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        super.onCreateDialog(savedInstanceState);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_record_audio, null);
         initView(view);
@@ -120,7 +120,6 @@ public class RecordAudioDialogFragment extends DialogFragment {
             String videosDir = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
             File folder = new File(videosDir);
             if (!folder.exists()) {
-                //folder /SoundRecorder doesn't exist, create the folder
                 folder.mkdir();
             }
 
@@ -141,11 +140,15 @@ public class RecordAudioDialogFragment extends DialogFragment {
             mChronometerTime.stop();
             timeWhenPaused = 0;
             Toast.makeText(getActivity(), "录音结束...", Toast.LENGTH_SHORT).show();
-
             getActivity().stopService(intent);
             //allow the screen to turn off again once recording is finished
             getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public void setOnCancelListener(OnAudioCancelListener listener) {
