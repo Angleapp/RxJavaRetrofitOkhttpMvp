@@ -6,12 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
-import android.os.Environment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 
 /**
  * Created by Administrator on 2017/4/16.
@@ -21,6 +21,7 @@ public class BLBitmapUtils {
     /**
      * 获取Bitmap
      * inSampleSize: 这个值取4，意思是宽高为原来的1/4,像素和内存为原来的1/16
+     *
      * @param filePath
      * @return
      */
@@ -29,14 +30,14 @@ public class BLBitmapUtils {
             long size = FileUtils.getFileSize(new File(filePath));
             Bitmap bm;
             //压缩大于1M的图片
-            if (size > 1024 * 1024){
+            if (size > 1024 * 1024) {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(filePath, options);
                 options.inSampleSize = 4;
                 options.inJustDecodeBounds = false;
                 bm = BitmapFactory.decodeFile(filePath, options);
-            }else{
+            } else {
                 bm = BitmapFactory.decodeFile(filePath);
             }
             return bm;
@@ -47,7 +48,7 @@ public class BLBitmapUtils {
 
     }
 
-    public static Bitmap getBitmap(String path, int width, int height){
+    public static Bitmap getBitmap(String path, int width, int height) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
@@ -70,7 +71,7 @@ public class BLBitmapUtils {
     }
 
 
-    public static int getBitmapSize(String path){
+    public static int getBitmapSize(String path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
@@ -87,7 +88,7 @@ public class BLBitmapUtils {
         try {
             ExifInterface e = new ExifInterface(path);
             int orientation = e.getAttributeInt("Orientation", 1);
-            switch(orientation) {
+            switch (orientation) {
                 case 3:
                     degree = 180;
                 case 4:
@@ -109,32 +110,31 @@ public class BLBitmapUtils {
     }
 
     private static Bitmap rotateBitmap(Bitmap bitmap, int rotate) {
-        if(bitmap == null) {
+        if (bitmap == null) {
             return null;
         } else {
             int w = bitmap.getWidth();
             int h = bitmap.getHeight();
             Matrix mtx = new Matrix();
-            mtx.postRotate((float)rotate);
+            mtx.postRotate((float) rotate);
             return Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, true);
         }
     }
 
     public static String saveAsBitmap(Context context, Bitmap bitmap) {
         String folderName = BLCommonUtils.getApplicationName(context);
-        if(folderName == null || folderName.equals("")) {
+        if (folderName == null || folderName.equals("")) {
             folderName = "CameraSDK";
         }
-
-        File parentpath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String videosDir = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
         String fileName = System.currentTimeMillis() + ".jpg";
-        fileName = folderName + "/" + fileName;
-        File file = new File(parentpath, fileName);
+//        fileName = folderName + "/" + fileName;
+        File file = new File(videosDir, fileName);
         file.getParentFile().mkdirs();
 
         try {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(file));
-            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, (String[])null, (MediaScannerConnection.OnScanCompletedListener)null);
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, (String[]) null, (MediaScannerConnection.OnScanCompletedListener) null);
         } catch (FileNotFoundException var7) {
             var7.printStackTrace();
         }
@@ -145,14 +145,14 @@ public class BLBitmapUtils {
 
     public static Bitmap rotateImage(Bitmap bit, int degrees) {
         Matrix matrix = new Matrix();
-        matrix.postRotate((float)degrees);
+        matrix.postRotate((float) degrees);
         Bitmap tempBitmap = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(), bit.getHeight(), matrix, true);
         return tempBitmap;
     }
 
     public static Bitmap reverseImage(Bitmap bit, int x, int y) {
         Matrix matrix = new Matrix();
-        matrix.postScale((float)x, (float)y);
+        matrix.postScale((float) x, (float) y);
         Bitmap tempBitmap = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(), bit.getHeight(), matrix, true);
         return tempBitmap;
     }
@@ -161,7 +161,7 @@ public class BLBitmapUtils {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         Matrix matrix = new Matrix();
-        matrix.postScale((float)(1 / scale), (float)(1 / scale));
+        matrix.postScale((float) (1 / scale), (float) (1 / scale));
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         bitmap.recycle();
         return resizedBitmap;

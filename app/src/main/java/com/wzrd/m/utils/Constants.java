@@ -11,6 +11,7 @@ public class Constants {
      */
     //数据库文件存储的路径
     public static String DATABASE_PATH = "/wzrd/database";
+    public static String VIDEOS_PATH="/wzrd/videos";
 
     public static boolean isshow=true;
 

@@ -3,6 +3,7 @@ package com.wzrd.m.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,5 +36,10 @@ public class Utils {
 
     public static void ToastShort(Context context,String message){
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
+
+
+    public static String getuuid(){
+        return UUID.randomUUID().toString().replaceAll("-","");
     }
 }

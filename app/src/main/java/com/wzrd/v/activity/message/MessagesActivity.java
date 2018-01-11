@@ -15,6 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
+import com.wzrd.v.fragment.videoframdialog.RecordAudioDialogFragment;
 import com.wzrd.v.view.popup.PhotoPopupWindow;
 
 import butterknife.BindView;
@@ -45,7 +46,7 @@ public class MessagesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = getLayoutInflater().inflate(R.layout.activity_messages,null);
+        view = getLayoutInflater().inflate(R.layout.activity_messages, null);
         setContentView(view);
         ButterKnife.bind(this);
     }
@@ -60,11 +61,17 @@ public class MessagesActivity extends AppCompatActivity {
                 startactivity(TextActivity.class);
                 break;
             case R.id.ll_voice:
+                final RecordAudioDialogFragment fragment = RecordAudioDialogFragment.newInstance();
+                fragment.show(getSupportFragmentManager(), RecordAudioDialogFragment.class.getSimpleName());
+                fragment.setCancelable(false);
+                fragment.setOnCancelListener(new RecordAudioDialogFragment.OnAudioCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        fragment.dismiss();
+                    }
+                });
                 break;
             case R.id.ll_camera:
-
-
-
                 break;
             case R.id.ll_phone_album:
 
@@ -138,8 +145,6 @@ public class MessagesActivity extends AppCompatActivity {
         if (requestCode == MESSIMAGE_REQUEST_CODE && data != null) {
             PhotoPopupWindow popupWindow = new PhotoPopupWindow(MessagesActivity.this, data.getData());
             popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-
-
 
 
         }
