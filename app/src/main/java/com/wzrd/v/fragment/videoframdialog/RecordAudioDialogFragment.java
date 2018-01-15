@@ -25,7 +25,7 @@ import java.io.File;
 
 /**
  * 开始录音的 DialogFragment
- *
+ * <p>
  * Created by lk on 2017/8/12.
  */
 
@@ -83,8 +83,8 @@ public class RecordAudioDialogFragment extends DialogFragment {
 //                    ActivityCompat.requestPermissions(getActivity()
 //                            , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, 1);
 //                }else {
-                    onRecord(mStartRecording);
-                    mStartRecording = !mStartRecording;
+                onRecord(mStartRecording);
+                mStartRecording = !mStartRecording;
 //                }
 
             }
