@@ -10,10 +10,10 @@
 
 
             <corners
-                android:bottomLeftRadius="5dip"
-                android:bottomRightRadius="5dip"
-                android:topLeftRadius="5dip"
-                android:topRightRadius="5dip" />
+                android:bottomLeftRadius="15dip"
+                android:bottomRightRadius="15dip"
+                android:topLeftRadius="15dip"
+                android:topRightRadius="15dip" />
 
 
             <stroke
