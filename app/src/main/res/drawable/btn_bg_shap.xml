@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#969696"/>
+    <!--<solid android:color="#969696"/>-->
     <corners android:topLeftRadius="10dip"
         android:topRightRadius="10dip"
         android:bottomRightRadius="10dip"
         android:bottomLeftRadius="10dip" />
     <!--圆角矩形白色背景-->
+    <gradient
+        android:angle="0"
+        android:startColor="#fff"
+        android:endColor="#CB5500" />
 </shape>
 
