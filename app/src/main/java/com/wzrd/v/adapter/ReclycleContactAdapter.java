@@ -47,9 +47,9 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
 
         Glide.with(view.getContext())
                 .load(modlie.getT_sys_usericonpath())
-                .placeholder(R.mipmap.feilei_on)
+                .placeholder(R.mipmap.icon_signin_default)
                 .bitmapTransform(new GlideCircleTransform(view.getContext()))
-                .error(R.mipmap.feilei_on)
+                .error(R.mipmap.icon_signin_default)
                 .into(holder.iv_contact_iocn);
         holder.btn_delcontact.setOnClickListener(new View.OnClickListener() {
             @Override
