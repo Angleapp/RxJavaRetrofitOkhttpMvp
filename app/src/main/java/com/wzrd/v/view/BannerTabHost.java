@@ -39,11 +39,7 @@ public class BannerTabHost extends RelativeLayout {
         int mIcon = array.getResourceId(R.styleable.BannerTabHost_LeftIcon, R.drawable.select_left_icon_selector);
         String mText = array.getString(R.styleable.BannerTabHost_TabText);
         boolean mState = array.getBoolean(R.styleable.BannerTabHost_CheckState, false);
-
         rbtLeftIcon.setCompoundDrawablesRelativeWithIntrinsicBounds(0, mIcon, 0, 0);
-
-
-
         rbtLeftIcon.setChecked(mState);
         rbtLeftIcon.setText(mText);
     }
