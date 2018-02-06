@@ -4,6 +4,7 @@
 
 
     <data>
+
         <variable
             name="itembeen"
             type="com.wzrd.m.been.UserMessage" />
@@ -12,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/bg_blured"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
@@ -25,23 +27,41 @@
             android:onClick="@{itembeen.onClickView}"
             app:imageUrl="@{itembeen.iconpath }" />
 
-        <android.support.design.widget.TextInputLayout
+
+        <EditText
+
+            android:id="@+id/et_nickname"
+            style="@style/phone_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            app:hintAnimationEnabled="true">
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"
+            android:background="@drawable/shapedittext"
+            android:hint="请输入昵称"
+            android:text="@={itembeen.nickname}"
+            android:paddingLeft="10dp"
+          />
 
-            <EditText
-                android:id="@+id/et_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"
-                android:hint="昵称"
-                android:text="@={itembeen.nickname}" />
 
-            />
-        </android.support.design.widget.TextInputLayout>
+        <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="32dp"-->
+        <!--android:layout_marginRight="32dp"-->
+        <!--app:hintAnimationEnabled="true">-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/et_nickname"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"-->
+        <!--android:hint="昵称"-->
+        <!--android:textColor="#fff"-->
+        <!--android:textColorHint="#fff"-->
+        <!--android:text="@={itembeen.nickname}" />-->
+
+        <!--/>-->
+        <!--</android.support.design.widget.TextInputLayout>-->
 
 
         <Button
@@ -53,7 +73,8 @@
             android:layout_marginTop="45dp"
             android:background="@drawable/btn_bg_shap"
             android:onClick="@{itembeen.onNextClickView}"
-            android:text="@{itembeen.pathfrom}" />
+            android:text="@{itembeen.pathfrom}"
+            android:textColor="#fff" />
 
 
     </LinearLayout>

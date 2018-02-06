@@ -34,8 +34,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">150dp</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">15dp</item>
-        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textColor">#fff</item>
     </style>
     <!--输入手机号边距-->
     <style name="phone_margin">

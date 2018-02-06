@@ -14,15 +14,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/bg_blured"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lovers"
-            android:textSize="20sp"
-            android:gravity="center"
             android:layout_marginTop="30dp"
-            />
+            android:gravity="center"
+            android:text="@string/lovers"
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
 
         <LinearLayout
@@ -45,42 +47,76 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lovers_phone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_lovephonenum"
-                    android:layout_width="250dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shapedittext"
-                    android:drawableLeft="@mipmap/ic_launcher"
-                    android:drawablePadding="3dp"
-                    android:gravity="center|left"
-                    android:hint="123"
-                    android:phoneNumber="true"
-                    android:text="@{itembeen.lovephone}"
-
-                    />
-                    <ImageView
-                        android:id="@+id/iv_contants"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/et_bl"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/shapedittext_right"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="center|left"
+                            android:paddingLeft="10dp"
+                            android:phoneNumber="true"
+                            android:text="+86" />
+
+                        <EditText
+                            android:id="@+id/et_lovephonenum"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/shapedittext_left"
+                            android:gravity="center|left"
+                            android:paddingLeft="5dp"
+                            android:phoneNumber="true"
+                            android:text="@{itembeen.lovephone}"/>
+                    </LinearLayout>
+
+
+                    <!--<EditText-->
+                    <!--android:id="@+id/et_lovephonenum"-->
+                    <!--android:layout_width="250dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:background="@drawable/shapedittext"-->
+                    <!--android:drawableLeft="@mipmap/ic_launcher"-->
+                    <!--android:drawablePadding="3dp"-->
+                    <!--android:gravity="center|left"-->
+                    <!--android:hint="123"-->
+                    <!--android:phoneNumber="true"-->
+                    <!--android:text="@{itembeen.lovephone}"-->
+                    <!--/>-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_marginLeft="10dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:onClick="@{itembeen.onClickContacts}"
-                        />
+                        android:layout_gravity="center"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_contants"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:onClick="@{itembeen.onClickContacts}"
+                            android:src="@mipmap/icon_signin_contacts" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
-
 
 
             <Button
@@ -97,23 +133,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:onClick="@{itembeen.onClickNoBinding}"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no_bindinglove"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"
-                    />
-
+                    android:textColor="#fff" />
             </LinearLayout>
 
         </LinearLayout>

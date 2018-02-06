@@ -8,7 +8,7 @@
     <!--圆角矩形白色背景-->
     <gradient
         android:angle="0"
-        android:startColor="#fff"
-        android:endColor="#CB5500" />
+        android:startColor="#1C6ACB"
+        android:endColor="#57C6D4" />
 </shape>
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
@@ -36,6 +37,10 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
     TextView tvSendsecurity;
     @BindView(R.id.bt_send)
     Button btSend;
+    @BindView(R.id.et_bl)
+    EditText etBl;
+    @BindView(R.id.ll_error_code)
+    LinearLayout llErrorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +70,6 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
                 send();
 
 
-
-
                 break;
         }
     }
@@ -76,12 +79,12 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
      */
 
     private void send() {
-        String phonenum=etPhonenum.getText().toString();
+        String phonenum = etPhonenum.getText().toString();
         boolean mobileNO = Utils.isMobileNO(phonenum);
         if (mobileNO) {
-            SharedPreferencesUtil.saveString(WelcomeActivity.this,"userphonenum",phonenum);
-            UserManager manager=new UserManager(WelcomeActivity.this);
-            TSYSUSER modile=new TSYSUSER();
+            SharedPreferencesUtil.saveString(WelcomeActivity.this, "userphonenum", phonenum);
+            UserManager manager = new UserManager(WelcomeActivity.this);
+            TSYSUSER modile = new TSYSUSER();
             modile.setT_sys_id(phonenum);
             modile.setT_sys_userid(phonenum);
             modile.setT_sys_modify_id(phonenum);
@@ -90,7 +93,7 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
             modile.setT_sys_modify_time(DateUtils.getCurrentDate());
             manager.insertUser(modile);
             Intent intent = new Intent(WelcomeActivity.this, IconActivity.class);
-            intent.putExtra("path","下一步");
+            intent.putExtra("path", "下一步");
             startActivity(intent);
         } else {
             Utils.ToastShort(WelcomeActivity.this, "请输入正确的手机号");
