@@ -21,18 +21,18 @@ public class ImageViewAttrAdapter {
 
             Glide.with(view.getContext())
                     .load(imageUrl)
-                    .placeholder(R.mipmap.feilei_on)
+                    .placeholder(R.mipmap.icon_signin_default)
                     .bitmapTransform(new GlideCircleTransform(view.getContext()))
-                    .error(R.mipmap.feilei_on)
+                    .error(R.mipmap.icon_signin_default)
                     .into(view);
 
         }else{
 //            http://img.kaiyanapp.com/d89390927060bfc8b9c8a0befbf8dc5e.png?imageMogr2/quality/60/format/jpg
-            int resource = R.mipmap.feilei_on;
+            int resource = R.mipmap.icon_signin_default;
             Glide.with(view.getContext())
                     .load(resource)
                     .bitmapTransform(new GlideCircleTransform(view.getContext()))
-                    .error(R.mipmap.feilei_on)
+                    .error(R.mipmap.icon_signin_default)
                     .into(view);
         }
 

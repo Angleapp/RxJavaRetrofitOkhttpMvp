@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/contant_bag_all"
     android:orientation="vertical">
 
     <TextView
@@ -11,6 +12,7 @@
         android:gravity="center"
         android:padding="3dp"
         android:text="联系人"
+        android:textColor="#fff"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -18,11 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@mipmap/dafen_on" />
 
         <TextView
@@ -31,6 +35,7 @@
             android:paddingLeft="10dp"
             android:text="我的爱人"
             android:textSize="18sp"
+            android:textColor="#fff"
 
             />
 
@@ -41,9 +46,10 @@
         android:id="@+id/ll_lover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+
         android:layout_marginTop="15dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -66,13 +72,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="70dp"
+                android:background="@color/contant_bag"
+                android:gravity="center"
+
+                >
 
                 <ImageView
                     android:id="@+id/iv_lover_iocn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/dafen_on" />
+                    android:layout_marginLeft="10dp"
+                   />
 
                 <TextView
                     android:id="@+id/tv_lover_name"
@@ -82,15 +93,12 @@
                     android:gravity="left|center"
                     android:paddingLeft="10dp"
                     android:text="我的爱人"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
-
-
             </LinearLayout>
-
-
             <Button
                 android:id="@+id/btnDelete"
-                android:layout_width="80dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:background="#ff4a57"
                 android:text="删除"
@@ -114,6 +122,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:src="@mipmap/dafen_on" />
 
             <TextView
@@ -122,6 +131,7 @@
                 android:paddingLeft="10dp"
                 android:text="家人与朋友"
                 android:textSize="18sp"
+                android:textColor="@color/white"
 
                 />
         </LinearLayout>
@@ -138,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:src="@mipmap/dafen_on" />
+                android:src="@mipmap/icon_contacts_add" />
         </LinearLayout>
 
 

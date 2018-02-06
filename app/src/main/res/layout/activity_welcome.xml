@@ -28,18 +28,36 @@
                 android:layout_height="wrap_content"
                 android:text="@string/phone" />
 
-            <EditText
-                android:id="@+id/et_phonenum"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shapedittext"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:drawablePadding="5dp"
-                android:paddingLeft="15dp"
-                android:gravity="center|left"
-                android:hint="123"
-                android:phoneNumber="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_bl"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shapedittext_right"
+                    android:gravity="center|left"
+                    android:phoneNumber="true"
+                    android:paddingLeft="10dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:text="+86" />
+
+                <EditText
+                    android:id="@+id/et_phonenum"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shapedittext_left"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:hint=""
+                    android:phoneNumber="true" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -60,35 +78,49 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
-
                 <EditText
                     android:id="@+id/et_code"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_weight="2"
-                    android:paddingLeft="15dp"
                     android:background="@drawable/shapedittext"
-                    android:hint="123" />
+                    android:layout_weight="2"
+                    android:paddingLeft="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/tv_sendsecurity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:text="点击发送验证码"
                     android:layout_weight="3"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="5dp"
                     android:textColor="#fff"
-                    android:text="点击发送验证码" />
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_error_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="验证码错误"
+                    android:textColor="@android:color/holo_red_dark"
+                    />
+
             </LinearLayout>
 
-             <Button
+            <Button
                 android:id="@+id/bt_send"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_bg_shap"
                 android:layout_marginTop="25dp"
+                android:background="@drawable/btn_bg_shap"
                 android:text="开始" />
 
         </LinearLayout>

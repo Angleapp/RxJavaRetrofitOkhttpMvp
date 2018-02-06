@@ -18,13 +18,13 @@ import com.wzrd.m.been.UserMessage;
 import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.m.utils.Savephoto;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropActivity;
 import com.yyx.beautifylib.utils.BLConfigManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.UUID;
 
 public class IconActivity extends AppCompatActivity {
     private String TAG = "tag";
@@ -85,7 +85,7 @@ public class IconActivity extends AppCompatActivity {
                     if (!file.exists()) {
                         file.mkdirs();
                     }
-                    String filePath = path + UUID.randomUUID() + ".jpg";
+                    String filePath = path + Utils.getuuid() + ".jpg";
                     SharedPreferencesUtil.saveString(IconActivity.this, "icon", filePath);
                     Savephoto savephoto = new Savephoto();
                     savephoto.save(bm, filePath);
