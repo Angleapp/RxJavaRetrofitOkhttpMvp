@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //初始化
+        //初始化tab
         initBannerTabHost();
+        //初始化控件
         initView();
         viewPager.setCurrentItem(0);
         ActivityCollector.addActivity(this);
