@@ -44,7 +44,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//    compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:25.3.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.jakewharton:butterknife:8.8.1'

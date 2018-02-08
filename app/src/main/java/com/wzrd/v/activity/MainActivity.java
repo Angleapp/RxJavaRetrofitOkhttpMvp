@@ -1,5 +1,4 @@
 package com.wzrd.v.activity;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,16 +52,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        findview();
+        //初始化
         initBannerTabHost();
         initView();
         viewPager.setCurrentItem(0);
         ActivityCollector.addActivity(this);
-
-
-
-
-
     }
 
 
@@ -128,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         bannerList.add(tabClassfition);
         bannerList.add(tabHost);
         bannerList.add(tabMine);
-
     }
 
 
