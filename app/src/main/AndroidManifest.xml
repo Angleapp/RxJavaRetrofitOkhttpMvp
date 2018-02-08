@@ -18,18 +18,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".v.activity.MainActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".v.activity.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".v.activity.welcome.IconActivity"
@@ -48,12 +46,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.message.TextActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.message.PhotoljActivity"
-            android:screenOrientation="portrait"></activity>
-        <service android:name=".m.services.RecordingService"/>
+            android:screenOrientation="portrait" />
+
+        <service android:name=".m.services.RecordingService" />
+
+        <activity android:name=".v.activity.contacts.ContanctsMessageActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

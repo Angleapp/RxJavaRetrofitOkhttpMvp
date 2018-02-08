@@ -22,7 +22,9 @@ import com.wzrd.m.been.TSYSUSER;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.activity.contacts.AddContactsActivity;
+import com.wzrd.v.activity.contacts.ContanctsMessageActivity;
 import com.wzrd.v.adapter.ReclycleContactAdapter;
 import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.fragment.base.NoNetBaseLayFragment;
@@ -40,7 +42,7 @@ import butterknife.Unbinder;
  * Created by lk on 2018/1/3.
  */
 
-public class ContactFragment extends NoNetBaseLayFragment {
+public class ContactFragment extends NoNetBaseLayFragment implements AdapterClickPosition.position{
     @BindView(R.id.tv_addlover)
     TextView tvAddlover;
     @BindView(R.id.iv_lover_iocn)
@@ -163,7 +165,7 @@ public class ContactFragment extends NoNetBaseLayFragment {
      */
     private void setadapter() {
 
-        ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList);
+        ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList,this);
         Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
@@ -189,5 +191,20 @@ public class ContactFragment extends NoNetBaseLayFragment {
                 return false;
             }
         });
+    }
+
+
+
+    /**
+     * recycleview 点击item监听
+     * @param position
+     */
+    @Override
+    public void adapterposition(int position) {
+//        Utils.ToastShort(getActivity(),"posiotion--"+position);
+        TSYSCONTANTS item = tsyscontantsList.get(position);
+        Intent intent=new Intent(getActivity(), ContanctsMessageActivity.class);
+        intent.putExtra("name",item.getT_sys_contacts_name());
+        getActivity().startActivity(intent);
     }
 }
