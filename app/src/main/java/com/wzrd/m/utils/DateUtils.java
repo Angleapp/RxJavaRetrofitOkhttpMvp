@@ -138,18 +138,48 @@ public class DateUtils {
         return sdf.format(dBefore);
     }
     /**
-     * 获取15天前的时间
+     * 获取15天前的时间 Data类型
      *
      * @param date
      * @return
      */
-    public static Date formatDate15DaysAgo(Date date) {
+    public static Date formatDateDaysAgo(Date date) {
         Calendar calendar = Calendar.getInstance(); // 得到日历
         calendar.setTime(date);// 把时间赋给日历
-//		calendar.add(Calendar.DAY_OF_MONTH, -3); // 设置为3天前(测试)
-        calendar.add(Calendar.DAY_OF_MONTH, -15); // 设置为15天前
+		calendar.add(Calendar.DAY_OF_MONTH, -3); // 设置为3天前(测试)
+//        calendar.add(Calendar.DAY_OF_MONTH, -15); // 设置为15天前
         Date dBefore = calendar.getTime();
         return dBefore;
+    }
+
+    /**
+     * 返回时间是前3天的时间   String
+     * @param date
+     * @return
+     */
+    public static String formatDateDaysAgoString(Date date) {
+        Calendar calendar = Calendar.getInstance(); // 得到日历
+        calendar.setTime(date);// 把时间赋给日历
+        calendar.add(Calendar.DAY_OF_MONTH, -3); // 设置为3天前(测试)
+//        calendar.add(Calendar.DAY_OF_MONTH, -15); // 设置为15天前
+        Date dBefore = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); // 设置时间格式
+        return format.format(dBefore);
+    }
+
+    /**
+     * 返回时间是后3天的时间   String
+     * @param date
+     * @return
+     */
+    public static String formatDateDaysAfterString(Date date) {
+        Calendar calendar = Calendar.getInstance(); // 得到日历
+        calendar.setTime(date);// 把时间赋给日历
+        calendar.add(Calendar.DAY_OF_MONTH, +3); // 设置为3天前(测试)
+//        calendar.add(Calendar.DAY_OF_MONTH, +15); // 设置为15天前
+        Date dBefore = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA); // 设置时间格式
+        return format.format(dBefore);
     }
 
     /**

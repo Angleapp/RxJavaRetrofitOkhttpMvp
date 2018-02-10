@@ -29,7 +29,6 @@
                 android:id="@+id/iv_contact_iocn"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
-
             <TextView
                 android:id="@+id/tv_contact_name"
                 android:layout_width="match_parent"
@@ -40,8 +39,6 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
-
-
         <Button
             android:id="@+id/btn_delcontact"
             android:layout_width="80dp"

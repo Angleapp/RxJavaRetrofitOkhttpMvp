@@ -65,8 +65,9 @@ public class ContanctsMessageActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("username", username);
         fragment.setArguments(bundle);
-        mList.add(fragment);
         mList.add(new InboxFragment());
+        mList.add(fragment);
+
     }
 
     @OnClick({R.id.rb_a, R.id.rb_b,R.id.iv_back})

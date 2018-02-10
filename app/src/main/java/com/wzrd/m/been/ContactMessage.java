@@ -1,27 +1,68 @@
 package com.wzrd.m.been;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.util.Log;
+import android.view.View;
+
+import com.wzrd.BR;
+import com.wzrd.m.utils.DateUtils;
+import com.wzrd.m.utils.Utils;
+
+import java.util.Observer;
+
 /**
  * Created by lk on 2018/2/9.
  */
 
-public class ContactMessage {
+public class ContactMessage extends BaseObservable {
     private String username;
     private String userid;
     private String messge;
     private String motifitytime;
     private String isupte;
     private String isbox;
+    private String iconpath;
+    private boolean isSend;//是否已经发送，根据时间判断
+    private boolean isCancle = false;//是否取消发送了
 
     public ContactMessage() {
     }
 
-    public ContactMessage(String username, String userid, String messge, String motifitytime, String isupte, String isbox) {
+
+    public ContactMessage(String username, String userid, String messge, String motifitytime, String isupte, String isbox, String iconpath) {
         this.username = username;
         this.userid = userid;
         this.messge = messge;
         this.motifitytime = motifitytime;
         this.isupte = isupte;
         this.isbox = isbox;
+        this.iconpath = iconpath;
+    }
+
+    public boolean isSend() {
+        return isSend;
+    }
+
+    public void setSend(boolean send) {
+        isSend = send;
+    }
+
+    public boolean isCancle() {
+        return isCancle;
+    }
+    @Bindable
+    public void setCancle(boolean cancle) {
+        isCancle = cancle;
+        notifyPropertyChanged(BR.cancle);
+    }
+
+    public String getIconpath() {
+        return iconpath;
+    }
+
+    public void setIconpath(String iconpath) {
+        this.iconpath = iconpath;
     }
 
     public String getUsername() {
@@ -71,4 +112,76 @@ public class ContactMessage {
     public void setIsbox(String isbox) {
         this.isbox = isbox;
     }
+
+    /**
+     * 信息字段的拼接
+     *
+     * @param name
+     * @return
+     */
+    public String getinboxmessage(String name) {
+        return "来自 " + name + " 爱的消息";
+    }
+
+
+    /**
+     * 根据时间判断此条信息是否已经发送
+     *
+     * @param sendtime
+     * @return false 显示
+     */
+    public boolean issend(String sendtime) {
+        String currenttime = DateUtils.getCurrentDate();
+        boolean b = Utils.compareTime(sendtime, currenttime);
+        return b;
+    }
+
+
+    /**
+     * 判断撤回重发是否显示
+     *
+     * @param sendtime
+     * @param isCancle
+     * @return
+     */
+    public boolean isCancleVisibility(String sendtime, boolean isCancle) {
+        boolean issend = issend(sendtime);
+        if (issend && !isCancle) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断删除是否显示
+     *
+     * @param sendtime
+     * @param isCancle
+     * @return
+     */
+    public boolean isDelVisibility(String sendtime, boolean isCancle) {
+        boolean issend = issend(sendtime);
+
+        if (!issend) {
+            return true;
+        }
+        if (isCancle) {
+            return true;
+        }
+
+        if (!issend && isCancle) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 撤销监听
+     * @param v
+     */
+    public void CancleClick(View v ){
+        setCancle(true);
+    }
+
+
 }

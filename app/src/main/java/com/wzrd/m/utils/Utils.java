@@ -3,6 +3,9 @@ package com.wzrd.m.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,5 +44,33 @@ public class Utils {
 
     public static String getuuid(){
         return UUID.randomUUID().toString().replaceAll("-","");
+    }
+
+
+    /**
+     * 比较两个时间的先后顺序
+     * @param locatime
+     * @param servertime
+     * @return
+     */
+    public static boolean compareTime(String locatime, String servertime) {
+        try {
+            // 如果下载的时间戳为空
+            if (servertime == null || servertime.equals("")) {
+                return true;
+            }
+            // 如果本地时间为空 则说明该说明在本地没有任何操作
+            if ((locatime == null || locatime.equals("")) && servertime != null && !servertime.equals("")) {
+                return false;
+            }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+            Date date1 = format.parse(locatime);
+            Date date2 = format.parse(servertime);
+            boolean flag = date1.after(date2);
+            return flag;
+        } catch (Exception e) {
+            return true;
+        }
+
     }
 }

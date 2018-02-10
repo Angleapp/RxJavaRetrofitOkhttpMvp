@@ -166,7 +166,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     private void setadapter() {
 
         ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList,this);
-        Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
+//        Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
