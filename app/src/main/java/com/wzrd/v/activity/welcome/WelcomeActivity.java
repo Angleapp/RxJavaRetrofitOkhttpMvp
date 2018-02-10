@@ -81,7 +81,7 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
     private void send() {
         String phonenum = etPhonenum.getText().toString();
         boolean mobileNO = Utils.isMobileNO(phonenum);
-        if (mobileNO) {
+        if (true) {
             SharedPreferencesUtil.saveString(WelcomeActivity.this, "userphonenum", phonenum);
             UserManager manager = new UserManager(WelcomeActivity.this);
             TSYSUSER modile = new TSYSUSER();
