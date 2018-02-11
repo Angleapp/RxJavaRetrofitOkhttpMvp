@@ -9,7 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.wzrd.R;
@@ -31,11 +35,15 @@ public class IconActivity extends AppCompatActivity {
     private ActivityIconBinding binding;
     private UserMessage userMessage;
     private String pathfrom = null;
+    private EditText nickName;
+    private Button mNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_icon);
+        nickName = (EditText) findViewById(R.id.et_nickname);
+        mNext = (Button) findViewById(R.id.bt_next);
         pathfrom = (String) getIntent().getExtras().get("pathfrom");
         if (pathfrom == null) {
             pathfrom = "下一步";
@@ -46,7 +54,26 @@ public class IconActivity extends AppCompatActivity {
         userMessage.setPathfrom(pathfrom);
         binding.setItembeen(userMessage);
         ActivityCollector.addActivity(this);
+        nickName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(nickName.getText().toString())) {
+                    mNext.setAlpha(0.6f);
+                } else {
+                    mNext.setAlpha(1f);
+                }
+            }
+        });
     }
 
 

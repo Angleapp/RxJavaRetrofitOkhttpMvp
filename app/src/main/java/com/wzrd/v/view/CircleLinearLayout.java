@@ -58,7 +58,6 @@ public class CircleLinearLayout extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 //        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         /**
          * 获取此ViewGroup上级容器为其推荐计算模式
          */
