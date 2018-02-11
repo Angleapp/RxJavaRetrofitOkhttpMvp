@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="itembeen"
-            type="com.wzrd.m.been.UserMessage" />
+            type="com.wzrd.m.been.UserMessage"/>
     </data>
 
     <LinearLayout
@@ -16,67 +15,69 @@
         android:background="@mipmap/bg_blured"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:paddingLeft="22.5dp"
+        android:paddingRight="22.5dp">
 
         <ImageView
-
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
             android:onClick="@{itembeen.onClickView}"
-            app:imageUrl="@{itembeen.iconpath }" />
+            android:scaleType="fitXY"
+            app:imageUrl="@{itembeen.iconpath }"/>
 
+        <TextView
+            style="@style/welcomeText"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="@string/phoneLabel"/>
 
         <EditText
-
             android:id="@+id/et_nickname"
-            style="@style/phone_margin"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"
-            android:background="@drawable/shapedittext"
+            android:alpha="0.6"
+            android:background="@drawable/input_circle_bg"
             android:hint="请输入昵称"
+            android:paddingBottom="10dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="10dp"
             android:text="@={itembeen.nickname}"
-            android:paddingLeft="10dp"
-          />
-
-
-        <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="32dp"-->
-        <!--android:layout_marginRight="32dp"-->
-        <!--app:hintAnimationEnabled="true">-->
-
-        <!--<EditText-->
-        <!--android:id="@+id/et_nickname"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:afterTextChanged="@{(view)->itembeen.onChangClickView(view)}"-->
-        <!--android:hint="昵称"-->
-        <!--android:textColor="#fff"-->
-        <!--android:textColorHint="#fff"-->
-        <!--android:text="@={itembeen.nickname}" />-->
-
-        <!--/>-->
-        <!--</android.support.design.widget.TextInputLayout>-->
-
+            android:textColorHint="@color/white"
+            android:textSize="17sp"/>
 
         <Button
             android:id="@+id/bt_next"
+            style="@style/bntStyle"
+            android:layout_marginTop="40dp"
+            android:onClick="@{itembeen.onNextClickView}"
+            android:text="@{itembeen.pathfrom}"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="45dp"
-            android:background="@drawable/btn_bg_shap"
-            android:onClick="@{itembeen.onNextClickView}"
-            android:text="@{itembeen.pathfrom}"
-            android:textColor="#fff" />
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:background="@drawable/white_circle_dot"></View>
 
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="6dp"
+                android:alpha="0.2"
+                android:background="@drawable/white_circle_dot"></View>
+        </LinearLayout>
     </LinearLayout>
 
 

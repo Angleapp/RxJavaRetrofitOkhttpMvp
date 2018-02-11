@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
@@ -27,20 +26,14 @@ import butterknife.OnClick;
 
 public class WelcomeActivity extends AppCompatActivity implements TimerView {
 
-    @BindView(R.id.et_phonenum)
-    EditText etPhonenum;
-    @BindView(R.id.tv_security)
-    TextView tvSecurity;
+    @BindView(R.id.et_phoneNum)
+    EditText etPhoneNum;
     @BindView(R.id.et_code)
     EditText etCode;
-    @BindView(R.id.tv_sendsecurity)
-    TextView tvSendsecurity;
+    @BindView(R.id.tv_sendSecurity)
+    TextView tvSendSecurity;
     @BindView(R.id.bt_send)
     Button btSend;
-    @BindView(R.id.et_bl)
-    EditText etBl;
-    @BindView(R.id.ll_error_code)
-    LinearLayout llErrorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +46,19 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.et_phonenum, R.id.tv_security, R.id.et_code, R.id.tv_sendsecurity, R.id.bt_send})
+    @OnClick({R.id.et_phoneNum,R.id.et_code, R.id.tv_sendSecurity, R.id.bt_send})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.et_phonenum:
-                break;
-            case R.id.tv_security:
+            case R.id.et_phoneNum:
                 break;
             case R.id.et_code:
                 break;
-            case R.id.tv_sendsecurity:
+            case R.id.tv_sendSecurity:
                 RxTimerPresenter presenter = new RxTimerPresenter(WelcomeActivity.this);
                 presenter.timer(10);
                 break;
             case R.id.bt_send:
                 send();
-
-
                 break;
         }
     }
@@ -79,7 +68,7 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
      */
 
     private void send() {
-        String phonenum = etPhonenum.getText().toString();
+        String phonenum = etPhoneNum.getText().toString();
         boolean mobileNO = Utils.isMobileNO(phonenum);
         if (true) {
             SharedPreferencesUtil.saveString(WelcomeActivity.this, "userphonenum", phonenum);
@@ -102,24 +91,24 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
 
     @Override
     public void onCompile() {
-        tvSendsecurity.setText("点击发送验证码");
-        tvSendsecurity.setEnabled(true);
+        tvSendSecurity.setText("点击发送验证码");
+        tvSendSecurity.setEnabled(true);
     }
 
     @Override
     public void onRefresh(Object message) {
-        tvSendsecurity.setText(message + "可以重新发送");
+        tvSendSecurity.setText(message + "可以重新发送");
     }
 
     @Override
     public void onError(Object message) {
-        tvSendsecurity.setText("点击发送验证码");
-        tvSendsecurity.setEnabled(true);
+        tvSendSecurity.setText("点击发送验证码");
+        tvSendSecurity.setEnabled(true);
     }
 
     @Override
     public void onBegin(Object message) {
-        tvSendsecurity.setEnabled(false);
-        tvSendsecurity.setText(message + "可以重新发送");
+        tvSendSecurity.setEnabled(false);
+        tvSendSecurity.setText(message + "可以重新发送");
     }
 }

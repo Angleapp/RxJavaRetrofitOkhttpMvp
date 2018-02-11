@@ -1,313 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@mipmap/pic_new_background"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp">
+
+        <TextView
+            style="@style/textStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="9dp"
+            android:text="To:"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            >
+            android:layout_weight="1"
+            android:background="@drawable/input_circle_bg"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp">
 
             <TextView
+                style="@style/textStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TO:"
-                android:textSize="18sp"
-
-                />
+                android:layout_marginRight="10dp"
+                android:text="Monica"/>
 
             <EditText
-                android:id="@+id/et_tocontancts"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="5"
-                android:background="@drawable/bg_edittext"
-
-
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
+                style="@style/textStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/fenxi_on"
-
-                />
+                android:background="@android:color/transparent"
+                android:inputType="number"/>
         </LinearLayout>
 
-        <LinearLayout
-            style="@style/ll_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <LinearLayout
-                android:id="@+id/short_video"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/short_video_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/short_video_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="短视频" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/message"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/message_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/message_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="消息" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            style="@style/ll_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <LinearLayout
-                android:id="@+id/virtual_gifts"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/virtual_gifts_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/virtual_gifts_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="虚拟礼物" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/poetry"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/poetry_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/poetry_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="诗歌" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            style="@style/ll_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <LinearLayout
-                android:id="@+id/difficult_open"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/difficult_open_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/difficult_open_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="口难开" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/take"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/take_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/take_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="自拍" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            style="@style/ll_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <LinearLayout
-                android:id="@+id/wisdom_language"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/wisdom_language_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/wisdom_language_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="智慧之语" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/office"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/office_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/office_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="线下" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            style="@style/ll_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <LinearLayout
-                android:id="@+id/conclusion"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/conclusion_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
-
-                <TextView
-                    android:id="@+id/conclusion_tv"
-                    style="@style/text_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="结束语" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_send"
-                style="@style/ll_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@mipmap/fenxi_on" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
+        <ImageView
+            android:id="@+id/sendMessage"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_new_send"/>
     </LinearLayout>
 
-</ScrollView>
+    <com.wzrd.v.view.CircleLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:circleRadius="140">
 
+        <LinearLayout
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_message"/>
 
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text=""/>
+        </LinearLayout>消息
 
+        <LinearLayout
+            android:id="@+id/gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_gift"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="虚拟礼物"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/poem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_poem"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="诗歌"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_shy"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="口难开"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/selfie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_selfile"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="自拍"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wisdom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_wisdom"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="智慧之语"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/offline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_offline"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="线下"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_end"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="结束语"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="71dp"
+                android:layout_height="71dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_new_video"/>
+
+            <TextView
+                style="@style/subTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/blue_circle_dot"
+                android:drawablePadding="4dp"
+                android:text="短视频"/>
+        </LinearLayout>
+
+    </com.wzrd.v.view.CircleLinearLayout>
+</LinearLayout>

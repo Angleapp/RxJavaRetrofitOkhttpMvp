@@ -36,14 +36,13 @@
             android:orientation="vertical">
 
             <LinearLayout
-                style="@style/phone_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/text_phone"
+                    style="@style/welcomeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lovers_phone" />
@@ -58,7 +57,6 @@
                         android:layout_width="250dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/shapedittext"
                         android:drawableLeft="@mipmap/ic_launcher"
                         android:drawablePadding="3dp"
                         android:gravity="center|left"
@@ -89,7 +87,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="45dp"
-                android:background="@drawable/btn_bg_shap"
+                android:background="@drawable/bnt_bg_shape"
                 android:text="添加" />
 
 

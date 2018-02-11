@@ -7,10 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wzrd.R;
 import com.wzrd.v.activity.message.MessagesActivity;
@@ -25,72 +23,33 @@ import butterknife.Unbinder;
  */
 
 public class NewFragment extends Fragment {
-    @BindView(R.id.et_tocontancts)
-    EditText etTocontancts;
-    @BindView(R.id.short_video_iv)
-    ImageView shortVideoIv;
-    @BindView(R.id.short_video_tv)
-    TextView shortVideoTv;
-    @BindView(R.id.short_video)
-    LinearLayout shortVideo;
-    @BindView(R.id.message_iv)
-    ImageView messageIv;
-    @BindView(R.id.message_tv)
-    TextView messageTv;
-    @BindView(R.id.message)
-    LinearLayout message;
-    @BindView(R.id.virtual_gifts_iv)
-    ImageView virtualGiftsIv;
-    @BindView(R.id.virtual_gifts_tv)
-    TextView virtualGiftsTv;
-    @BindView(R.id.virtual_gifts)
-    LinearLayout virtualGifts;
-    @BindView(R.id.poetry_iv)
-    ImageView poetryIv;
-    @BindView(R.id.poetry_tv)
-    TextView poetryTv;
-    @BindView(R.id.poetry)
-    LinearLayout poetry;
-    @BindView(R.id.difficult_open_iv)
-    ImageView difficultOpenIv;
-    @BindView(R.id.difficult_open_tv)
-    TextView difficultOpenTv;
-    @BindView(R.id.difficult_open)
-    LinearLayout difficultOpen;
-    @BindView(R.id.take_iv)
-    ImageView takeIv;
-    @BindView(R.id.take_tv)
-    TextView takeTv;
-    @BindView(R.id.take)
-    LinearLayout take;
-    @BindView(R.id.wisdom_language_iv)
-    ImageView wisdomLanguageIv;
-    @BindView(R.id.wisdom_language_tv)
-    TextView wisdomLanguageTv;
-    @BindView(R.id.wisdom_language)
-    LinearLayout wisdomLanguage;
-    @BindView(R.id.office_iv)
-    ImageView officeIv;
-    @BindView(R.id.office_tv)
-    TextView officeTv;
-    @BindView(R.id.office)
-    LinearLayout office;
-    @BindView(R.id.conclusion_iv)
-    ImageView conclusionIv;
-    @BindView(R.id.conclusion_tv)
-    TextView conclusionTv;
-    @BindView(R.id.conclusion)
-    LinearLayout conclusion;
-    @BindView(R.id.ll_send)
-    LinearLayout llSend;
     Unbinder unbinder;
+    @BindView(R.id.sendMessage)
+    ImageView mSendMessage;
+    @BindView(R.id.message)
+    LinearLayout mMessage;
+    @BindView(R.id.gift)
+    LinearLayout mGift;
+    @BindView(R.id.poem)
+    LinearLayout mPoem;
+    @BindView(R.id.shy)
+    LinearLayout mShy;
+    @BindView(R.id.selfie)
+    LinearLayout mSelfie;
+    @BindView(R.id.wisdom)
+    LinearLayout mWisdom;
+    @BindView(R.id.offline)
+    LinearLayout mOffline;
+    @BindView(R.id.end)
+    LinearLayout mEnd;
+    @BindView(R.id.video)
+    LinearLayout mVideo;
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.new_fragmnet, null);
-
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -101,30 +60,30 @@ public class NewFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.short_video, R.id.message, R.id.virtual_gifts, R.id.poetry, R.id.difficult_open, R.id.take, R.id.wisdom_language, R.id.office, R.id.conclusion, R.id.ll_send})
+    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.short_video:
+            case R.id.sendMessage:
                 break;
             case R.id.message:
-                Intent intent = new Intent(getActivity(), MessagesActivity.class);
-                startActivity(intent);
+                Intent messageIntent = new Intent(getActivity(), MessagesActivity.class);
+                startActivity(messageIntent);
                 break;
-            case R.id.virtual_gifts:
+            case R.id.gift:
                 break;
-            case R.id.poetry:
+            case R.id.poem:
                 break;
-            case R.id.difficult_open:
+            case R.id.shy:
                 break;
-            case R.id.take:
+            case R.id.selfie:
                 break;
-            case R.id.wisdom_language:
+            case R.id.wisdom:
                 break;
-            case R.id.office:
+            case R.id.offline:
                 break;
-            case R.id.conclusion:
+            case R.id.end:
                 break;
-            case R.id.ll_send:
+            case R.id.video:
                 break;
         }
     }

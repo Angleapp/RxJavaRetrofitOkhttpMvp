@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_blured"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="22.5dp"
+    android:paddingRight="22.5dp">
+
+    <ImageView
+        android:id="@+id/iv_head_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_apply_info"
+        style="@style/textStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="NYc(13467589863)希望和你绑定为情侣"/>
+
+    <Button
+        android:id="@+id/bnt_accept"
+        style="@style/textStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bnt_bg_shape"
+        android:text="接受"/>
+
+    <Button
+        android:id="@+id/bnt_refuse"
+        style="@style/textStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:alpha="0.6"
+        android:background="@drawable/bnt_bg_shape"
+        android:text="残忍拒绝"/>
+</LinearLayout>
