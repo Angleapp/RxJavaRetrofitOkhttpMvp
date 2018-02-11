@@ -3,6 +3,9 @@ package com.wzrd.v.activity.welcome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,18 +47,83 @@ public class WelcomeActivity extends AppCompatActivity implements TimerView {
         UserManager.getInstance(WelcomeActivity.this);
         ContactsManager.getInstance(WelcomeActivity.this);
         ButterKnife.bind(this);
+        etPhoneNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(etCode.getText().toString()) || TextUtils.isEmpty(etPhoneNum.getText().toString())) {
+                    btSend.setAlpha(0.6f);
+                } else {
+                    btSend.setAlpha(1f);
+                }
+            }
+        });
+        etCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(etCode.getText().toString()) || TextUtils.isEmpty(etPhoneNum.getText().toString())) {
+                    btSend.setAlpha(0.6f);
+                } else {
+                    btSend.setAlpha(1f);
+                }
+            }
+        });
+        tvSendSecurity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+                setSendCodeAlpha();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+                setSendCodeAlpha();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setSendCodeAlpha();
+            }
+        });
     }
 
-    @OnClick({R.id.et_phoneNum,R.id.et_code, R.id.tv_sendSecurity, R.id.bt_send})
+    /**
+     * 设置获取验证码的文本的透明度
+     */
+    private void setSendCodeAlpha() {
+        String content = tvSendSecurity.getText().toString();
+        if ("获取短信验证码".equals(content)) {
+            tvSendSecurity.setAlpha(1f);
+        } else {
+            tvSendSecurity.setAlpha(0.6f);
+        }
+    }
+
+
+    @OnClick({R.id.tv_sendSecurity, R.id.bt_send})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.et_phoneNum:
-                break;
-            case R.id.et_code:
-                break;
             case R.id.tv_sendSecurity:
                 RxTimerPresenter presenter = new RxTimerPresenter(WelcomeActivity.this);
-                presenter.timer(10);
+                presenter.timer(60);
                 break;
             case R.id.bt_send:
                 send();

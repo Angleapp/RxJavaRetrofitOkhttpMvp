@@ -16,8 +16,8 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:paddingLeft="22.5dp"
-        android:paddingRight="22.5dp">
+        android:paddingLeft="27.5dp"
+        android:paddingRight="27.5dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -31,12 +31,14 @@
         <TextView
             style="@style/welcomeText"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="0dp"
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/phoneLabel"/>
 
         <EditText
             android:id="@+id/et_nickname"
+            style="@style/textStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -45,17 +47,18 @@
             android:background="@drawable/input_circle_bg"
             android:hint="请输入昵称"
             android:paddingBottom="10dp"
-            android:paddingLeft="13dp"
-            android:paddingRight="13dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
             android:paddingTop="10dp"
             android:text="@={itembeen.nickname}"
             android:textColorHint="@color/white"
-            android:textSize="17sp"/>
+            android:textCursorDrawable="@null"/>
 
         <Button
             android:id="@+id/bt_next"
             style="@style/bntStyle"
             android:layout_marginTop="40dp"
+            android:alpha="0.6"
             android:onClick="@{itembeen.onNextClickView}"
             android:text="@{itembeen.pathfrom}"/>
 

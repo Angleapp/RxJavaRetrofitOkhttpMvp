@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bg_blured"
     android:orientation="vertical"
-    android:paddingLeft="22.5dp"
-    android:paddingRight="22.5dp"
+    android:paddingLeft="27.5dp"
+    android:paddingRight="27.5dp"
     tools:context="com.wzrd.v.activity.welcome.WelcomeActivity">
 
     <TextView
@@ -21,25 +21,26 @@
         android:background="@drawable/input_circle_bg"
         android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:paddingLeft="13dp"
-        android:paddingRight="13dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
         android:paddingTop="10dp">
 
         <TextView
+            style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="+86"
-           style="@style/textStyle"/>
+            android:text="+86"/>
 
         <EditText
             android:id="@+id/et_phoneNum"
+            style="@style/textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/textStyle"
             android:background="@android:color/transparent"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textCursorDrawable="@null"/>
     </LinearLayout>
 
     <TextView
@@ -54,34 +55,37 @@
 
         <EditText
             android:id="@+id/et_code"
+            style="@style/textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/input_circle_bg"
             android:inputType="number"
             android:paddingBottom="10dp"
-            android:paddingRight="13dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
             android:paddingTop="10dp"
-            style="@style/textStyle"/>
+            android:textCursorDrawable="@null"/>
 
         <TextView
             android:id="@+id/tv_sendSecurity"
+            style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:text="@string/checkCodeInit"
-            style="@style/textStyle"/>
+            android:layout_marginLeft="9dp"
+            android:text="@string/checkCodeInit"/>
     </LinearLayout>
 
     <TextView
         style="@style/welcomeText"
-        android:visibility="gone"
         android:text="@string/errorCheckCode"
-        android:textColor="#FFDE2727"/>
+        android:textColor="#FFDE2727"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/bt_send"
-       style="@style/bntStyle"
+        style="@style/bntStyle"
         android:layout_marginTop="46dp"
+        android:alpha="0.6"
         android:text="开始"/>
 </LinearLayout>
