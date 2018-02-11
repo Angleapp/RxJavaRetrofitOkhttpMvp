@@ -1,153 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
-
         <variable
             name="itembeen"
-            type="com.wzrd.m.been.LoveUser" />
+            type="com.wzrd.m.been.LoveUser"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/bg_blured"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="22.5dp"
+        android:paddingRight="22.5dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@string/lovers"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:text="NYc(13467589863)希望和你绑定为情侣"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
 
+        <TextView
+            style="@style/welcomeText"
+            android:layout_marginTop="50dp"
+            android:text="@string/lovers_phone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <LinearLayout
-                style="@style/phone_margin"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:background="@drawable/input_circle_bg"
+                android:paddingBottom="10dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:paddingTop="10dp">
 
                 <TextView
-                    style="@style/text_phone"
+                    style="@style/textStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lovers_phone" />
+                    android:text="+86"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <EditText
-                            android:id="@+id/et_bl"
-                            android:layout_width="60dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/shapedittext_right"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:gravity="center|left"
-                            android:paddingLeft="10dp"
-                            android:phoneNumber="true"
-                            android:text="+86" />
-
-                        <EditText
-                            android:id="@+id/et_lovephonenum"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/shapedittext_left"
-                            android:gravity="center|left"
-                            android:paddingLeft="5dp"
-                            android:phoneNumber="true"
-                            android:text="@{itembeen.lovephone}"/>
-                    </LinearLayout>
-
-
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_lovephonenum"-->
-                    <!--android:layout_width="250dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:background="@drawable/shapedittext"-->
-                    <!--android:drawableLeft="@mipmap/ic_launcher"-->
-                    <!--android:drawablePadding="3dp"-->
-                    <!--android:gravity="center|left"-->
-                    <!--android:hint="123"-->
-                    <!--android:phoneNumber="true"-->
-                    <!--android:text="@{itembeen.lovephone}"-->
-                    <!--/>-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        >
-
-                        <ImageView
-                            android:id="@+id/iv_contants"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:onClick="@{itembeen.onClickContacts}"
-                            android:src="@mipmap/icon_signin_contacts" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/bt_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="45dp"
-                android:background="@drawable/btn_bg_shap"
-                android:onClick="@{itembeen.onClickBinding}"
-                android:text="绑定情侣" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:onClick="@{itembeen.onClickNoBinding}"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/no_bindinglove"
-                    android:textColor="#fff" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:background="@android:color/transparent"
+                    android:text="@{itembeen.lovephone}"/>
             </LinearLayout>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginLeft="10dp"
+                android:onClick="@{itembeen.onClickContacts}"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_signin_contacts"/>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/bt_next"
+            style="@style/textStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bnt_bg_shape"
+            android:onClick="@{itembeen.onClickBinding}"
+            android:text="@string/bindLabel"/>
+
+        <Button
+            style="@style/textStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:alpha="0.6"
+            android:background="@drawable/bnt_bg_shape"
+            android:onClick="@{itembeen.onClickNoBinding}"
+            android:text="@string/no_bindLabel"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:alpha="0.2"
+                android:background="@drawable/white_circle_dot"></View>
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/white_circle_dot"></View>
+        </LinearLayout>
     </LinearLayout>
-
-
 </layout>

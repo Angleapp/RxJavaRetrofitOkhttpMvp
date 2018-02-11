@@ -3,11 +3,16 @@
     <string name="app_name">哈哈</string>
     <string name="login_loading">处理中...</string>
     <string name="url">http://avatar.csdn.net/4/0/7/1_zhuhai__yizhi.jpg</string>
-    <string name="phone">输入手机号</string>
+    <string name="phoneLabel">输入手机号</string>
+    <string name="checkCodeLabel">输入验证码</string>
+    <string name="checkCodeInit">点击发送验证码</string>
+    <string name="errorCheckCode">验证码错误</string>
+    <style name="headIconLabel">请选择头像</style>
     <string name="lovers">和TA绑定成为情侣</string>
     <string name="addcontacts">添加家人与朋友</string>
     <string name="lovers_phone">输入手机号or打开通讯录</string>
-    <string name="no_bindinglove">暂不绑定</string>
+    <string name="bindLabel">绑定情侣</string>
+    <string name="no_bindLabel">暂不绑定</string>
     <string name="unlovers">解除与爱人之间的绑定</string>
     <string name="default_file_name">My Recording</string>
 </resources>

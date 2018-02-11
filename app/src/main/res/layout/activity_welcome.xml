@@ -1,131 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg_blured"
+    android:orientation="vertical"
+    android:paddingLeft="22.5dp"
+    android:paddingRight="22.5dp"
     tools:context="com.wzrd.v.activity.welcome.WelcomeActivity">
+
+    <TextView
+        style="@style/welcomeText"
+        android:layout_marginTop="143dp"
+        android:text="@string/phoneLabel"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_circle_bg"
         android:gravity="center_vertical"
-        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="10dp">
 
-        >
-
-        <LinearLayout
-            style="@style/phone_margin"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_marginRight="10dp"
+            android:text="+86"
+           style="@style/textStyle"/>
 
-            <TextView
-                style="@style/text_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/et_bl"
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shapedittext_right"
-                    android:gravity="center|left"
-                    android:phoneNumber="true"
-                    android:paddingLeft="10dp"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:text="+86" />
-
-                <EditText
-                    android:id="@+id/et_phonenum"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/shapedittext_left"
-                    android:gravity="center|left"
-                    android:paddingLeft="5dp"
-                    android:hint=""
-                    android:phoneNumber="true" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/phone_margin"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_phoneNum"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_security"
-                style="@style/text_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请输入验证码" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/et_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/shapedittext"
-                    android:layout_weight="2"
-                    android:paddingLeft="5dp"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_sendsecurity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:text="点击发送验证码"
-                    android:layout_weight="3"
-                    android:textColor="#fff"
-                    android:textSize="15sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_error_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="3dp"
-                android:visibility="gone"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="验证码错误"
-                    android:textColor="@android:color/holo_red_dark"
-                    />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/bt_send"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/btn_bg_shap"
-                android:text="开始" />
-
-        </LinearLayout>
-
-
+            android:layout_weight="1"
+            style="@style/textStyle"
+            android:background="@android:color/transparent"
+            android:inputType="number"/>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        style="@style/welcomeText"
+        android:layout_marginTop="30dp"
+        android:text="@string/checkCodeLabel"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/input_circle_bg"
+            android:inputType="number"
+            android:paddingBottom="10dp"
+            android:paddingRight="13dp"
+            android:paddingTop="10dp"
+            style="@style/textStyle"/>
+
+        <TextView
+            android:id="@+id/tv_sendSecurity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="@string/checkCodeInit"
+            style="@style/textStyle"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/welcomeText"
+        android:visibility="gone"
+        android:text="@string/errorCheckCode"
+        android:textColor="#FFDE2727"/>
+
+    <Button
+        android:id="@+id/bt_send"
+       style="@style/bntStyle"
+        android:layout_marginTop="46dp"
+        android:text="开始"/>
+</LinearLayout>
