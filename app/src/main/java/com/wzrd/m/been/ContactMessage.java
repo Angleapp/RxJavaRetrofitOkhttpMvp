@@ -2,14 +2,16 @@ package com.wzrd.m.been;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
 import com.wzrd.BR;
 import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.Utils;
+import com.wzrd.v.activity.welcome.BindingLoversActivity;
+import com.wzrd.v.fragment.contanct.OutboxFragment;
 
-import java.util.Observer;
 
 /**
  * Created by lk on 2018/2/9.
@@ -25,12 +27,12 @@ public class ContactMessage extends BaseObservable {
     private String iconpath;
     private boolean isSend;//是否已经发送，根据时间判断
     private boolean isCancle = false;//是否取消发送了
+    private String messageid;
 
     public ContactMessage() {
     }
 
-
-    public ContactMessage(String username, String userid, String messge, String motifitytime, String isupte, String isbox, String iconpath) {
+    public ContactMessage(String username, String userid, String messge, String motifitytime, String isupte, String isbox, String iconpath, boolean isCancle, String messageid) {
         this.username = username;
         this.userid = userid;
         this.messge = messge;
@@ -38,6 +40,16 @@ public class ContactMessage extends BaseObservable {
         this.isupte = isupte;
         this.isbox = isbox;
         this.iconpath = iconpath;
+        this.isCancle = isCancle;
+        this.messageid = messageid;
+    }
+
+    public String getMessageid() {
+        return messageid;
+    }
+
+    public void setMessageid(String messageid) {
+        this.messageid = messageid;
     }
 
     public boolean isSend() {
@@ -48,10 +60,11 @@ public class ContactMessage extends BaseObservable {
         isSend = send;
     }
 
+    @Bindable
     public boolean isCancle() {
         return isCancle;
     }
-    @Bindable
+
     public void setCancle(boolean cancle) {
         isCancle = cancle;
         notifyPropertyChanged(BR.cancle);
@@ -111,6 +124,11 @@ public class ContactMessage extends BaseObservable {
 
     public void setIsbox(String isbox) {
         this.isbox = isbox;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
     /**
@@ -177,11 +195,22 @@ public class ContactMessage extends BaseObservable {
 
     /**
      * 撤销监听
+     *
      * @param v
      */
-    public void CancleClick(View v ){
+    public void CancleClick(View v) {
         setCancle(true);
     }
+
+    /**
+     * 数据删除
+     */
+    public void RemoveItem(View view) {
+         OutboxFragment fragment=new OutboxFragment();
+         fragment.onRefresh(this.messageid);
+    }
+
+
 
 
 }

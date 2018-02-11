@@ -167,7 +167,6 @@ public class LoveUser extends BaseObservable {
         } else {
             activity = (BindingLoversActivity) view.getRootView().getContext();
         }
-
         activity.startActivity(new Intent(activity, MainActivity.class));
         activity.finish();
     }
