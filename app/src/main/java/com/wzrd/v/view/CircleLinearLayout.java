@@ -19,6 +19,7 @@ public class CircleLinearLayout extends ViewGroup {
     private final String TAG = "CircleLinearLayout";
 
     private int radius;
+    private int defvalue = 0x10;
 
     public CircleLinearLayout(Context context) {
         super(context);
@@ -30,16 +31,19 @@ public class CircleLinearLayout extends ViewGroup {
 
     public CircleLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.CircleLinearLayout,defStyleAttr,0);
+        TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.CircleLinearLayout, defStyleAttr, 0);
         int count = typedArray.getIndexCount();
-        for (int i = 0; i<count; i++){
+        for (int i = 0; i < count; i++) {
             int attNameId = typedArray.getIndex(i);
-            switch (attNameId){
+
+
+            switch (attNameId) {
                 case R.styleable.CircleLinearLayout_circleRadius:
-                    radius = typedArray.getDimensionPixelSize(attNameId,10);
+                    radius = typedArray.getDimensionPixelSize(attNameId+1, defvalue);
                     break;
             }
         }
+
 
         typedArray.recycle();
     }
@@ -47,11 +51,12 @@ public class CircleLinearLayout extends ViewGroup {
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
 //        return super.generateLayoutParams(attrs);
-        return new MarginLayoutParams(getContext(),attrs);
+        return new MarginLayoutParams(getContext(), attrs);
     }
 
     /**
      * 计算所有ChildView的宽度和高度，然后根据ChildView的计算结果设置自己的宽度和高度
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
@@ -79,10 +84,10 @@ public class CircleLinearLayout extends ViewGroup {
         int widthContent = 0;
         int heightContent = 0;
 
-        int itemHeight =getChildAt(0).getMeasuredHeight();//单个childView的高度
+        int itemHeight = getChildAt(0).getMeasuredHeight();//单个childView的高度
 
-        heightContent = (itemHeight+radius)*2;
-        widthContent = (itemHeight+radius)*2;
+        heightContent = (itemHeight + radius) * 2;
+        widthContent = (itemHeight + radius) * 2;
 
         /**
          * 测量ViewGroup的宽高，如果为wrap_content就按照内容计算得到的宽高
@@ -106,17 +111,16 @@ public class CircleLinearLayout extends ViewGroup {
         int lastW = 0;
 
         //圆心坐标
-        float[] circleCentre = {getWidth()/2*1.0f, getHeight()/2*1.0f};
+        float[] circleCentre = {getWidth() / 2 * 1.0f, getHeight() / 2 * 1.0f};
 
         //每个占多少个弧度
 //        float oItem = 360/cCount*1.0f;
-        float oItem = (float) (2*Math.PI/cCount*1.0f);
+        float oItem = (float) (2 * Math.PI / cCount * 1.0f);
 
         //cCount个坐标
         float[][] xyPosition = new float[cCount][2];
-        for (int i=0; i<cCount; i++)
-        {
-            xyPosition[i] = Utils.getXYPoint(circleCentre,radius,oItem*(i));
+        for (int i = 0; i < cCount; i++) {
+            xyPosition[i] = Utils.getXYPoint(circleCentre, radius, oItem * (i));
 
             //x坐标
             int xLabel = (int) xyPosition[i][0];
@@ -137,9 +141,9 @@ public class CircleLinearLayout extends ViewGroup {
     private void drawInHorizontal() {
         int cCount = getChildCount();
         int lastW = 0;
-        for (int i=0; i < cCount; i++){
+        for (int i = 0; i < cCount; i++) {
             View view = getChildAt(i);
-            view.layout(lastW,0,view.getWidth(),view.getHeight());
+            view.layout(lastW, 0, view.getWidth(), view.getHeight());
             lastW += view.getWidth();
         }
     }

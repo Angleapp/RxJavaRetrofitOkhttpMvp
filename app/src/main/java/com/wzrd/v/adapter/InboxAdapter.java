@@ -39,6 +39,7 @@ public class InboxAdapter extends RecyclerView.Adapter<BindingHolder> {
     public void onBindViewHolder(BindingHolder holder, int position) {
         holder.getBinding().setVariable(BR.message, data.get(position));
         // 立刻刷新界面
+
         holder.getBinding().executePendingBindings();
     }
 

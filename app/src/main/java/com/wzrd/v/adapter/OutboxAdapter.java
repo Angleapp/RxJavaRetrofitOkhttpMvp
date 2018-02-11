@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.wzrd.BR;
@@ -11,6 +12,7 @@ import com.wzrd.R;
 import com.wzrd.databinding.OutboxAdapterItemBinding;
 import com.wzrd.m.been.ContactMessage;
 import com.wzrd.m.holder.BindingHolder;
+import com.wzrd.v.view.SwipeMenuLayout;
 
 import java.util.List;
 
@@ -38,13 +40,21 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
     }
 
     @Override
-    public void onBindViewHolder(BindingHolder holder, int position) {
+    public void onBindViewHolder(final BindingHolder holder, final int position) {
 
         holder.getBinding().setVariable(BR.message, data.get(position));
         // 立刻刷新界面
         holder.getBinding().executePendingBindings();
+        holder.getBinding().getRoot().findViewById(R.id.btn_deloutbox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.remove(data.get(position));
+                notifyItemRemoved(position);
+
+            }
+        });
     }
-    
+
 
     @Override
     public int getItemCount() {

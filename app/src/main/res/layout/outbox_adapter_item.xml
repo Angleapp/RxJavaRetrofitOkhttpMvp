@@ -5,28 +5,26 @@
     <data>
 
         <import type="com.wzrd.m.been.ContactMessage" />
-        <import type="android.view.View" />
 
+        <import type="android.view.View" />
 
         <variable
             name="message"
             type="ContactMessage" />
-
-
     </data>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <com.wzrd.v.view.SwipeMenuLayout
-            android:id="@+id/sm"
+            android:id="@+id/sm_outbox"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:layout_height="60dp"
             android:clickable="true"
-            android:paddingBottom="1dp"
+            android:paddingBottom="0dp"
             app:ios="false"
             app:leftSwipe="true"
             app:swipeEnable="true">
@@ -38,37 +36,36 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     app:imageUrl="@{message.iconpath}" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{message.getinboxmessage(message.username)}"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{message.motifitytime}"
-                        android:textColor="#969696" />
+                        android:text="@{message.cancle ? message.getinboxcexiao():message.motifitytime}"
+                        android:textColor="#fff" />
 
                 </LinearLayout>
-
-
             </LinearLayout>
+
 
             <Button
                 android:id="@+id/btn_retiming"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:background="#969696"
                 android:text="重新\n定时"
                 android:textColor="@android:color/white"
@@ -77,7 +74,7 @@
             <Button
                 android:id="@+id/btn_retransmission"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:background="#ff4a57"
                 android:onClick="@{message.CancleClick}"
                 android:text="撤销\n重发"
@@ -87,14 +84,12 @@
             <Button
                 android:id="@+id/btn_deloutbox"
                 android:layout_width="80dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:background="#ff4a57"
                 android:text="删除"
                 android:textColor="@android:color/white"
-                android:visibility="@{message.isDelVisibility(message.motifitytime,message.isCancle)==true ? View.VISIBLE : View.GONE}"
-                android:onClick="@{message.RemoveItem}"
-                />
+                android:visibility="@{message.isDelVisibility(message.motifitytime,message.isCancle)==true ? View.VISIBLE : View.GONE}" />
 
         </com.wzrd.v.view.SwipeMenuLayout>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 </layout>

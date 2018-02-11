@@ -134,13 +134,19 @@ public class ContactMessage extends BaseObservable {
     /**
      * 信息字段的拼接
      *
-     * @param name
+     * @param
      * @return
      */
     public String getinboxmessage(String name) {
-        return "来自 " + name + " 爱的消息";
+        return "来自 " + this.username + " 爱的消息";
     }
 
+
+
+
+    public String getinboxcexiao() {
+        return "已撤回发送 ";
+    }
 
     /**
      * 根据时间判断此条信息是否已经发送
@@ -206,11 +212,9 @@ public class ContactMessage extends BaseObservable {
      * 数据删除
      */
     public void RemoveItem(View view) {
-         OutboxFragment fragment=new OutboxFragment();
-         fragment.onRefresh(this.messageid);
+        OutboxFragment fragment = new OutboxFragment();
+        fragment.onRefresh(this.messageid);
     }
-
-
 
 
 }
