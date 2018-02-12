@@ -35,8 +35,6 @@ public class CircleLinearLayout extends ViewGroup {
         int count = typedArray.getIndexCount();
         for (int i = 0; i < count; i++) {
             int attNameId = typedArray.getIndex(i);
-
-
             switch (attNameId) {
                 case R.styleable.CircleLinearLayout_circleRadius:
                     radius = typedArray.getDimensionPixelSize(attNameId+1, defvalue);

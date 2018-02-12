@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".v.activity.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
@@ -53,9 +53,10 @@
 
         <service android:name=".m.services.RecordingService" />
 
-        <activity android:name=".v.activity.contacts.ContanctsMessageActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".v.activity.contacts.ContanctsMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".v.activity.settings.SettingActivity"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.yalantis.ucrop.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -34,8 +35,9 @@ public class UCropView extends FrameLayout {
         View view = findViewById(R.id.ll_bacg);
        float alpha= (float) 0.8;
         view.setAlpha(alpha);
-        View ovalview = findViewById(R.id.ll_oval_back);
+        LinearLayout ovalview = (LinearLayout) findViewById(R.id.ll_oval_back);
         ovalview.setAlpha(1);
+        ovalview.setBackgroundResource(R.drawable.frame);
 
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_UCropView);

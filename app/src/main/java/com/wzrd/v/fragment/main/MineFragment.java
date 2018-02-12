@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.wzrd.R;
 import com.wzrd.databinding.MineFragmnetBinding;
+import com.wzrd.databinding.MineFragmnetNewBinding;
 import com.wzrd.m.been.MineAndLover;
 import com.wzrd.m.been.UserMessage;
 import com.wzrd.m.utils.SharedPreferencesUtil;
@@ -20,14 +21,15 @@ import com.wzrd.m.utils.SharedPreferencesUtil;
 
 public class MineFragment extends Fragment {
     private MineAndLover mineAndLover;
-    private MineFragmnetBinding binding;
+    private MineFragmnetNewBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mineAndLover = new MineAndLover();
-        binding = DataBindingUtil.inflate(inflater, R.layout.mine_fragmnet, container, false);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.mine_fragmnet_new, container, false);
         setdata();
         return binding.getRoot();
     }

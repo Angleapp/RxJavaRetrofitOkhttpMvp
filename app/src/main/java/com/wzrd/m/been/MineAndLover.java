@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.wzrd.m.utils.Utils;
+import com.wzrd.v.activity.settings.SettingActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
 import com.wzrd.v.view.popup.RelifePopupWindow;
 
@@ -76,6 +77,15 @@ public class MineAndLover extends BaseObservable {
         Intent intent = new Intent(view.getContext(), IconActivity.class);
         intent.putExtra("pathfrom", "确定");
         view.getContext().startActivity(intent);
+    }
+
+
+    public void onSettingView(View view){
+//        Utils.ToastShort(view.getContext(),"设置");
+
+        Intent intent = new Intent(view.getContext(), SettingActivity.class);
+        view.getContext().startActivity(intent);
+
     }
 
 }
