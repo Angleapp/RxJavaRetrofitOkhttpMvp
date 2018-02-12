@@ -34,6 +34,8 @@ public class UCropView extends FrameLayout {
         View view = findViewById(R.id.ll_bacg);
        float alpha= (float) 0.8;
         view.setAlpha(alpha);
+        View ovalview = findViewById(R.id.ll_oval_back);
+        ovalview.setAlpha(1);
 
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_UCropView);
