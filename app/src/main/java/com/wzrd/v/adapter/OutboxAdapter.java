@@ -6,14 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.wzrd.BR;
 import com.wzrd.R;
 import com.wzrd.databinding.OutboxAdapterItemBinding;
 import com.wzrd.m.been.ContactMessage;
 import com.wzrd.m.holder.BindingHolder;
-import com.wzrd.v.view.SwipeMenuLayout;
-
 import java.util.List;
 
 /**
@@ -50,7 +47,6 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
             public void onClick(View view) {
                 data.remove(data.get(position));
                 notifyItemRemoved(position);
-
             }
         });
     }

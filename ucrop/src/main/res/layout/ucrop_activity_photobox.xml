@@ -32,7 +32,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/wrapper_controls"
         android:layout_below="@+id/toolbar"
-        android:background="@color/ucrop_color_crop_background">
+        android:background="#969696"
+
+        >
 
         <ImageView
             android:id="@+id/image_view_logo"
@@ -47,6 +49,9 @@
             android:id="@+id/ucrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:background="#969696"
             android:alpha="0"/>
 
     </FrameLayout>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -91,8 +92,13 @@ public class IconActivity extends AppCompatActivity {
                     UCrop.Options options = new UCrop.Options();
                     options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.SCALE);
                     options.setStatusBarColor(BLConfigManager.getStatusBarColor());
-                    options.setToolbarColor(BLConfigManager.getToolBarColor());
+//                    options.setToolbarColor(BLConfigManager.getToolBarColor());
                     options.setActiveWidgetColor(BLConfigManager.getPrimaryColor());
+
+
+//                    options.setStatusBarColor(Color.WHITE);
+                    options.setToolbarColor(Color.BLACK);
+//                    options.setActiveWidgetColor(Color.WHITE);
                     uCrop.withOptions(options);
                     uCrop.start(IconActivity.this);
 

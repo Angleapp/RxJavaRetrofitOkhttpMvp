@@ -16,6 +16,7 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.yalantis.ucrop.model.AspectRatio;
 
@@ -126,6 +127,8 @@ public class UCrop {
      * @param requestCode requestCode for result
      */
     public void start(@NonNull Activity activity, int requestCode) {
+        String name=activity.getLocalClassName();
+        Log.e(name,name);
         activity.startActivityForResult(getIntent(activity), requestCode);
     }
 
