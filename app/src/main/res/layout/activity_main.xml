@@ -20,7 +20,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="60dp"
         android:background="@color/black_half"
         android:gravity="center_horizontal|bottom">
 
@@ -32,7 +32,6 @@
             android:gravity="center_horizontal"
             app:CheckState="true"
             android:layout_margin="1dp"
-            android:layout_marginBottom="5dp"
             app:LeftIcon="@mipmap/icon_home_toolbar_new"
             app:TabText="新建" />
 
@@ -43,7 +42,7 @@
             android:gravity="center_horizontal"
             android:layout_margin="1dp"
             app:CheckState="false"
-            android:layout_marginBottom="5dp"
+
             app:LeftIcon="@mipmap/icon_home_toolbar_clock"
             app:TabText="定时" />
 
@@ -54,7 +53,7 @@
             android:gravity="center_horizontal"
             android:layout_margin="1dp"
             app:CheckState="false"
-            android:layout_marginBottom="5dp"
+
             app:LeftIcon="@mipmap/icon_home_toolbar_contacts"
             app:TabText="联系人" />
 
@@ -65,7 +64,7 @@
             android:gravity="center_horizontal"
             android:layout_margin="1dp"
             app:CheckState="false"
-            android:layout_marginBottom="5dp"
+
             app:LeftIcon="@mipmap/icon_home_toolbar_mine"
             app:TabText="我的" />
     </LinearLayout>
