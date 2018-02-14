@@ -484,9 +484,10 @@ public class CropImageView extends TransformImageView {
 
         float initialMinScale = Math.max(widthScale, heightScale);
 
-//        float tw = (cropRectWidth - drawableWidth * initialMinScale) / 2.0f + mCropRect.left;
+
         float th = (cropRectHeight - drawableHeight * initialMinScale) / 2.0f + mCropRect.top;
-        float tw = (cropRectWidth - drawableWidth * initialMinScale) / 2.0f;
+                float tw = (cropRectWidth - drawableWidth * initialMinScale) / 2.0f + mCropRect.left;
+//        float tw = (cropRectWidth - drawableWidth * initialMinScale) / 2.0f;
         mCurrentImageMatrix.reset();
         float size= (float) 1.1;
         mCurrentImageMatrix.postScale(size, size);

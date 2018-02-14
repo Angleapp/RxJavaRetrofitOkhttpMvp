@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/pic_new_background"
@@ -19,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="9dp"
-            android:text="To:"/>
+            android:text="To:" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -37,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="Monica"/>
+                android:text="Monica" />
 
             <EditText
                 style="@style/textStyle"
@@ -45,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:inputType="number"/>
+                android:inputType="number" />
         </LinearLayout>
 
         <ImageView
@@ -54,7 +53,7 @@
             android:layout_height="36dp"
             android:layout_marginLeft="16dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/icon_new_send"/>
+            android:src="@mipmap/icon_new_send" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,10 +72,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="71dp"
-                android:layout_height="71dp"
+                android:layout_width="@dimen/pig_height"
+                android:layout_height="@dimen/pig_height"
                 android:scaleType="fitXY"
-                android:src="@mipmap/icon_new_message"/>
+                android:src="@mipmap/icon_new_message" />
 
             <TextView
                 style="@style/subTextStyle"
@@ -84,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/blue_circle_dot"
                 android:drawablePadding="4dp"
-                android:text="消息"/>
+                android:text="消息" />
         </LinearLayout>
 
         <RelativeLayout
@@ -104,10 +103,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_video"/>
+                    android:src="@mipmap/icon_new_video" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="短视频"/>
+                    android:text="短视频" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,10 +126,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_gift"/>
+                    android:src="@mipmap/icon_new_gift" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -138,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="虚拟礼物"/>
+                    android:text="虚拟礼物" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -156,10 +155,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_end"/>
+                    android:src="@mipmap/icon_new_end" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -167,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="结束语"/>
+                    android:text="结束语" />
             </LinearLayout>
 
             <LinearLayout
@@ -179,10 +178,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_poem"/>
+                    android:src="@mipmap/icon_new_poem" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -190,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="诗歌"/>
+                    android:text="诗歌" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -209,10 +208,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_offline"/>
+                    android:src="@mipmap/icon_new_offline" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -220,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="线下"/>
+                    android:text="线下" />
             </LinearLayout>
 
             <LinearLayout
@@ -232,10 +231,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_shy"/>
+                    android:src="@mipmap/icon_new_shy" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -243,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="口难开"/>
+                    android:text="口难开" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -262,10 +261,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_wisdom"/>
+                    android:src="@mipmap/icon_new_wisdom" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -273,7 +272,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="智慧之语"/>
+                    android:text="智慧之语" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,10 +284,10 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_selfile"/>
+                    android:src="@mipmap/icon_new_selfile" />
 
                 <TextView
                     style="@style/subTextStyle"
@@ -296,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
-                    android:text="自拍"/>
+                    android:text="自拍" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -309,5 +308,5 @@
         android:layout_marginLeft="27.5dp"
         android:layout_marginRight="27.5dp"
         android:layout_marginTop="15dp"
-        android:text="发送"/>
+        android:text="发送" />
 </LinearLayout>

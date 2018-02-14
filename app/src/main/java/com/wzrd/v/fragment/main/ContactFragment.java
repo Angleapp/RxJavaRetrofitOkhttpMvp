@@ -75,6 +75,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
         isPrepared = true;
         lazyLoad();
         return view;
+
     }
 
     /**

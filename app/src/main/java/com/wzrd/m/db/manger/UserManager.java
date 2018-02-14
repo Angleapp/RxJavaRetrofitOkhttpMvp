@@ -71,6 +71,16 @@ public class UserManager {
         mUserDao.delete(User);
     }
 
+
+    /**
+     * 删除一条数据
+     *
+     * @param UserID
+     */
+    public void deleteUserById(String  UserID) {
+        mUserDao.deleteByKey(UserID);
+    }
+
     /**
      * 返回多行记录
      *

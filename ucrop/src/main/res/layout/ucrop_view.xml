@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/ucrop_padding_crop_frame"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/ll_bacg"
@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:background="#969696"
         android:layout_gravity="center"
+        android:visibility="gone"
         android:gravity="center">
 
         <LinearLayout

@@ -1,10 +1,13 @@
 package com.wzrd.v.activity;
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +20,7 @@ import com.wzrd.v.fragment.main.MineFragment;
 import com.wzrd.v.fragment.main.NewFragment;
 import com.wzrd.v.fragment.main.TimingFragment;
 import com.wzrd.v.view.BannerTabHost;
+import com.wzrd.v.view.popup.EixtPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
     private ContactFragment contactFragment;
     private MineFragment mineFragment;
     private int preItem = 0;
+    private View view;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        view=getLayoutInflater().inflate(R.layout.activity_main,null);
+        setContentView(view);
         ButterKnife.bind(this);
         //初始化tab
         initBannerTabHost();
@@ -169,26 +175,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void back() {
+        EixtPopupWindow relifePopupWindow=new EixtPopupWindow(MainActivity.this);
+        relifePopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setMessage("确定退出程序");
-        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ActivityCollector.finishAll();
-                finish();
-            }
-        });
 
-        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+//        dialog.setMessage("确定退出程序");
+//        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                ActivityCollector.finishAll();
+//                finish();
+//            }
+//        });
+//
+//        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog.show();
 
     }
 }

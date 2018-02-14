@@ -12,6 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.db.manger.UserManager;
+import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 
 
 /**
@@ -49,6 +52,13 @@ public class RelifePopupWindow extends PopupWindow {
         tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+              String  id = SharedPreferencesUtil.getString(context, "userphonenum", "");
+
+
+                  UserManager manager = new UserManager(context);
+                  manager.deleteUserById(id);
+//                  Utils.ToastShort(context, "解除成功");
+
                 dismiss();
             }
         });

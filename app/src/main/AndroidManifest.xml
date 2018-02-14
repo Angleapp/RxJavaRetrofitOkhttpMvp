@@ -57,7 +57,15 @@
         <activity
             android:name=".v.activity.contacts.ContanctsMessageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".v.activity.settings.SettingActivity"></activity>
+        <activity
+            android:name=".v.activity.settings.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".v.activity.message.EditorActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".v.activity.contacts.ContastsActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

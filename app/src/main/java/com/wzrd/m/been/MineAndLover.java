@@ -10,6 +10,7 @@ import android.view.View;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.settings.SettingActivity;
 import com.wzrd.v.activity.welcome.IconActivity;
+import com.wzrd.v.view.popup.EixtPopupWindow;
 import com.wzrd.v.view.popup.RelifePopupWindow;
 
 /**
@@ -79,13 +80,30 @@ public class MineAndLover extends BaseObservable {
         view.getContext().startActivity(intent);
     }
 
-
+    /**
+     * 设置的监听
+     * @param view
+     */
     public void onSettingView(View view){
-//        Utils.ToastShort(view.getContext(),"设置");
-
-        Intent intent = new Intent(view.getContext(), SettingActivity.class);
+     Intent intent = new Intent(view.getContext(), SettingActivity.class);
         view.getContext().startActivity(intent);
 
     }
 
+    /**
+     * 退出的监听
+     * @param view
+     */
+    public void onExit(View view){
+
+        Activity activity;
+        if (Build.VERSION.SDK_INT > 21) {
+            activity = (Activity) view.getContext();
+        } else {
+            activity = (Activity) view.getRootView().getContext();
+        }
+
+        EixtPopupWindow relifePopupWindow=new EixtPopupWindow(activity);
+        relifePopupWindow.showAtLocation(view.getRootView(), Gravity.CENTER, 0, 0);
+    }
 }
