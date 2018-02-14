@@ -250,7 +250,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-45dp"
+            android:layout_marginTop="-30dp"
             android:paddingLeft="106dp"
             android:paddingRight="106dp">
 
@@ -305,9 +305,9 @@
     <Button
         android:id="@+id/bt_send"
         style="@style/bntStyle"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="27.5dp"
         android:layout_marginRight="27.5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:text="发送"/>
 </LinearLayout>
