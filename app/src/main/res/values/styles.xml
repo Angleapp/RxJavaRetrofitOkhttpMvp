@@ -10,20 +10,21 @@
 
     <!--底部导航栏tab的样式-->
     <style name="BannerTabHost">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">70dp</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:clickable">true</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 
     <!--底部导航栏tab的样式-->
     <style name="BannerTabHostTile">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:clickable">true</item>
         <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <!-- 自定义loading dialog -->

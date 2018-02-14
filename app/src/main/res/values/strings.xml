@@ -8,7 +8,7 @@
     <string name="checkCodeInit">点击发送验证码</string>
     <string name="errorCheckCode">验证码错误</string>
 
-    <style name="headIconLabel">请选择头像</style>
+    <string name="headIconLabel">请选择头像</string>
 
     <string name="lovers">和TA绑定成为情侣</string>
     <string name="addcontacts">添加家人与朋友</string>
