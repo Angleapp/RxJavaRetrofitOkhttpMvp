@@ -1,16 +1,25 @@
 package com.wzrd.v.fragment.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.wzrd.R;
+import com.wzrd.m.been.TSYSCONTANTS;
+import com.wzrd.m.utils.Constants;
 import com.wzrd.v.activity.message.EditorActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,14 +35,16 @@ public class TimingFragment extends Fragment {
     Button btEditor;
     Unbinder unbinder;
     private View view;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.timingfragment, null);
         unbinder = ButterKnife.bind(this, view);
+
         return view;
     }
+
+
 
     @Override
     public void onDestroyView() {
@@ -43,7 +54,7 @@ public class TimingFragment extends Fragment {
 
     @OnClick(R.id.bt_editor)
     public void onViewClicked() {
-        Intent intent=new Intent(getActivity(),EditorActivity.class);
+        Intent intent = new Intent(getActivity(), EditorActivity.class);
         startActivity(intent);
 
     }

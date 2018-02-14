@@ -19,7 +19,7 @@
         <activity
             android:name=".v.activity.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".v.activity.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
@@ -63,9 +63,12 @@
         <activity
             android:name=".v.activity.message.EditorActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".v.activity.contacts.ContastsActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".v.activity.contacts.ContastsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".v.activity.calendar.CarcletarActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

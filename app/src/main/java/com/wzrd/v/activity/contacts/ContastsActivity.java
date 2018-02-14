@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,12 +17,14 @@ import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.been.TSYSUSER;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
+import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.adapter.TimerContactAdapter;
 import com.wzrd.v.view.GlideCircleTransform;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +58,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     private List<TSYSUSER> userName;
     private View view;
     private boolean ischeckdlover = false;
+    private   TimerContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
      */
     private void setadapter() {
 
-        TimerContactAdapter adapter = new TimerContactAdapter(this, tsyscontantsList, this);
+         adapter = new TimerContactAdapter(this, tsyscontantsList, this);
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 ContastsActivity.this, LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(ContastsActivity.this);
@@ -132,6 +136,15 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                 finish();
                 break;
             case R.id.tv_sure:
+                List<TSYSCONTANTS> list = adapter.getcheckedlist();
+                Intent intent = new Intent();
+                intent.setAction(Constants.timeconstacts);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list", (Serializable) list);
+                intent.putExtras(bundle);
+                intent.putExtra("id",ischeckdlover);
+                sendBroadcast(intent);
+                finish();
                 break;
 
         }

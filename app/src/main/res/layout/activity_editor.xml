@@ -1,95 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@mipmap/bg_blured"
     tools:context="com.wzrd.v.activity.message.EditorActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
         android:background="#1A2027"
-        >
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:src="@mipmap/icon_titlebar_back"
             android:layout_gravity="left|center"
             android:layout_marginLeft="7dp"
-            />
+            android:src="@mipmap/icon_titlebar_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="4"
-            android:textSize="20sp"
+            android:gravity="center"
             android:text="定时推送"
             android:textColor="@color/white"
-            />
-        
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/tv_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-            android:gravity="right"
             android:layout_marginRight="7dp"
+            android:gravity="right"
             android:text="下一步"
-            android:textSize="20sp"
             android:textColor="@color/white"
-            />
+            android:textSize="20sp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/bg_blured"
-        >
-
+        android:layout_height="70dp"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/ll_select_contsats"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginRight="16dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp">
-
-            <TextView
-                style="@style/textStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="9dp"
-                android:text="To:"/>
-
+            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/input_circle_bg"
+                android:id="@+id/ll_select_contsats"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center_vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="8dp">
+                android:paddingLeft="16dp">
 
-                <EditText
-                    android:id="@+id/et_people"
+                <TextView
                     style="@style/textStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="9dp"
+                    android:text="To:" />
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                   />
+                    android:background="@drawable/input_circle_bg"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="8dp">
+
+                    <EditText
+                        android:id="@+id/et_people"
+                        style="@style/textStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
         </LinearLayout>
+
     </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/fl_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <EditText
+                android:id="@+id/et_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:gravity="top|left"
+                style="@style/textStyle"
+                android:textSize="20sp"
+
+                />
+
+
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fl_text"
+
+
+            />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
