@@ -44,6 +44,7 @@ public class PickerView extends View {
      * 选中的位置，这个位置是mDataList的中心位置，一直不变
      */
     private int mCurrentSelected;
+    private int breakselected;
     private Paint mPaint, nPaint;
 
     private float mMaxTextSize = 100;
@@ -110,11 +111,12 @@ public class PickerView extends View {
             mSelectListener.onSelect(mDataList.get(mCurrentSelected));
     }
 
-    public void setData(List<String> datas,int selected,TimeInfer.getTime getTime) {
+    public void setData(List<String> datas, int selected, TimeInfer.getTime getTime) {
         mDataList = datas;
         mCurrentSelected = selected;
+        breakselected = selected;
         invalidate();
-        time=getTime;
+        time = getTime;
     }
 
     /**
@@ -130,6 +132,8 @@ public class PickerView extends View {
                 for (int i = 0; i < -distance; i++) {
                     moveHeadToTail();
                     mCurrentSelected--;
+
+
                 }
             else if (distance > 0)
                 for (int i = 0; i < distance; i++) {
@@ -276,7 +280,13 @@ public class PickerView extends View {
                         invalidate();
                         return true;
                     }
-                    if (!loop) mCurrentSelected--;
+                    if (!loop) breakselected = mCurrentSelected--;
+                    breakselected = breakselected - 1;
+                    if(breakselected<0){
+                        breakselected=23;
+                    }else if(breakselected>23){
+                        breakselected=0;
+                    }
                     // 往下滑超过离开距离
                     moveTailToHead();
                     mMoveLen = mMoveLen - MARGIN_ALPHA * mMinTextSize;
@@ -287,6 +297,13 @@ public class PickerView extends View {
                         return true;
                     }
                     if (!loop) mCurrentSelected++;
+                    breakselected = breakselected + 1;
+                    if(breakselected<0){
+                        breakselected=23;
+                    }else if(breakselected>23){
+                        breakselected=0;
+                    }
+
                     // 往上滑超过离开距离
                     moveHeadToTail();
                     mMoveLen = mMoveLen + MARGIN_ALPHA * mMinTextSize;
@@ -297,7 +314,7 @@ public class PickerView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 doUp(event);
-                time.getHours(mCurrentSelected);
+                time.getHours(breakselected);
                 break;
         }
         return true;

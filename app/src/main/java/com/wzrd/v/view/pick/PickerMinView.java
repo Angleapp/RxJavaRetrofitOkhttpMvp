@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.wzrd.R;
+import com.wzrd.p.inteface.TimeInteface.TimeInfer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,8 @@ public class PickerMinView extends View {
     private int mViewWidth;
 
     private float mLastDownY;
+    private int breakselected;//返回的當前選中的值
+    private TimeInfer.getTime time;//返回接口
     /**
      * 滑动的距离
      */
@@ -107,9 +110,11 @@ public class PickerMinView extends View {
             mSelectListener.onSelect(mDataList.get(mCurrentSelected));
     }
 
-    public void setData(List<String> datas,int fen,Context context) {
+    public void setData(List<String> datas, int fen, TimeInfer.getTime getTime) {
         mDataList = datas;
         mCurrentSelected = fen;
+        breakselected=fen;
+        time = getTime;
         invalidate();
     }
 
@@ -182,8 +187,6 @@ public class PickerMinView extends View {
     private void init() {
         timer = new Timer();
         mDataList = new ArrayList<String>();
-
-
         //第一个paint
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
@@ -275,6 +278,12 @@ public class PickerMinView extends View {
                         return true;
                     }
                     if (!loop) mCurrentSelected--;
+                    breakselected = breakselected - 1;
+                    if (breakselected < 0) {
+                        breakselected = 59;
+                    } else if (breakselected > 59) {
+                        breakselected = 0;
+                    }
                     // 往下滑超过离开距离
                     moveTailToHead();
                     mMoveLen = mMoveLen - MARGIN_ALPHA * mMinTextSize;
@@ -285,6 +294,13 @@ public class PickerMinView extends View {
                         return true;
                     }
                     if (!loop) mCurrentSelected++;
+                    breakselected = breakselected + 1;
+                    if (breakselected < 0) {
+                        breakselected = 59;
+                    } else if (breakselected > 59) {
+                        breakselected = 0;
+                    }
+
                     // 往上滑超过离开距离
                     moveHeadToTail();
                     mMoveLen = mMoveLen + MARGIN_ALPHA * mMinTextSize;
@@ -295,6 +311,7 @@ public class PickerMinView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 doUp(event);
+                time.getMin(breakselected);
                 break;
         }
         return true;

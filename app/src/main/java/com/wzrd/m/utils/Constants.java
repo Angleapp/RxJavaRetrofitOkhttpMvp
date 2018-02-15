@@ -23,4 +23,5 @@ public class Constants {
      * 廣播
      */
     public static final String timeconstacts="timerconstacts";
+    public static final String timeconstactsexit="timerconstacts";
 }

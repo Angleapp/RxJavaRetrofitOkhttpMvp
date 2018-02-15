@@ -19,6 +19,7 @@ import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.adapter.TimerContactAdapter;
@@ -58,7 +59,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     private List<TSYSUSER> userName;
     private View view;
     private boolean ischeckdlover = false;
-    private   TimerContactAdapter adapter;
+    private TimerContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
      */
     private void setadapter() {
 
-         adapter = new TimerContactAdapter(this, tsyscontantsList, this);
+        adapter = new TimerContactAdapter(this, tsyscontantsList, this);
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 ContastsActivity.this, LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(ContastsActivity.this);
@@ -137,14 +138,19 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                 break;
             case R.id.tv_sure:
                 List<TSYSCONTANTS> list = adapter.getcheckedlist();
-                Intent intent = new Intent();
-                intent.setAction(Constants.timeconstacts);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("list", (Serializable) list);
-                intent.putExtras(bundle);
-                intent.putExtra("id",ischeckdlover);
-                sendBroadcast(intent);
-                finish();
+                if (list.size() > 0 || ischeckdlover) {
+                    Intent intent = new Intent();
+                    intent.setAction(Constants.timeconstacts);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("list", (Serializable) list);
+                    intent.putExtras(bundle);
+                    intent.putExtra("id", ischeckdlover);
+                    sendBroadcast(intent);
+                    finish();
+                } else {
+                    Utils.ToastShort(this, "请选择联系人");
+                }
+
                 break;
 
         }
