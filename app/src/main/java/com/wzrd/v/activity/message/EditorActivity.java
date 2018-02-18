@@ -115,10 +115,8 @@ public class EditorActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.tv_next:
                 if (iscannext) {
-//                    Utils.ToastShort(this,"1234");
-
                     String s = etText.getText().toString();
-                    if (s != null) {
+                    if (s != null&&!"".equals(s)) {
                         Intent intent = new Intent(this, CarcletarActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("list", (Serializable) list);

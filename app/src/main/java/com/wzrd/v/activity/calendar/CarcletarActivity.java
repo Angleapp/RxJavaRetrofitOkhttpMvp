@@ -285,10 +285,10 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
                 lasttime = lasttime.replace("月", "-");
                 lasttime = lasttime.replace("日", "");
                 lasttime = lasttime.replace("  ", " ");
-                Log.e("tiem", "lasttime0--->" + lasttime);
-                Log.e("tiem", "lasttime1--->" + DateUtils.getCurrentDate());
+//                Log.e("tiem", "lasttime0--->" + lasttime);
+//                Log.e("tiem", "lasttime1--->" + DateUtils.getCurrentDate());
                 boolean time = Utils.compareTime(lasttime, DateUtils.getCurrentDate());
-                Log.e("tiem", "time--->" + time);
+//                Log.e("tiem", "time--->" + time);
                 if (time) {
                     Intent intent = new Intent();
                     intent.setAction(Constants.timeconstactsexit);
@@ -297,8 +297,6 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
                     bundle.putString("time", lasttime);
                     intent.putExtra("id", exituser);
                     intent.putExtras(bundle);
-
-
                     sendBroadcast(intent);
                     ActivityCollector.finishAllTimer();
 
