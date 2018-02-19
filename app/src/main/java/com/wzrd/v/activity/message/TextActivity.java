@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
+import com.wzrd.m.been.SelectBean;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Savephoto;
 import com.wzrd.m.utils.Utils;
@@ -46,7 +47,8 @@ public class TextActivity extends AppCompatActivity {
     @BindView(R.id.fl_text)
     FrameLayout flText;
     @BindView(R.id.iv_bage)
-    ImageView ivBage;
+    TextView ivBage;
+    private static final int SELECTCODE = 0x0002;
     private final String IMAGE_TYPE = "image/*";
     public static final int TEXT_IMAGE_REQUEST_CODE = 0x103;
 
@@ -69,7 +71,11 @@ public class TextActivity extends AppCompatActivity {
             case R.id.et_text:
                 break;
             case R.id.iv_bage:
-                bage();
+//                bage();
+
+                Intent intent = new Intent(this, SelectBackActivity.class);
+                startActivityForResult(intent, SELECTCODE);
+
                 break;
         }
     }
@@ -146,11 +152,17 @@ public class TextActivity extends AppCompatActivity {
                 file.mkdirs();
             }
             String filePath = path + UUID.randomUUID() + ".jpg";
-//            SharedPreferencesUtil.saveString(IconActivity.this, "icon", filePath);
             Savephoto savephoto = new Savephoto();
             savephoto.save(bm, filePath);
             Drawable d = Drawable.createFromPath(filePath);
             flText.setBackground(d);
+        } else if (SELECTCODE == requestCode && data != null && resultCode == 0x123) {
+
+            SelectBean bean = (SelectBean) data.getExtras().get("bean");
+            if (bean != null) {
+                flText.setBackgroundResource(bean.getPath());
+            }
+
         }
 
 

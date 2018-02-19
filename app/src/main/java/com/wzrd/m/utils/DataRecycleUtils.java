@@ -1,17 +1,15 @@
 package com.wzrd.m.utils;
 
-import android.annotation.SuppressLint;
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.wzrd.m.been.ContactMessage;
-import com.wzrd.m.been.InboxContactMessage;
+import com.wzrd.m.been.SelectBean;
 import com.wzrd.v.adapter.InboxAdapter;
 import com.wzrd.v.adapter.OutboxAdapter;
-import com.wzrd.v.view.SwipeMenuLayout;
+import com.wzrd.v.adapter.SelectAdapter;
 
 import java.util.List;
 
@@ -43,6 +41,14 @@ public class DataRecycleUtils {
     public static void setinboxadapter(RecyclerView recyclerView, List<ContactMessage> data){
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(new InboxAdapter(recyclerView.getContext(), data));
+
+    }
+
+
+    @BindingAdapter("selectdback")
+    public static void setselectdback(RecyclerView recyclerView, List<SelectBean> data){
+        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(),2));
+        recyclerView.setAdapter(new SelectAdapter(recyclerView.getContext(), data));
 
     }
 }

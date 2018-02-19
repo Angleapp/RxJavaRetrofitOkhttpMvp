@@ -3,19 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg_blured"
     android:orientation="vertical"
     tools:context="com.wzrd.v.activity.message.MessagesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:background="#1A2027">
 
         <ImageView
             android:id="@+id/iv_message_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:src="@mipmap/fenxi_on" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:src="@mipmap/icon_titlebar_back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -23,57 +26,59 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="消息"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <LinearLayout
                 android:id="@+id/ll_text"
+                style="@style/message"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@mipmap/pic_text_background"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="文字" />
+                    android:text="文字"
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_voice"
+                style="@style/message"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@mipmap/pic_voice_background"
                 android:gravity="center"
                 android:orientation="vertical"
 
                 >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="语音" />
+                    android:text="语音"
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
             </LinearLayout>
 
 
@@ -86,43 +91,41 @@
             android:layout_marginTop="10dp">
 
             <LinearLayout
+                style="@style/message"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@mipmap/pic_album_background"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="相册" />
+                    android:text="相册"
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_camera"
+                style="@style/message"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@mipmap/pic_camera_background"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/fenxi_on" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="相机" />
+                    android:text="相机"
+                    android:textColor="@color/white"
+                    android:textSize="21sp" />
             </LinearLayout>
-
-
 
 
         </LinearLayout>
@@ -133,7 +136,6 @@
         android:id="@+id/blbeautify_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#969696"
- />
+        android:background="#969696" />
 
 </LinearLayout>
