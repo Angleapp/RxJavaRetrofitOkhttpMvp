@@ -130,4 +130,55 @@
     </style>
 
 
+    <!--录音界面-->
+    <style name="image1">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+    </style>
+
+
+    <!--录音界面-->
+    <style name="image2">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">-25</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+    </style>
+
+
+    <style name="image3">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">-30</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+
+    </style>
+
+
+    <style name="image4">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">10</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+
+    </style>
+
+    <style name="image5">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+
+    <style name="image6">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+    </style>
+
+
 </resources>
