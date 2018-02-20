@@ -3,11 +3,13 @@ package com.wzrd.m.been;
 import android.Manifest;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Build;
 import android.text.Editable;
 import android.view.View;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wzrd.BR;
 import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.DateUtils;
@@ -55,15 +57,13 @@ public class UserMessage extends BaseObservable {
     public void setPathfrom(String pathfrom) {
         this.pathfrom = pathfrom;
     }
-
+    @Bindable
     public String getNickname() {
-
         return this.nickname;
     }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
-
+        notifyPropertyChanged(BR.nickname);
     }
 
     public String getIconpath() {
@@ -163,39 +163,43 @@ public class UserMessage extends BaseObservable {
         } else {
             activity = (IconActivity) view.getRootView().getContext();
         }
-        UserManager manager = new UserManager(activity);
-        List<TSYSUSER> user = manager.getByUserid(SharedPreferencesUtil.getString(activity, "userphonenum", ""));
+        if (nickname == null || "".equals(nickname)) {
+            Utils.ToastShort(activity, "昵称为空，请填写");
+        } else {
+            UserManager manager = new UserManager(activity);
+            List<TSYSUSER> user = manager.getByUserid(SharedPreferencesUtil.getString(activity, "userphonenum", ""));
 
-        SharedPreferencesUtil.saveString(activity, "nickname", this.nickname);
-        if (user != null&&user.size()>0) {
-            String usernum = getString(activity, "userphonenum", null);
-            String icon = SharedPreferencesUtil.getString(activity, "icon", "");
-            if (usernum != null) {
-                TSYSUSER modlie = new TSYSUSER();
-                String userphone = user.get(0).getT_sys_id();
-                modlie.setT_sys_modify_time(DateUtils.getCurrentDate());
-                modlie.setT_sys_id(usernum);
-                modlie.setT_sys_username(this.nickname);
-                modlie.setT_sys_usericonpath(icon);
-                modlie.setT_sys_id(userphone);
-                modlie.setT_sys_userid(userphone);
-                modlie.setT_sys_modify_id(userphone);
-                modlie.setT_sys_userphone(userphone);
-                modlie.setT_sys_username(userphone);
-                modlie.setT_sys_lover_name(user.get(0).getT_sys_lover_name());
-                modlie.setT_sys_loverphone(user.get(0).getT_sys_loverphone());
-                manager.insertUser(modlie);
+            SharedPreferencesUtil.saveString(activity, "nickname", this.nickname);
+            if (user != null && user.size() > 0) {
+                String usernum = getString(activity, "userphonenum", null);
+                String icon = SharedPreferencesUtil.getString(activity, "icon", "");
+                if (usernum != null) {
+                    TSYSUSER modlie = new TSYSUSER();
+                    String userphone = user.get(0).getT_sys_id();
+                    modlie.setT_sys_modify_time(DateUtils.getCurrentDate());
+                    modlie.setT_sys_id(usernum);
+                    modlie.setT_sys_username(this.nickname);
+                    modlie.setT_sys_usericonpath(icon);
+                    modlie.setT_sys_id(userphone);
+                    modlie.setT_sys_userid(userphone);
+                    modlie.setT_sys_modify_id(userphone);
+                    modlie.setT_sys_userphone(userphone);
+                    modlie.setT_sys_username(userphone);
+                    modlie.setT_sys_lover_name(user.get(0).getT_sys_lover_name());
+                    modlie.setT_sys_loverphone(user.get(0).getT_sys_loverphone());
+                    manager.insertUser(modlie);
+                }
+
+
             }
 
 
-        }
-
-
-        if ("下一步".equals(this.pathfrom)) {
-            Intent intent = new Intent(activity, BindingLoversActivity.class);
-            activity.startActivity(intent);
-        } else {
-            activity.finish();
+            if ("下一步".equals(this.pathfrom)) {
+                Intent intent = new Intent(activity, BindingLoversActivity.class);
+                activity.startActivity(intent);
+            } else {
+                activity.finish();
+            }
         }
     }
 

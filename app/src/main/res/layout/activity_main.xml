@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/activity_main"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@mipmap/bg_clock"
-              android:orientation="vertical"
-              tools:context="com.wzrd.v.activity.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_clock"
+    android:orientation="vertical"
+    tools:context="com.wzrd.v.activity.MainActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
         android:background="@color/black_half"
+
         android:gravity="center_horizontal|bottom">
 
         <com.wzrd.v.view.BannerTabHost
@@ -28,44 +30,43 @@
             style="@style/BannerTabHost"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:background="@drawable/tab_bg_color"
-            android:gravity="center_horizontal"
             app:CheckState="true"
             app:LeftIcon="@mipmap/icon_home_toolbar_new"
-            app:TabText="新建"/>
+            app:TabText="新建" />
 
         <com.wzrd.v.view.BannerTabHost
             android:id="@+id/tab_classfition"
             style="@style/BannerTabHost"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@drawable/tab_bg_color"
             android:gravity="center_horizontal"
             app:CheckState="false"
             app:LeftIcon="@mipmap/icon_home_toolbar_clock"
-            app:TabText="定时"/>
+            app:TabText="定时" />
 
         <com.wzrd.v.view.BannerTabHost
             android:id="@+id/tab_host"
             style="@style/BannerTabHost"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@drawable/tab_bg_color"
             android:gravity="center_horizontal"
             app:CheckState="false"
             app:LeftIcon="@mipmap/icon_home_toolbar_contacts"
-            app:TabText="联系人"/>
+            app:TabText="联系人" />
 
         <com.wzrd.v.view.BannerTabHost
             android:id="@+id/tab_mine"
             style="@style/BannerTabHost"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_margin="1dp"
             android:background="@drawable/tab_bg_color"
             android:gravity="center_horizontal"
             app:CheckState="false"
             app:LeftIcon="@mipmap/icon_home_toolbar_mine"
-            app:TabText="我的"/>
+            app:TabText="我的" />
     </LinearLayout>
 </LinearLayout>

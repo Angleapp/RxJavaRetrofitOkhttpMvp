@@ -39,6 +39,7 @@ public class BindingLoversActivity extends AppCompatActivity {
         btBind = (Button) findViewById(R.id.bt_bind);
         btUnBind = (Button) findViewById(R.id.bt_unbind);
         tvInfo.setText(Html.fromHtml("NYc(13467589863)<br>希望和你绑定为情侣"));
+        tvInfo.setText(Html.fromHtml("绑定我的情侣"));
         tvLoverPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
