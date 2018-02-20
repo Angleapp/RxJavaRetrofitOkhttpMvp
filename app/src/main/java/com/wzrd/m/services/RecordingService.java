@@ -3,6 +3,7 @@ package com.wzrd.m.services;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaRecorder;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -84,10 +85,18 @@ public class RecordingService extends Service {
         do {
             count++;
             mFileName = Utils.getuuid() + ".mp3";
+            Log.e("videoname", "mFileName" + mFileName);
             mFilePath = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
 //          mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
             mFilePath = mFilePath + "/" + mFileName;
             f = new File(mFilePath);
+
+            Intent intent = new Intent();
+            intent.setAction(com.wzrd.m.utils.Constants.vidicerecond);
+            Bundle bundle = new Bundle();
+            bundle.putString("videoname", mFilePath);
+            intent.putExtras(bundle);
+            sendBroadcast(intent);
         } while (f.exists() && !f.isDirectory());
     }
 
@@ -108,5 +117,8 @@ public class RecordingService extends Service {
 
         mRecorder = null;
     }
+
+
+
 
 }
