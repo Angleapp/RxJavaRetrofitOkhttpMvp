@@ -58,7 +58,10 @@ public class MessagesActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.ll_text:
-                startactivity(TextActivity.class);
+//                startactivity(TextActivity.class);
+                Intent endintent = new Intent(this, TextActivity.class);
+                endintent.putExtra("title","0");
+                startActivity(endintent);
                 break;
             case R.id.ll_voice:
                 startactivity(MoviceActivity.class);

@@ -14,6 +14,7 @@ import com.wzrd.R;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
+import com.wzrd.v.activity.message.TextActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +78,10 @@ public class NewFragment extends Fragment {
             case R.id.poem:
                 break;
             case R.id.shy:
+                //口难开
+                Intent textintent = new Intent(getActivity(), TextActivity.class);
+                textintent.putExtra("title","1");
+                startActivity(textintent);
                 break;
             case R.id.selfie:
                 break;
@@ -86,6 +91,10 @@ public class NewFragment extends Fragment {
                 startactivity(OfficelineActivity.class);
                 break;
             case R.id.end:
+                //结束语
+                Intent endintent = new Intent(getActivity(), TextActivity.class);
+                endintent.putExtra("title","2");
+                startActivity(endintent);
                 break;
             case R.id.video:
                 break;
