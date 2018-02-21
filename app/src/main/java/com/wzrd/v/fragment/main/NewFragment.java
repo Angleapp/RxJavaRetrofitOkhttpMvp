@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
+import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 
 import butterknife.BindView;
@@ -70,6 +72,7 @@ public class NewFragment extends Fragment {
                 startActivity(messageIntent);
                 break;
             case R.id.gift:
+                startactivity(VirtualGifActivity.class);
                 break;
             case R.id.poem:
                 break;
@@ -80,11 +83,18 @@ public class NewFragment extends Fragment {
             case R.id.wisdom:
                 break;
             case R.id.offline:
+                startactivity(OfficelineActivity.class);
                 break;
             case R.id.end:
                 break;
             case R.id.video:
                 break;
         }
+    }
+
+    private void startactivity(Class c) {
+        Intent intent = new Intent(getActivity(), c);
+        startActivity(intent);
+
     }
 }
