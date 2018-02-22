@@ -7,9 +7,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wzrd.m.been.ContactMessage;
 import com.wzrd.m.been.SelectBean;
+import com.wzrd.m.been.WisdomBeen;
+import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.adapter.InboxAdapter;
 import com.wzrd.v.adapter.OutboxAdapter;
 import com.wzrd.v.adapter.SelectAdapter;
+import com.wzrd.v.adapter.WisdomAdapter;
 
 import java.util.List;
 
@@ -49,6 +52,13 @@ public class DataRecycleUtils {
     public static void setselectdback(RecyclerView recyclerView, List<SelectBean> data){
         recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(),2));
         recyclerView.setAdapter(new SelectAdapter(recyclerView.getContext(), data));
+
+    }
+
+    @BindingAdapter("wisdomadapter")
+    public static void setwisdom(RecyclerView recyclerView, List<WisdomBeen> data){
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(new WisdomAdapter(recyclerView.getContext(), data,(WisdomActivity)recyclerView.getContext()));
 
     }
 }

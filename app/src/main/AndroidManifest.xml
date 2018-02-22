@@ -29,9 +29,7 @@
         <activity
             android:name=".v.activity.welcome.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".v.activity.welcome.IconActivity"
             android:screenOrientation="portrait" />
@@ -79,11 +77,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.homepage.virtual.VirtualGifActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.homepage.officeline.OfficelineActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".v.activity.homepage.WisdomActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

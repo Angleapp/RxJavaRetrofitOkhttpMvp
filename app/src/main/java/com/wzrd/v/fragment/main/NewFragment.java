@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
@@ -86,6 +87,8 @@ public class NewFragment extends Fragment {
             case R.id.selfie:
                 break;
             case R.id.wisdom:
+                //智慧之语
+                startactivity(WisdomActivity.class);
                 break;
             case R.id.offline:
                 startactivity(OfficelineActivity.class);
