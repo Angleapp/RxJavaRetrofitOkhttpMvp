@@ -42,7 +42,7 @@ import butterknife.Unbinder;
  * Created by lk on 2018/1/3.
  */
 
-public class ContactFragment extends NoNetBaseLayFragment implements AdapterClickPosition.position{
+public class ContactFragment extends NoNetBaseLayFragment implements AdapterClickPosition.position {
     @BindView(R.id.tv_addlover)
     TextView tvAddlover;
     @BindView(R.id.iv_lover_iocn)
@@ -60,6 +60,8 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     RecyclerView rvContacts;
     @BindView(R.id.sm)
     SwipeMenuLayout sm;
+    @BindView(R.id.ll_startlove)
+    LinearLayout llStartlove;
     private View view;
     private List<TSYSCONTANTS> tsyscontantsList;
     private String TAG = "ContactFragment";
@@ -88,7 +90,6 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
         userName = manager.getByUserid(id);
         if (userName != null && userName.size() > 0) {
             tvAddlover.setVisibility(View.GONE);
-
             sm.setVisibility(View.VISIBLE);
             tvAddlover.setVisibility(View.GONE);
             Glide.with(view.getContext())
@@ -122,7 +123,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
         lazyLoad();
     }
 
-    @OnClick({R.id.tv_addlover, R.id.ll_lover, R.id.iv_add_family, R.id.btnDelete})
+    @OnClick({R.id.tv_addlover, R.id.ll_lover, R.id.iv_add_family, R.id.btnDelete, R.id.ll_startlove})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_addlover:
@@ -142,9 +143,19 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                 if (userName != null && userName.size() > 0) {
                     manager.deleteUser(userName.get(0));
                 }
-
                 sm.setVisibility(View.GONE);
                 tvAddlover.setVisibility(View.VISIBLE);
+                close();
+
+                break;
+            case R.id.ll_startlove:
+                Log.e("123", "1234");
+                if (userName != null && userName.size() > 0) {
+                    Intent intent2 = new Intent(getActivity(), ContanctsMessageActivity.class);
+                    intent2.putExtra("name", userName.get(0).getT_sys_lover_name());
+                    getActivity().startActivity(intent2);
+                }
+
 
                 break;
         }
@@ -166,7 +177,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
      */
     private void setadapter() {
 
-        ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList,this);
+        ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList, this);
 //        Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
@@ -184,28 +195,31 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
-                    if (null != viewCache) {
-                        viewCache.smoothClose();
-                    }
+                    close();
                 }
                 return false;
             }
         });
     }
 
-
+    private void close() {
+        SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
+        if (null != viewCache) {
+            viewCache.smoothClose();
+        }
+    }
 
     /**
      * recycleview 点击item监听
+     *
      * @param position
      */
     @Override
     public void adapterposition(int position) {
 //        Utils.ToastShort(getActivity(),"posiotion--"+position);
         TSYSCONTANTS item = tsyscontantsList.get(position);
-        Intent intent=new Intent(getActivity(), ContanctsMessageActivity.class);
-        intent.putExtra("name",item.getT_sys_contacts_name());
+        Intent intent = new Intent(getActivity(), ContanctsMessageActivity.class);
+        intent.putExtra("name", item.getT_sys_contacts_name());
         getActivity().startActivity(intent);
     }
 }
