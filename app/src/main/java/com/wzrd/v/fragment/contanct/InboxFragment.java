@@ -26,18 +26,18 @@ import java.util.List;
  * Created by lk on 2018/2/9.
  */
 
-public class InboxFragment extends NoNetBaseLayFragment  implements RecycleResult {
-    private  InboxFragmentBinding dataBinding;
-    private String TAG="InboxFragment";
+public class InboxFragment extends NoNetBaseLayFragment implements RecycleResult {
+    private InboxFragmentBinding dataBinding;
+    private String TAG = "InboxFragment";
     private String imagepath;
-    private  SwipeRefreshLayout swlaout;
-    private RecyclerView  recycle;
+    private SwipeRefreshLayout swlaout;
+    private RecyclerView recycle;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        dataBinding= DataBindingUtil.inflate(inflater, R.layout.inbox_fragment, container, false);
-        imagepath= SharedPreferencesUtil.getString(getContext(),"icon","");
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.inbox_fragment, container, false);
+        imagepath = SharedPreferencesUtil.getString(getContext(), "icon", "");
         isPrepared = true;
         intidata();
         Refresh();
@@ -50,23 +50,20 @@ public class InboxFragment extends NoNetBaseLayFragment  implements RecycleResul
      * 数据刷新
      */
     private void Refresh() {
-
-        recycle= (RecyclerView) dataBinding.getRoot().getRootView().findViewById(R.id.recycle);
-        swlaout= (SwipeRefreshLayout) dataBinding.getRoot().getRootView().findViewById(R.id.swlaout);
+        recycle = (RecyclerView) dataBinding.getRoot().getRootView().findViewById(R.id.recycle);
+        swlaout = (SwipeRefreshLayout) dataBinding.getRoot().getRootView().findViewById(R.id.swlaout);
         swlaout.setSize(0);
         swlaout.setProgressBackgroundColorSchemeResource(android.R.color.white);
         swlaout.setColorSchemeResources(android.R.color.holo_blue_light,
-                android.R.color.holo_red_light,android.R.color.holo_orange_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
                 android.R.color.holo_green_light);
         swlaout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Utils.ToastShort(getContext(),"此处可以填写下拉刷新逻辑");
+                Utils.ToastShort(getContext(), "此处可以填写下拉刷新逻辑");
                 swlaout.setRefreshing(false);
-
             }
         });
-
     }
 
     /**
@@ -74,13 +71,11 @@ public class InboxFragment extends NoNetBaseLayFragment  implements RecycleResul
      */
     private void intidata() {
         List<ContactMessage> list = new ArrayList<>();
-
-
         for (int i = 0; i < 19; i++) {
             ContactMessage message = new ContactMessage();
             message.setMotifitytime(DateUtils.getCurrentDate());
             message.setIconpath(imagepath);
-            message.setUsername("张三"+i);
+            message.setUsername("张三" + i);
             list.add(message);
         }
         dataBinding.setInboxdata(list);
@@ -96,11 +91,12 @@ public class InboxFragment extends NoNetBaseLayFragment  implements RecycleResul
 
     /**
      * 判断滑动到底部
+     *
      * @param message
      */
     @Override
     public void last(String message) {
-        Utils.ToastShort(getContext(),"滑动到底部.此处可以填写上拉刷新逻辑");
+        Utils.ToastShort(getContext(), "滑动到底部.此处可以填写上拉刷新逻辑");
 
     }
 }

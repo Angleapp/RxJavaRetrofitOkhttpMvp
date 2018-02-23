@@ -29,13 +29,13 @@ import java.util.List;
  * Created by lk on 2018/2/9.
  */
 
-public class OutboxFragment extends Fragment implements OutboxMessageId.getmessageid ,RecycleResult {
+public class OutboxFragment extends Fragment implements OutboxMessageId.getmessageid, RecycleResult {
     private OutboxFragmentBinding dataBinding;
     private String username;
     private String imagepath;
     private List<ContactMessage> list = new ArrayList<>();
-    private  SwipeRefreshLayout swlaout;
-    private RecyclerView  recycle;
+    private SwipeRefreshLayout swlaout;
+    private RecyclerView recycle;
 
     @Nullable
     @Override
@@ -48,8 +48,6 @@ public class OutboxFragment extends Fragment implements OutboxMessageId.getmessa
         Refresh();
         Rypresenter rypresenter = new Rypresenter(this);
         rypresenter.getlast(recycle, "OutboxFragment");
-
-
         return dataBinding.getRoot();
     }
 
@@ -57,8 +55,6 @@ public class OutboxFragment extends Fragment implements OutboxMessageId.getmessa
      * 设置临时数据
      */
     private void initdata() {
-
-
         for (int i = 0; i < 3; i++) {
             ContactMessage message = new ContactMessage();
             message.setMotifitytime(DateUtils.getCurrentDate());
@@ -92,9 +88,6 @@ public class OutboxFragment extends Fragment implements OutboxMessageId.getmessa
         dataBinding.setOutboxdata(list);
     }
 
-
-
-
     @Override
     public void onRefresh(String messageid) {
         List<ContactMessage> newlist = new ArrayList<>();
@@ -116,17 +109,17 @@ public class OutboxFragment extends Fragment implements OutboxMessageId.getmessa
      */
     private void Refresh() {
 
-        recycle= (RecyclerView) dataBinding.getRoot().getRootView().findViewById(R.id.recycle);
-        swlaout= (SwipeRefreshLayout) dataBinding.getRoot().getRootView().findViewById(R.id.swlaout);
+        recycle = (RecyclerView) dataBinding.getRoot().getRootView().findViewById(R.id.recycle);
+        swlaout = (SwipeRefreshLayout) dataBinding.getRoot().getRootView().findViewById(R.id.swlaout);
         swlaout.setSize(0);
         swlaout.setProgressBackgroundColorSchemeResource(android.R.color.white);
         swlaout.setColorSchemeResources(android.R.color.holo_blue_light,
-                android.R.color.holo_red_light,android.R.color.holo_orange_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
                 android.R.color.holo_green_light);
         swlaout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Utils.ToastShort(getContext(),"此处可以填写下拉刷新逻辑");
+                Utils.ToastShort(getContext(), "此处可以填写下拉刷新逻辑");
                 swlaout.setRefreshing(false);
 
             }
@@ -136,6 +129,6 @@ public class OutboxFragment extends Fragment implements OutboxMessageId.getmessa
 
     @Override
     public void last(String message) {
-        Utils.ToastShort(getContext(),"滑动到底部.此处可以填写上拉刷新逻辑");
+        Utils.ToastShort(getContext(), "滑动到底部.此处可以填写上拉刷新逻辑");
     }
 }
