@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.wzrd.R;
 import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.utils.Constants;
@@ -88,8 +89,16 @@ public class NewFragment extends Fragment {
         broadcastReceiver();
         // 注册广播
         registeBoardCast();
+        gif();
 
         return view;
+    }
+
+    /**
+     * 加载本地gif图片
+     */
+    private void gif() {
+        Glide.with(getActivity()).load(R.drawable.a001).into(mSendMessage);
     }
 
     @Override

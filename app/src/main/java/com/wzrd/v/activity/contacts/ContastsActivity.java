@@ -155,7 +155,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                     sendBroadcast(intent);
                     finish();
                 } else {
-                    Utils.ToastShort(this, "请选择联系人");
+                    Utils.ToastShort(this, "请至少选择一个爱人、家人、朋友");
                 }
 
                 break;
