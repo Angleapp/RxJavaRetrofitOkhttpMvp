@@ -69,6 +69,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     private UserManager manager;
     private List<TSYSUSER> userName;
 
+    //git pull origin master
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
