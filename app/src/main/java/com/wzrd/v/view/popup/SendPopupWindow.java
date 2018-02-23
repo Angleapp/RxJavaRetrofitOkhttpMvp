@@ -110,13 +110,14 @@ public class SendPopupWindow extends PopupWindow {
         tv_timer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dismiss();
+
                 Intent intent = new Intent(context, CarcletarActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", (Serializable) list);
                 intent.putExtras(bundle);
                 intent.putExtra("id", exituser);
                 context.startActivity(intent);
+                dismiss();
             }
         });
 
