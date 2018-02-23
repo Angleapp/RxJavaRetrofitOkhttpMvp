@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MZBannerView">
-        <attr name="open_mz_mode" format="boolean"/>
-        <attr name="canLoop" format="boolean"/>
-        <attr name="indicatorPaddingLeft" format="dimension"/>
-        <attr name="indicatorPaddingRight" format="dimension"/>
+        <attr name="open_mz_mode" format="boolean" />
+        <attr name="canLoop" format="boolean" />
+        <attr name="indicatorPaddingLeft" format="dimension" />
+        <attr name="indicatorPaddingRight" format="dimension" />
         <attr name="indicatorAlign">
-            <enum name="left" value="0"/>
-            <enum name="center" value="1"/>
-            <enum name="right" value="2"/>
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
         </attr>
     </declare-styleable>
 
 
     <declare-styleable name="BannerTabHost">
-        <attr name="LeftIcon" format="reference"/>
-        <attr name="TabText" format="string"/>
-        <attr name="CheckState" format="boolean"/>
+        <attr name="LeftIcon" format="reference" />
+        <attr name="TabText" format="string" />
+        <attr name="CheckState" format="boolean" />
     </declare-styleable>
     <declare-styleable name="BasicItemView">
-        <attr name="Icon" format="reference"/>
-        <attr name="Title" format="string"/>
+        <attr name="Icon" format="reference" />
+        <attr name="Title" format="string" />
     </declare-styleable>
     <declare-styleable name="AddInfoItem">
-        <attr name="leftTitle" format="string"/>
+        <attr name="leftTitle" format="string" />
     </declare-styleable>
     <declare-styleable name="SettingItemView">
-        <attr name="title" format="string"/>
-        <attr name="desc_on" format="string"/>
-        <attr name="desc_off" format="string"/>
+        <attr name="title" format="string" />
+        <attr name="desc_on" format="string" />
+        <attr name="desc_off" format="string" />
     </declare-styleable>
     <declare-styleable name="PersonInfoItem">
-        <attr name="detail_title" format="string"/>
+        <attr name="detail_title" format="string" />
     </declare-styleable>
     <declare-styleable name="PagerSlidingTabStrip">
-        <attr name="pstsIndicatorColor" format="color"/>
-        <attr name="pstsUnderlineColor" format="color"/>
-        <attr name="pstsDividerColor" format="color"/>
-        <attr name="pstsIndicatorHeight" format="dimension"/>
-        <attr name="pstsUnderlineHeight" format="dimension"/>
-        <attr name="pstsDividerPadding" format="dimension"/>
-        <attr name="pstsTabPaddingLeftRight" format="dimension"/>
-        <attr name="pstsScrollOffset" format="dimension"/>
-        <attr name="pstsTabBackground" format="reference"/>
-        <attr name="pstsShouldExpand" format="boolean"/>
-        <attr name="pstsTextAllCaps" format="boolean"/>
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
     </declare-styleable>
 
 
     <declare-styleable name="EasyPullLayout">
-        <attr name="trigger_offset_left" format="dimension"/>
-        <attr name="trigger_offset_top" format="dimension"/>
-        <attr name="trigger_offset_right" format="dimension"/>
-        <attr name="trigger_offset_bottom" format="dimension"/>
-        <attr name="max_offset_left" format="dimension"/>
-        <attr name="max_offset_top" format="dimension"/>
-        <attr name="max_offset_right" format="dimension"/>
-        <attr name="max_offset_bottom" format="dimension"/>
-        <attr name="fixed_content_left" format="boolean"/>
-        <attr name="fixed_content_top" format="boolean"/>
-        <attr name="fixed_content_right" format="boolean"/>
-        <attr name="fixed_content_bottom" format="boolean"/>
-        <attr name="roll_back_duration" format="integer"/>
-        <attr name="sticky_factor" format="float"/>
+        <attr name="trigger_offset_left" format="dimension" />
+        <attr name="trigger_offset_top" format="dimension" />
+        <attr name="trigger_offset_right" format="dimension" />
+        <attr name="trigger_offset_bottom" format="dimension" />
+        <attr name="max_offset_left" format="dimension" />
+        <attr name="max_offset_top" format="dimension" />
+        <attr name="max_offset_right" format="dimension" />
+        <attr name="max_offset_bottom" format="dimension" />
+        <attr name="fixed_content_left" format="boolean" />
+        <attr name="fixed_content_top" format="boolean" />
+        <attr name="fixed_content_right" format="boolean" />
+        <attr name="fixed_content_bottom" format="boolean" />
+        <attr name="roll_back_duration" format="integer" />
+        <attr name="sticky_factor" format="float" />
     </declare-styleable>
     <declare-styleable name="EasyPullLayout_LayoutParams">
         <attr name="layout_type" format="enum">
-            <enum name="edge_left" value="0"/>
-            <enum name="edge_top" value="1"/>
-            <enum name="edge_right" value="2"/>
-            <enum name="edge_bottom" value="3"/>
-            <enum name="content" value="4"/>
+            <enum name="edge_left" value="0" />
+            <enum name="edge_top" value="1" />
+            <enum name="edge_right" value="2" />
+            <enum name="edge_bottom" value="3" />
+            <enum name="content" value="4" />
         </attr>
-        <attr name="layout_content_fixed" format="boolean"/>
+        <attr name="layout_content_fixed" format="boolean" />
     </declare-styleable>
 
 
     <declare-styleable name="SwipeMenuLayout">
-        <attr name="swipeEnable" format="boolean"/>
-        <attr name="ios" format="boolean"/>
-        <attr name="leftSwipe" format="boolean"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
     <!--圆形布局的属性-->
     <declare-styleable name="CircleLinearLayout">
-        <attr name="circleRadius" format="integer"/>
+        <attr name="circleRadius" format="integer" />
     </declare-styleable>
 
 
@@ -122,8 +122,18 @@
         <attr name="mLineSpac" format="dimension" />             <!--日期行间距-->
         <attr name="mTextSpac" format="dimension" />             <!--日期和任务次数字体上下间距-->
     </declare-styleable>
-<!--时间view-->
+    <!--时间view-->
     <declare-styleable name="PickerView">
         <attr name="isLoop" format="boolean" />
+    </declare-styleable>
+    <!--自定义圆形进度条-->
+    <declare-styleable name="CircleBarView">
+        <attr name="progress_color" format="color"></attr>
+        <attr name="bg_color" format="color"></attr>
+
+        <attr name="bar_width" format="dimension"></attr>
+
+        <attr name="start_angle" format="float"></attr>
+        <attr name="sweep_angle" format="float"></attr>
     </declare-styleable>
 </resources>

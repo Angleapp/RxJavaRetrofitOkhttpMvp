@@ -134,6 +134,7 @@ public class EditorActivity extends AppCompatActivity {
                 break;
             case R.id.ll_select_contsats:
                 Intent intent = new Intent(this, ContastsActivity.class);
+                intent.putExtra("type","1");
                 startActivity(intent);
                 break;
             case R.id.iv_back:

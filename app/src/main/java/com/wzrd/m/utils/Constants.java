@@ -25,6 +25,7 @@ public class Constants {
      * 廣播
      */
     public static final String timeconstacts="timerconstacts";
+    public static final String homeconstacts="homeconstacts";
     public static final String timeconstactsexit="timerconstacts";
     public static final String vidicerecond="vidicerecond";
 }

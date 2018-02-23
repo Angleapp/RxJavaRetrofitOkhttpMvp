@@ -1,21 +1,38 @@
 package com.wzrd.v.fragment.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.m.been.TSYSCONTANTS;
+import com.wzrd.m.utils.Constants;
+import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
+import com.wzrd.v.activity.contacts.ContastsActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 import com.wzrd.v.activity.message.TextActivity;
+import com.wzrd.v.view.popup.SendPopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,13 +65,30 @@ public class NewFragment extends Fragment {
     LinearLayout mEnd;
     @BindView(R.id.video)
     LinearLayout mVideo;
+    @BindView(R.id.ll_select)
+    LinearLayout llSelect;
+    @BindView(R.id.bt_send)
+    Button btSend;
+    @BindView(R.id.et_contact)
+    EditText etContact;
     private View view;
+    private BroadcastReceiver broadcastReceiver;
+    private IntentFilter dynamic_filter;
+    private boolean iscannext;
+    private List<TSYSCONTANTS> list;
+    private Boolean exituser;
+    private StringBuffer buffer;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.new_fragmnet, null);
         unbinder = ButterKnife.bind(this, view);
+        // 广播接收
+        broadcastReceiver();
+        // 注册广播
+        registeBoardCast();
+
         return view;
     }
 
@@ -64,7 +98,7 @@ public class NewFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video})
+    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video, R.id.bt_send, R.id.ll_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sendMessage:
@@ -81,7 +115,7 @@ public class NewFragment extends Fragment {
             case R.id.shy:
                 //口难开
                 Intent textintent = new Intent(getActivity(), TextActivity.class);
-                textintent.putExtra("title","1");
+                textintent.putExtra("title", "1");
                 startActivity(textintent);
                 break;
             case R.id.selfie:
@@ -96,17 +130,76 @@ public class NewFragment extends Fragment {
             case R.id.end:
                 //结束语
                 Intent endintent = new Intent(getActivity(), TextActivity.class);
-                endintent.putExtra("title","2");
+                endintent.putExtra("title", "2");
                 startActivity(endintent);
                 break;
             case R.id.video:
                 break;
+
+            case R.id.bt_send:
+                //发送
+                String s = etContact.getText().toString();
+                if (s != null && !"".equals(s)) {
+                    SendPopupWindow relifePopupWindow = new SendPopupWindow(getActivity(), buffer.toString(),list,exituser);
+                    relifePopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                } else {
+                    Utils.ToastShort(getContext(), "还没有选择发送人");
+                }
+                break;
+            case R.id.ll_select:
+                Intent intent = new Intent(getActivity(), ContastsActivity.class);
+                intent.putExtra("type", "0");
+                startActivity(intent);
+                break;
         }
     }
+
+
+    /**
+     * 广播接收
+     */
+    private void broadcastReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (Constants.homeconstacts.equals(intent.getAction())) {
+                    list = new ArrayList<>();
+                    list.addAll((List<TSYSCONTANTS>) intent.getSerializableExtra("list"));
+                    exituser = (Boolean) intent.getExtras().get("id");
+                    Log.e("list", "list--" + list.size() + "id---" + exituser);
+                     buffer = new StringBuffer();
+                    if (exituser) {
+                        String username = SharedPreferencesUtil.getString(getActivity(), "lovename", "");
+                        buffer.append(username + ",");
+                    }
+
+                    for (int i = 0; i < list.size(); i++) {
+                        buffer.append(list.get(i).getT_sys_contacts_name() + ",");
+                    }
+
+                    buffer.deleteCharAt(buffer.length() - 1);
+                    etContact.setText(buffer.toString());
+                    iscannext = true;
+                    etContact.setTextColor(Color.parseColor("#ffffff"));
+                }
+
+            }
+        };
+    }
+
 
     private void startactivity(Class c) {
         Intent intent = new Intent(getActivity(), c);
         startActivity(intent);
 
+    }
+
+    /**
+     * 注册广播
+     */
+    private void registeBoardCast() {
+        dynamic_filter = new IntentFilter();
+        dynamic_filter.addAction(Constants.homeconstacts);
+        getActivity().registerReceiver(broadcastReceiver, dynamic_filter);
     }
 }

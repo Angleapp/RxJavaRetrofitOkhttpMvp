@@ -89,6 +89,7 @@ public class RecordingService extends Service {
             mFilePath = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
 //          mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
             mFilePath = mFilePath + "/" + mFileName;
+            Log.e("mFilePath","mFilePath--->"+mFilePath);
             f = new File(mFilePath);
 
             Intent intent = new Intent();

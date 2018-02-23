@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,6 +59,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     private View view;
     private boolean ischeckdlover = false;
     private TimerContactAdapter adapter;
+    private String type;//0 首页面  1 定时页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
         view = getLayoutInflater().inflate(R.layout.activity_contasts, null);
         setContentView(view);
         ButterKnife.bind(this);
+        type = getIntent().getExtras().getString("type");
         ischeked();
         initdata();
         setadapter();
@@ -140,7 +141,13 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                 List<TSYSCONTANTS> list = adapter.getcheckedlist();
                 if (list.size() > 0 || ischeckdlover) {
                     Intent intent = new Intent();
-                    intent.setAction(Constants.timeconstacts);
+                    String action;
+                    if ("0".equals(type)) {
+                        action = Constants.homeconstacts;
+                    } else {
+                        action = Constants.timeconstacts;
+                    }
+                    intent.setAction(action);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("list", (Serializable) list);
                     intent.putExtras(bundle);

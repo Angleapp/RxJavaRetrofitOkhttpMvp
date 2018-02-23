@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_select"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginRight="16dp"
@@ -40,11 +41,14 @@
                 android:text="Monica" />
 
             <EditText
+                android:id="@+id/et_contact"
                 style="@style/textStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:hint="点击选择接收人"
+                android:textColorHint="@color/white_9"
                 android:inputType="number" />
         </LinearLayout>
 
