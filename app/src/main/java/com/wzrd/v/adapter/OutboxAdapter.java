@@ -3,6 +3,7 @@ package com.wzrd.v.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,11 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
         holder.getBinding().getRoot().findViewById(R.id.btn_deloutbox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("data","data---"+data.size()+"---position--"+position);
                 data.remove(data.get(position));
                 notifyItemRemoved(position);
+                notifyItemRangeRemoved(position,data.size());
+
             }
         });
     }
