@@ -71,6 +71,7 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
                 SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
                 if (null != viewCache) {
                     viewCache.smoothClose();
+
                 }
                 if (isDeleteAble) {
                     isDeleteAble = false;//初始值为true,当点击删除按钮以后，休息0.3秒钟再让他为
