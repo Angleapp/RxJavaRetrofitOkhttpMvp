@@ -16,8 +16,8 @@ import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.view.GlideCircleTransform;
+import com.wzrd.v.view.SwipeMenuLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +28,7 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
     private Context mContext;
     private List<TSYSCONTANTS> tsyscontantsList;
     private AdapterClickPosition.position adapterClickPosition;
+    private boolean isDeleteAble = true;
 
     public ReclycleContactAdapter(Context mContext, List<TSYSCONTANTS> tsyscontantsList, AdapterClickPosition.position adapterClickPosition) {
         this.mContext = mContext;
@@ -67,17 +68,32 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
         holder.btn_delcontact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Utils.ToastShort(mContext, "删除");
-                ContactsManager manager = new ContactsManager(mContext);
-                manager.deleteUser(modlie);
-                notifyDataSetChanged();
-                List<TSYSCONTANTS> list = new ArrayList<>();
-                tsyscontantsList.remove(modlie);
-                list.addAll(tsyscontantsList);
-                tsyscontantsList.clear();
-                tsyscontantsList.addAll(list);
-                notifyDataSetChanged();
+                SwipeMenuLayout viewCache = SwipeMenuLayout.getViewCache();
+                if (null != viewCache) {
+                    viewCache.smoothClose();
+                }
+                if (isDeleteAble) {
+                    isDeleteAble = false;//初始值为true,当点击删除按钮以后，休息0.3秒钟再让他为
+                    ContactsManager manager = new ContactsManager(mContext);
+                    manager.deleteUser(modlie);
+                    //true,起到让数据源刷新完成的作用
+                    tsyscontantsList.remove(position);//删除数据源
+                    notifyItemRemoved(position);//刷新被删除的地方
+                    notifyItemRangeChanged(position, getItemCount()); //刷新被删除数据，以及其后面的数据
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(300);
+                                isDeleteAble = true;//可点击按钮
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
+                        }
+                    }).start();
+
+                }
             }
         });
 

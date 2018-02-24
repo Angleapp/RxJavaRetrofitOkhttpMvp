@@ -28,4 +28,6 @@ public class Constants {
     public static final String homeconstacts="homeconstacts";
     public static final String timeconstactsexit="timerconstacts";
     public static final String vidicerecond="vidicerecond";
+
+    public static boolean isSwipeEnable=true;
 }

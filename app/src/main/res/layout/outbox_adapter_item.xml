@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.wzrd.v.view.SwipeMenuLayout
+        <com.wzrd.v.view.SwipeMenuLayoutInoux
             android:id="@+id/sm_outbox"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -90,6 +90,6 @@
                 android:textColor="@android:color/white"
                 android:visibility="@{message.isDelVisibility(message.motifitytime,message.isCancle)==true ? View.VISIBLE : View.GONE}" />
 
-        </com.wzrd.v.view.SwipeMenuLayout>
+        </com.wzrd.v.view.SwipeMenuLayoutInoux>
     </android.support.constraint.ConstraintLayout>
 </layout>
