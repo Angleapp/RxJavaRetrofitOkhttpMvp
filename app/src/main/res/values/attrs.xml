@@ -136,4 +136,9 @@
         <attr name="start_angle" format="float"></attr>
         <attr name="sweep_angle" format="float"></attr>
     </declare-styleable>
+
+    <declare-styleable name="CircleLayout">
+        <attr name="radium" format="dimension"/>
+        <attr name="changeCorner" format="float"/>
+    </declare-styleable>
 </resources>

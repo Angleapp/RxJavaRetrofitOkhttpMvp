@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pic_new_background_select"
+    android:background="@mipmap/pic_new_background"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -37,8 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:visibility="gone"
-                android:text="Monica" />
+                android:text="Monica"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/et_contact"
@@ -48,8 +49,8 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="点击选择接收人"
-                android:textColorHint="@color/white_9"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColorHint="@color/white_9" />
         </LinearLayout>
 
         <ImageView
@@ -57,48 +58,44 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginLeft="16dp"
-            android:scaleType="fitXY"
-           />
+            android:scaleType="fitXY" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
-        <LinearLayout
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/pig_height"
-                android:layout_height="@dimen/pig_height"
-                android:scaleType="fitXY"
-                android:src="@mipmap/icon_new_message" />
-
-            <TextView
-                style="@style/subTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/blue_circle_dot"
-                android:drawablePadding="4dp"
-                android:text="消息" />
-        </LinearLayout>
-
-        <RelativeLayout
+        <com.wzrd.v.view.CircleLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/message"
-            android:layout_marginTop="-50dp"
-            android:gravity="center_horizontal"
-            android:paddingLeft="52dp"
-            android:paddingRight="52dp">
+            android:layout_marginTop="50dp"
+            android:background="@android:color/transparent">
+
+            <LinearLayout
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_new_message" />
+
+                <TextView
+                    style="@style/subTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableLeft="@drawable/blue_circle_dot"
+                    android:drawablePadding="4dp"
+                    android:text="消息" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/video"
@@ -119,39 +116,9 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
                     android:drawablePadding="4dp"
+                    android:layout_gravity="center"
                     android:text="短视频" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gift"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/pig_height"
-                    android:layout_height="@dimen/pig_height"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_gift" />
-
-                <TextView
-                    style="@style/subTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/blue_circle_dot"
-                    android:drawablePadding="4dp"
-                    android:text="虚拟礼物" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp">
-
             <LinearLayout
                 android:id="@+id/end"
                 android:layout_width="wrap_content"
@@ -170,46 +137,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/blue_circle_dot"
+                    android:layout_gravity="center"
                     android:drawablePadding="4dp"
                     android:text="结束语" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/poem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/pig_height"
-                    android:layout_height="@dimen/pig_height"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_poem" />
-
-                <TextView
-                    style="@style/subTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/blue_circle_dot"
-                    android:drawablePadding="4dp"
-                    android:text="诗歌" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="21dp"
-            android:paddingRight="21dp">
-
             <LinearLayout
                 android:id="@+id/offline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+
                 android:orientation="vertical">
 
                 <ImageView
@@ -226,38 +162,6 @@
                     android:drawablePadding="4dp"
                     android:text="线下" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/shy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/pig_height"
-                    android:layout_height="@dimen/pig_height"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/icon_new_shy" />
-
-                <TextView
-                    style="@style/subTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/blue_circle_dot"
-                    android:drawablePadding="4dp"
-                    android:text="口难开" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
-            android:paddingLeft="106dp"
-            android:paddingRight="106dp">
-
             <LinearLayout
                 android:id="@+id/wisdom"
                 android:layout_width="wrap_content"
@@ -279,13 +183,11 @@
                     android:drawablePadding="4dp"
                     android:text="智慧之语" />
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/selfie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:gravity="center"
+
                 android:orientation="vertical">
 
                 <ImageView
@@ -302,8 +204,86 @@
                     android:drawablePadding="4dp"
                     android:text="自拍" />
             </LinearLayout>
-        </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/shy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_new_shy" />
+
+                <TextView
+                    style="@style/subTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/blue_circle_dot"
+                    android:drawablePadding="4dp"
+                    android:text="口难开" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/poem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_new_poem" />
+
+                <TextView
+                    style="@style/subTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/blue_circle_dot"
+                    android:drawablePadding="4dp"
+                    android:text="诗歌" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/gift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/pig_height"
+                    android:layout_height="@dimen/pig_height"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_new_gift" />
+
+                <TextView
+                    style="@style/subTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/blue_circle_dot"
+                    android:drawablePadding="4dp"
+                    android:text="虚拟礼物" />
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </com.wzrd.v.view.CircleLayout>
     </LinearLayout>
 
     <Button
