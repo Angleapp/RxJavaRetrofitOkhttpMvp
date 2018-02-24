@@ -22,9 +22,7 @@ import java.util.List;
 
 public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
     private List<ContactMessage> data;
-
     private Context context;
-    public static final int NOTIFY_TV = 10086;
     private boolean isDeleteAble = true;
 
     public OutboxAdapter(Context context, List<ContactMessage> list) {
@@ -34,10 +32,7 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
 
     @Override
     public BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         OutboxAdapterItemBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.outbox_adapter_item, parent, false);
-
-
         return new BindingHolder(dataBinding);
     }
 

@@ -90,7 +90,6 @@ public class NewFragment extends Fragment {
         // 注册广播
         registeBoardCast();
         gif();
-
         return view;
     }
 
