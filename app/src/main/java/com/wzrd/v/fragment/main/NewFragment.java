@@ -25,10 +25,10 @@ import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.contacts.ContastsActivity;
+import com.wzrd.v.activity.home.poem.PoemActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
-import com.wzrd.v.activity.home.poem.PoemActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 import com.wzrd.v.activity.message.TextActivity;
 import com.wzrd.v.view.popup.SendPopupWindow;
@@ -67,7 +67,19 @@ public class NewFragment extends Fragment {
     LinearLayout mEnd;
     @BindView(R.id.video)
     LinearLayout mVideo;
+    @BindView(R.id.ll_select)
+    LinearLayout llSelect;
+    @BindView(R.id.bt_send)
+    Button btSend;
+    @BindView(R.id.et_contact)
+    EditText etContact;
     private View view;
+    private BroadcastReceiver broadcastReceiver;
+    private IntentFilter dynamic_filter;
+    private boolean iscannext;
+    private List<TSYSCONTANTS> list;
+    private Boolean exituser;
+    private StringBuffer buffer;
 
     @Nullable
     @Override
@@ -95,7 +107,7 @@ public class NewFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video})
+    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video, R.id.bt_send, R.id.ll_select})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sendMessage:
@@ -108,6 +120,8 @@ public class NewFragment extends Fragment {
                 startactivity(VirtualGifActivity.class);
                 break;
             case R.id.poem:
+                Intent poemIntent = new Intent(getActivity(), PoemActivity.class);
+                startActivity(poemIntent);
                 break;
             case R.id.shy:
                 //口难开
