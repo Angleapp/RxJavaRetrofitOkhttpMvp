@@ -1,7 +1,13 @@
 package com.wzrd.m.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.wzrd.p.impl.AbsToolBarMenuPresenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +21,38 @@ import java.util.regex.Pattern;
  */
 
 public class Utils {
+    /**
+     * 设置页面返回
+     *
+     * @param activity
+     * @param backImageView
+     * @param title
+     * @param titleContent
+     * @param menuImageView
+     * @param resId
+     */
+    public static void backToolbar(final Activity activity, ImageView backImageView, TextView title, String titleContent, ImageView menuImageView, int resId, final AbsToolBarMenuPresenter callBack,TextView toolbarMenuText,String menuContent) {
+        backImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.finish();
+            }
+        });
+        title.setText(titleContent);
+        if (resId != 0) {
+            menuImageView.setImageResource(resId);
+        }
+        if (callBack != null) {
+            menuImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callBack.setToolBarMenu();
+                }
+            });
+        }
+        toolbarMenuText.setText(menuContent);
+    }
+
     //使用正则表达式判断电话号码
     public static boolean isMobileNO(String tel) {
         Pattern p = Pattern.compile("^(13[0-9]|15([0-3]|[5-9])|14[5,7,9]|17[1,3,5,6,7,8]|18[0-9])\\d{8}$");
@@ -24,31 +62,35 @@ public class Utils {
 
     /**
      * toast long
+     *
      * @param context
      * @param message
      */
 
-    public static void ToastLong(Context context,String message){
-        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+    public static void ToastLong(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
+
     /**
      * toast short
+     *
      * @param context
      * @param message
      */
 
-    public static void ToastShort(Context context,String message){
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    public static void ToastShort(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 
-    public static String getuuid(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static String getuuid() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
 
     /**
      * 比较两个时间的先后顺序
+     *
      * @param locatime
      * @param servertime
      * @return
@@ -76,12 +118,13 @@ public class Utils {
 
     /**
      * 以原点为圆点，以radius维半径画圆，通过弧度o,获得坐标
+     *
      * @param radius 半径
-     * @param o 弧度
+     * @param o      弧度
      * @return
      */
-    public static float[] getXYPoint(float[] centrePoint, int radius, float o){
-        float[] xyPoint = {(float) (radius*Math.sin(o) + centrePoint[0]), (float) ((-1)*radius*Math.cos(o) + centrePoint[1])};
+    public static float[] getXYPoint(float[] centrePoint, int radius, float o) {
+        float[] xyPoint = {(float) (radius * Math.sin(o) + centrePoint[0]), (float) ((-1) * radius * Math.cos(o) + centrePoint[1])};
         return xyPoint;
     }
 }

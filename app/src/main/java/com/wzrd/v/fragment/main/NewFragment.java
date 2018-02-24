@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wzrd.R;
+import com.wzrd.v.activity.home.poem.PoemActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 
 import butterknife.BindView;
@@ -72,6 +73,8 @@ public class NewFragment extends Fragment {
             case R.id.gift:
                 break;
             case R.id.poem:
+                Intent poemIntent = new Intent(getActivity(), PoemActivity.class);
+                startActivity(poemIntent);
                 break;
             case R.id.shy:
                 break;
