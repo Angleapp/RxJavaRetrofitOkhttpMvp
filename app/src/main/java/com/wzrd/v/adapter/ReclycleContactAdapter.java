@@ -52,6 +52,7 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
             public void onClick(View view) {
 //                Utils.ToastShort(mContext,"posiotion--"+position);
                 adapterClickPosition.adapterposition(position);
+
             }
         });
 
