@@ -16,12 +16,15 @@ import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.been.TSYSUSER;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
+import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.adapter.TimerContactAdapter;
 import com.wzrd.v.view.GlideCircleTransform;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +58,8 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     private List<TSYSUSER> userName;
     private View view;
     private boolean ischeckdlover = false;
+    private TimerContactAdapter adapter;
+    private String type;//0 首页面  1 定时页面
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
         view = getLayoutInflater().inflate(R.layout.activity_contasts, null);
         setContentView(view);
         ButterKnife.bind(this);
+        type = getIntent().getExtras().getString("type");
         ischeked();
         initdata();
         setadapter();
@@ -72,7 +78,7 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
      */
     private void setadapter() {
 
-        TimerContactAdapter adapter = new TimerContactAdapter(this, tsyscontantsList, this);
+        adapter = new TimerContactAdapter(this, tsyscontantsList, this);
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 ContastsActivity.this, LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(ContastsActivity.this);
@@ -132,6 +138,26 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                 finish();
                 break;
             case R.id.tv_sure:
+                List<TSYSCONTANTS> list = adapter.getcheckedlist();
+                if (list.size() > 0 || ischeckdlover) {
+                    Intent intent = new Intent();
+                    String action;
+                    if ("0".equals(type)) {
+                        action = Constants.homeconstacts;
+                    } else {
+                        action = Constants.timeconstacts;
+                    }
+                    intent.setAction(action);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("list", (Serializable) list);
+                    intent.putExtras(bundle);
+                    intent.putExtra("id", ischeckdlover);
+                    sendBroadcast(intent);
+                    finish();
+                } else {
+                    Utils.ToastShort(this, "请至少选择一个爱人、家人、朋友");
+                }
+
                 break;
 
         }

@@ -157,6 +157,8 @@ public class PhotoljActivity extends AppCompatActivity implements View.OnClickLi
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }else{
+            finish();
         }
     }
 

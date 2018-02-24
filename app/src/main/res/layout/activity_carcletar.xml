@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:openxu="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_blured"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#1A2027"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:src="@mipmap/icon_titlebar_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="定时发送"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="发送"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#000">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="时间"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <com.wzrd.v.view.calentar.CustomCalendar
+            android:id="@+id/cal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            openxu:mCurrentBg="#fff"
+            openxu:mCurrentBgDashPath="@array/customCalendar_currentDay_bg_DashPath"
+            openxu:mCurrentBgStrokeWidth="1dip"
+            openxu:mLineSpac="8dip"
+            openxu:mMonthRowL="@mipmap/icon_month_last"
+            openxu:mMonthRowR="@mipmap/icon_month_next"
+            openxu:mMonthRowSpac="40dip"
+            openxu:mMonthSpac="10dip"
+            openxu:mSelectBg="#007AFF"
+            openxu:mSelectRadius="15dip"
+            openxu:mTextSizeDay="18sp"
+            openxu:mTextSizeMonth="18dp"
+            openxu:mTextSizeWeek="15sp"
+            openxu:mTextSpac="0dip" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                >
+
+                <com.wzrd.v.view.pick.PickerView
+                    android:id="@+id/hour_pv"
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/hour_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=":"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <com.wzrd.v.view.pick.PickerMinView
+                    android:id="@+id/minute_pv"
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

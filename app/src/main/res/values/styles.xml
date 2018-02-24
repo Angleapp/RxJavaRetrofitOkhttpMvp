@@ -38,7 +38,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
-    
+
     <!--手机号验证码样式-->
     <style name="welcomeText">
         <item name="android:layout_width">match_parent</item>
@@ -66,6 +66,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">17sp</item>
     </style>
+
     <style name="AnimBottom">
         <item name="android:activityOpenEnterAnimation">@anim/popup_enter_anim</item>
         <item name="android:activityCloseExitAnimation">@anim/popup_exit_anim</item>
@@ -94,7 +95,7 @@
 
     <!--我的页面TextView属性-->
     <style name="mine_text">
-        <item name="android:gravity" >center</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">18sp</item>
         <item name="android:background">#04040F</item>
@@ -102,14 +103,94 @@
         <item name="android:layout_marginLeft">10dp</item>
 
     </style>
+    <!--选择联系热-->
+
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_selector</item>
+        <item name="android:clickable">true</item>
+
+    </style>
+    <!--时间弹框-->
+    <style name="time_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+    
+    <!--消息-->
+    
+    <style name="message">
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_height">120dp</item>
+
+    </style>
 
 
-        <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
-            <item name="android:button">@drawable/checkbox_selector</item>
-            <item name="android:clickable">true</item>
+    <!--录音界面-->
+    <style name="image1">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+    </style>
 
-        </style>
 
+    <!--录音界面-->
+    <style name="image2">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">-25</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+    </style>
+
+
+    <style name="image3">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">-30</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+
+    </style>
+
+
+    <style name="image4">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">10</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+
+    </style>
+
+    <style name="image5">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+
+    <style name="image6">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:rotation">20</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+    </style>
+
+
+
+<!--发送popwidow-->
+
+    <style name="send_pop">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 
 
 

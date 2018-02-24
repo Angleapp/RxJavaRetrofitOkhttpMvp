@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/pic_new_background"
+    android:background="@drawable/pic_new_background_select"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll_select"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginRight="16dp"
@@ -36,14 +37,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
+                android:visibility="gone"
                 android:text="Monica" />
 
             <EditText
+                android:id="@+id/et_contact"
                 style="@style/textStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:hint="点击选择接收人"
+                android:textColorHint="@color/white_9"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -53,7 +58,7 @@
             android:layout_height="36dp"
             android:layout_marginLeft="16dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/icon_new_send" />
+           />
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="65.5dp"
+            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <ImageView
@@ -249,7 +254,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-10dp"
             android:paddingLeft="106dp"
             android:paddingRight="106dp">
 

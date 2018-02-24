@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/record_audio_cv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:transitionName="open_mediaplayer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_blured"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#1A2027"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/record_audio_iv_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/icon_titlebar_back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="语音"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/pic_heart_1"
+                style="@style/image1"
+                />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/pic_heart_4"
+                style="@style/image2"
+                />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/pic_heart_2"
+                style="@style/image3"
+                />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/pic_heart_3"
+                style="@style/image4"
+                />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/pic_heart_5"
+                style="@style/image5"
+                />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/pic_heart_6"
+                style="@style/image6"
+                />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/ll_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Chronometer
+                android:id="@+id/record_audio_chronometer_time"
+                android:layout_width="240dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/record_audio_fab_record"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/icon_poen_rec_stop" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_last"
+            android:layout_width="240dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@+id/record_audio_chronometer_time"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+
+            android:id="@+id/ll_wc"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:layout_marginBottom="30dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_cancle"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_poem_rec_back"
+                />
+            <ImageView
+                android:id="@+id/iv_save"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_done"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

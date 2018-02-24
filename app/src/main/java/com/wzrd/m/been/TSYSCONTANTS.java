@@ -4,11 +4,13 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
+import java.io.Serializable;
+
 /**
  * Created by lk on 2018/1/4.
  */
 @Entity
-public class TSYSCONTANTS {
+public class TSYSCONTANTS implements Serializable {
     @Id
     private String t_sys_id;//主键id
     private String t_sys_userid;//用户的id
@@ -19,9 +21,11 @@ public class TSYSCONTANTS {
     private String t_sys_contactsconpath;//联系人头像地址
     private String t_sys_modify_time;//最后修改时间
     private String t_sys_modify_id;//最后用户id
+    private boolean ischecked;
 
-    @Generated(hash = 10711293)
-    public TSYSCONTANTS(String t_sys_id, String t_sys_userid, String t_sys_contacts_name, String t_sys_contacts_id, String t_sys_userphone, String t_sys_usericonpath, String t_sys_contactsconpath, String t_sys_modify_time, String t_sys_modify_id) {
+    @Generated(hash = 1651964709)
+    public TSYSCONTANTS(String t_sys_id, String t_sys_userid, String t_sys_contacts_name, String t_sys_contacts_id, String t_sys_userphone, String t_sys_usericonpath, String t_sys_contactsconpath, String t_sys_modify_time, String t_sys_modify_id,
+            boolean ischecked) {
         this.t_sys_id = t_sys_id;
         this.t_sys_userid = t_sys_userid;
         this.t_sys_contacts_name = t_sys_contacts_name;
@@ -31,10 +35,20 @@ public class TSYSCONTANTS {
         this.t_sys_contactsconpath = t_sys_contactsconpath;
         this.t_sys_modify_time = t_sys_modify_time;
         this.t_sys_modify_id = t_sys_modify_id;
+        this.ischecked = ischecked;
     }
     @Generated(hash = 674189073)
     public TSYSCONTANTS() {
     }
+
+    public boolean isIschecked() {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked) {
+        this.ischecked = ischecked;
+    }
+
     public String getT_sys_id() {
         return t_sys_id;
     }
@@ -105,5 +119,8 @@ public class TSYSCONTANTS {
 
     public void setT_sys_modify_id(String t_sys_modify_id) {
         this.t_sys_modify_id = t_sys_modify_id;
+    }
+    public boolean getIschecked() {
+        return this.ischecked;
     }
 }

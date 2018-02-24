@@ -4,12 +4,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -69,11 +69,13 @@ public class RecordAudioDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_record_audio, null);
+//        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_record_audio, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_record_audio_new, null);
         initView(view);
 
-        mFabRecord.setColorNormal(getResources().getColor(R.color.colorPrimary));
-        mFabRecord.setColorPressed(getResources().getColor(R.color.colorPrimaryDark));
+
+//        mFabRecord.setColorNormal(getResources().getColor(R.color.colorPrimary));
+//        mFabRecord.setColorPressed(getResources().getColor(R.color.colorPrimaryDark));
 
         mFabRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +100,7 @@ public class RecordAudioDialogFragment extends DialogFragment {
         });
 
         builder.setCancelable(false);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         builder.setView(view);
         return builder.create();
     }
@@ -114,7 +117,7 @@ public class RecordAudioDialogFragment extends DialogFragment {
 
         if (start) {
             // start recording
-            mFabRecord.setImageResource(R.drawable.ic_media_stop);
+            mFabRecord.setImageResource(R.mipmap.icon_poen_rec_stop);
             //mPauseButton.setVisibility(View.VISIBLE);
             Toast.makeText(getActivity(), "开始录音...", Toast.LENGTH_SHORT).show();
             String videosDir = SDCardUtils.getSDBasePath() + Constants.VIDEOS_PATH;
@@ -123,26 +126,22 @@ public class RecordAudioDialogFragment extends DialogFragment {
                 folder.mkdir();
             }
 
-            //start Chronometer
-            mChronometerTime.setBase(SystemClock.elapsedRealtime());
-            mChronometerTime.start();
 
-            //start RecordingService
-            getActivity().startService(intent);
+
             //keep screen on while recording
 //            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
         } else {
             //stop recording
-            mFabRecord.setImageResource(R.drawable.ic_mic_white_36dp);
+            mFabRecord.setImageResource(R.mipmap.icon_poen_rec_stop);
             //mPauseButton.setVisibility(View.GONE);
             mChronometerTime.stop();
             timeWhenPaused = 0;
             Toast.makeText(getActivity(), "录音结束...", Toast.LENGTH_SHORT).show();
             getActivity().stopService(intent);
             //allow the screen to turn off again once recording is finished
-            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            getActivity().getWindow().clearFlags(WindowManager.LayoutParams.MATCH_PARENT);
         }
     }
 

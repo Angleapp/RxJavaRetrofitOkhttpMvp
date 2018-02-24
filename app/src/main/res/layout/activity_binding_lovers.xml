@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:inputType="number"
-                    android:text="@{itembeen.lovephone}"
+                    android:text="@={itembeen.lovephone}"
                     android:textCursorDrawable="@null"/>
             </LinearLayout>
 

@@ -15,7 +15,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
-import com.wzrd.v.fragment.videoframdialog.RecordAudioDialogFragment;
 import com.wzrd.v.view.popup.PhotoPopupWindow;
 
 import butterknife.BindView;
@@ -49,6 +48,7 @@ public class MessagesActivity extends AppCompatActivity {
         view = getLayoutInflater().inflate(R.layout.activity_messages, null);
         setContentView(view);
         ButterKnife.bind(this);
+//        strartcamera();
     }
 
     @OnClick({R.id.iv_message_back, R.id.ll_text, R.id.ll_voice, R.id.ll_camera, R.id.ll_phone_album})
@@ -58,18 +58,23 @@ public class MessagesActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.ll_text:
-                startactivity(TextActivity.class);
+//                startactivity(TextActivity.class);
+                Intent endintent = new Intent(this, TextActivity.class);
+                endintent.putExtra("title","0");
+                startActivity(endintent);
                 break;
             case R.id.ll_voice:
-                final RecordAudioDialogFragment fragment = RecordAudioDialogFragment.newInstance();
-                fragment.show(getSupportFragmentManager(), RecordAudioDialogFragment.class.getSimpleName());
-                fragment.setCancelable(false);
-                fragment.setOnCancelListener(new RecordAudioDialogFragment.OnAudioCancelListener() {
-                    @Override
-                    public void onCancel() {
-                        fragment.dismiss();
-                    }
-                });
+                startactivity(MoviceActivity.class);
+
+//                final RecordAudioDialogFragment fragment = RecordAudioDialogFragment.newInstance();
+//                fragment.show(getSupportFragmentManager(), RecordAudioDialogFragment.class.getSimpleName());
+//                fragment.setCancelable(false);
+//                fragment.setOnCancelListener(new RecordAudioDialogFragment.OnAudioCancelListener() {
+//                    @Override
+//                    public void onCancel() {
+//                        fragment.dismiss();
+//                    }
+//                });
                 break;
             case R.id.ll_camera:
                 break;
