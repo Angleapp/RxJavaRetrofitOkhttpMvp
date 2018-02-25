@@ -267,9 +267,6 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
     @Override
     public boolean onLongClick(View view) {
         switch (view.getId()) {
-
-            case R.id.message://消息
-                break;
             case R.id.video://短视频
                 showpop(1, "预览短视频", "清空短视频");
                 break;
@@ -294,8 +291,6 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
             case R.id.gift://虚拟礼物
                 showpop(8, "预览虚拟礼物", "清空虚拟礼物");
                 break;
-
-
         }
         return false;
     }
