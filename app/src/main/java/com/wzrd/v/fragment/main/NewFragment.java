@@ -286,7 +286,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
                 showpop(6, "预览口难开", "清空口难开");
                 break;
             case R.id.poem://诗歌
-                showpop(6, "预览诗歌", "清空诗歌");
+                showpop(7, "预览诗歌", "清空诗歌");
                 break;
             case R.id.gift://虚拟礼物
                 showpop(8, "预览虚拟礼物", "清空虚拟礼物");
