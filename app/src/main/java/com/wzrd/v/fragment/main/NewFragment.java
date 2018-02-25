@@ -143,7 +143,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
             case R.id.gift:
                 startactivity(VirtualGifActivity.class);
                 break;
-            case R.id.poem:
+            case R.id.poem://诗歌
                 Intent poemIntent = new Intent(getActivity(), PoemActivity.class);
                 startActivity(poemIntent);
                 break;
@@ -250,7 +250,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         previewPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 10);
     }
 
-    ;
+
 
     //1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
     private void setonlongclick() {

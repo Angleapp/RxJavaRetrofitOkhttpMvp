@@ -16,6 +16,7 @@ import com.wzrd.R;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.view.popup.PhotoPopupWindow;
+import com.wzrd.v.view.popup.PreviewPopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-public class MessagesActivity extends AppCompatActivity {
+public class MessagesActivity extends AppCompatActivity implements View.OnLongClickListener{
 
     @BindView(R.id.iv_message_back)
     ImageView ivMessageBack;
@@ -48,7 +49,16 @@ public class MessagesActivity extends AppCompatActivity {
         view = getLayoutInflater().inflate(R.layout.activity_messages, null);
         setContentView(view);
         ButterKnife.bind(this);
-//        strartcamera();
+
+        startonlongclick();
+;
+    }
+
+    private void startonlongclick() {
+        llText.setOnLongClickListener(this);
+        llVoice.setOnLongClickListener(this);
+        llCamera.setOnLongClickListener(this);
+        llPhoneAlbum.setOnLongClickListener(this);
     }
 
     @OnClick({R.id.iv_message_back, R.id.ll_text, R.id.ll_voice, R.id.ll_camera, R.id.ll_phone_album})
@@ -65,16 +75,6 @@ public class MessagesActivity extends AppCompatActivity {
                 break;
             case R.id.ll_voice:
                 startactivity(MoviceActivity.class);
-
-//                final RecordAudioDialogFragment fragment = RecordAudioDialogFragment.newInstance();
-//                fragment.show(getSupportFragmentManager(), RecordAudioDialogFragment.class.getSimpleName());
-//                fragment.setCancelable(false);
-//                fragment.setOnCancelListener(new RecordAudioDialogFragment.OnAudioCancelListener() {
-//                    @Override
-//                    public void onCancel() {
-//                        fragment.dismiss();
-//                    }
-//                });
                 break;
             case R.id.ll_camera:
                 break;
@@ -157,4 +157,27 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
 
+    //1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
+    @Override
+    public boolean onLongClick(View view) {
+        switch (view.getId()){
+            case R.id.ll_text:
+                showpop(9,"预览文字","删除文字");
+                break;
+            case R.id.ll_voice:
+                showpop(10,"预览语音","删除语音");
+                break;
+            case R.id.ll_camera:
+                showpop(11,"预览相册","删除相册");
+                break;
+            case R.id.ll_phone_album:
+                showpop(12,"预览相机","删除相机");
+                break;
+        }
+        return false;
+    }
+    private void showpop(int type, String previewmessage, String delmessage) {
+        PreviewPopupWindow previewPopupWindow = new PreviewPopupWindow(this, type, previewmessage, delmessage);
+        previewPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 10);
+    }
 }
