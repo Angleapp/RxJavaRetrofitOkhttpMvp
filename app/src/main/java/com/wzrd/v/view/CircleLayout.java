@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.wzrd.R;
 
@@ -32,7 +33,10 @@ public class CircleLayout extends ViewGroup {
 //        radius = a.getDimension(R.styleable.CircleLayout_radius, 20);
 //        //偏移角度
 //        offset = a.getInteger(R.styleable.CircleLayout_offset, 0);
-        radius=400;
+        WindowManager wm = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+        radius=2*width/5;
         offset=0;
         System.out.println("radius:"+radius);
         // TODO Auto-generated constructor stub

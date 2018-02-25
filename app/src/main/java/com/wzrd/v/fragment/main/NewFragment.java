@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 import com.wzrd.v.activity.message.TextActivity;
+import com.wzrd.v.view.CircleLayout;
 import com.wzrd.v.view.popup.SendPopupWindow;
 
 import java.util.ArrayList;
@@ -73,6 +75,8 @@ public class NewFragment extends Fragment {
     Button btSend;
     @BindView(R.id.et_contact)
     EditText etContact;
+    @BindView(R.id.circle)
+    CircleLayout circle;
     private View view;
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
@@ -90,9 +94,26 @@ public class NewFragment extends Fragment {
         broadcastReceiver();
         // 注册广播
         registeBoardCast();
+        setmargin();
+
         gif();
         return view;
     }
+
+    private void setmargin() {
+        WindowManager wm = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+        int allheight = wm.getDefaultDisplay().getHeight();
+        int height = llSelect.getHeight() + btSend.getHeight();
+        int mag = allheight - height - 2 * width;
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0,mag/2,0,3*mag/4);//4个参数按顺序分别是左上右下
+        circle.setLayoutParams(layoutParams);
+        Log.e("mag", "'mag----" + mag);
+    }
+
 
     /**
      * 加载本地gif图片
@@ -151,7 +172,7 @@ public class NewFragment extends Fragment {
                 //发送
                 String s = etContact.getText().toString();
                 if (s != null && !"".equals(s)) {
-                    SendPopupWindow relifePopupWindow = new SendPopupWindow(getActivity(), buffer.toString(),list,exituser);
+                    SendPopupWindow relifePopupWindow = new SendPopupWindow(getActivity(), buffer.toString(), list, exituser);
                     relifePopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                 } else {
                     Utils.ToastShort(getContext(), "还没有选择发送人");
@@ -178,7 +199,7 @@ public class NewFragment extends Fragment {
                     list.addAll((List<TSYSCONTANTS>) intent.getSerializableExtra("list"));
                     exituser = (Boolean) intent.getExtras().get("id");
                     Log.e("list", "list--" + list.size() + "id---" + exituser);
-                     buffer = new StringBuffer();
+                    buffer = new StringBuffer();
                     if (exituser) {
                         String username = SharedPreferencesUtil.getString(getActivity(), "lovename", "");
                         buffer.append(username + ",");

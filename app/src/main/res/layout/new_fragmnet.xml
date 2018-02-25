@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/pic_new_background"
-
     android:orientation="vertical">
 
     <LinearLayout
@@ -68,11 +67,10 @@
 
 
         <com.wzrd.v.view.CircleLayout
+            android:id="@+id/circle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:background="@android:color/transparent">
-
             <LinearLayout
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
@@ -266,23 +264,6 @@
                     android:drawablePadding="4dp"
                     android:text="虚拟礼物" />
             </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </com.wzrd.v.view.CircleLayout>
     </LinearLayout>
 
