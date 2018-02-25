@@ -186,7 +186,7 @@
 <!--发送popwidow-->
 
     <style name="send_pop">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/blue_0</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:gravity">center</item>

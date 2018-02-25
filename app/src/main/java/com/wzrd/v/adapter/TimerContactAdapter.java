@@ -2,10 +2,10 @@ package com.wzrd.v.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
 import com.wzrd.m.been.TSYSCONTANTS;
-import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.view.GlideCircleTransform;
 
@@ -65,7 +64,6 @@ public class TimerContactAdapter extends RecyclerView.Adapter<TimerContactAdapte
         });
 
 
-
         holder.tv_contact_name.setText(modlie.getT_sys_contacts_name());
 
         Glide.with(view.getContext())
@@ -76,11 +74,15 @@ public class TimerContactAdapter extends RecyclerView.Adapter<TimerContactAdapte
                 .into(holder.iv_contact_iocn);
 
 
-
     }
 
     @Override
     public int getItemCount() {
+        if (tsyscontantsList != null && tsyscontantsList.size() > 0) {
+            for (int i = 0; i < tsyscontantsList.size(); i++) {
+                tsyscontantsList.get(i).setIschecked(false);
+            }
+        }
         return tsyscontantsList == null ? 0 : tsyscontantsList.size();
     }
 
@@ -89,6 +91,7 @@ public class TimerContactAdapter extends RecyclerView.Adapter<TimerContactAdapte
         List<TSYSCONTANTS> list = new ArrayList<>();
         if (tsyscontantsList != null && tsyscontantsList.size() > 0) {
             for (int i = 0; i < tsyscontantsList.size(); i++) {
+                Log.e("checked", "checked2---" + tsyscontantsList.get(i).isIschecked());
                 if (tsyscontantsList.get(i).isIschecked()) {
                     list.add(tsyscontantsList.get(i));
                 }

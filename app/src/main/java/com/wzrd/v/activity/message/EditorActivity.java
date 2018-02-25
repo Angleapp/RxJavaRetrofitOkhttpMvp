@@ -36,7 +36,7 @@ public class EditorActivity extends AppCompatActivity {
     @BindView(R.id.tv_next)
     TextView tvNext;
     @BindView(R.id.et_people)
-    EditText etPeople;
+    TextView etPeople;
     @BindView(R.id.ll_select_contsats)
     LinearLayout llSelectContsats;
     @BindView(R.id.iv_back)

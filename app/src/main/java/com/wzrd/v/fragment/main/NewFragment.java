@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
@@ -33,6 +33,7 @@ import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
 import com.wzrd.v.activity.message.MessagesActivity;
 import com.wzrd.v.activity.message.TextActivity;
 import com.wzrd.v.view.CircleLayout;
+import com.wzrd.v.view.popup.PreviewPopupWindow;
 import com.wzrd.v.view.popup.SendPopupWindow;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ import butterknife.Unbinder;
  * Created by lk on 2018/1/3.
  */
 
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements View.OnLongClickListener {
     Unbinder unbinder;
     @BindView(R.id.sendMessage)
     ImageView mSendMessage;
@@ -74,9 +75,11 @@ public class NewFragment extends Fragment {
     @BindView(R.id.bt_send)
     Button btSend;
     @BindView(R.id.et_contact)
-    EditText etContact;
+    TextView etContact;
     @BindView(R.id.circle)
     CircleLayout circle;
+    @BindView(R.id.ll_select1)
+    LinearLayout llSelect1;
     private View view;
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
@@ -95,10 +98,12 @@ public class NewFragment extends Fragment {
         // 注册广播
         registeBoardCast();
         setmargin();
+        setonlongclick();
 
         gif();
         return view;
     }
+
 
     private void setmargin() {
         WindowManager wm = (WindowManager) getContext()
@@ -109,7 +114,7 @@ public class NewFragment extends Fragment {
         int mag = allheight - height - 2 * width;
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0,mag/2,0,3*mag/4);//4个参数按顺序分别是左上右下
+        layoutParams.setMargins(0, mag / 2, 0, 3 * mag / 4);//4个参数按顺序分别是左上右下
         circle.setLayoutParams(layoutParams);
         Log.e("mag", "'mag----" + mag);
     }
@@ -128,11 +133,9 @@ public class NewFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.sendMessage, R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video, R.id.bt_send, R.id.ll_select})
+    @OnClick({R.id.message, R.id.gift, R.id.poem, R.id.shy, R.id.selfie, R.id.wisdom, R.id.offline, R.id.end, R.id.video, R.id.bt_send, R.id.ll_select, R.id.ll_select1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.sendMessage:
-                break;
             case R.id.message:
                 Intent messageIntent = new Intent(getActivity(), MessagesActivity.class);
                 startActivity(messageIntent);
@@ -179,11 +182,18 @@ public class NewFragment extends Fragment {
                 }
                 break;
             case R.id.ll_select:
-                Intent intent = new Intent(getActivity(), ContastsActivity.class);
-                intent.putExtra("type", "0");
-                startActivity(intent);
+                start();
+                break;
+            case R.id.ll_select1:
+                start();
                 break;
         }
+    }
+
+    private void start() {
+        Intent intent1 = new Intent(getActivity(), ContastsActivity.class);
+        intent1.putExtra("type", "0");
+        startActivity(intent1);
     }
 
 
@@ -233,5 +243,60 @@ public class NewFragment extends Fragment {
         dynamic_filter = new IntentFilter();
         dynamic_filter.addAction(Constants.homeconstacts);
         getActivity().registerReceiver(broadcastReceiver, dynamic_filter);
+    }
+
+    private void showpop(int type, String previewmessage, String delmessage) {
+        PreviewPopupWindow previewPopupWindow = new PreviewPopupWindow(getActivity(), type, previewmessage, delmessage);
+        previewPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 10);
+    }
+
+    ;
+
+    //1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
+    private void setonlongclick() {
+        mVideo.setOnLongClickListener(this);
+        mEnd.setOnLongClickListener(this);
+        mOffline.setOnLongClickListener(this);
+        mWisdom.setOnLongClickListener(this);
+        mSelfie.setOnLongClickListener(this);
+        mShy.setOnLongClickListener(this);
+        mPoem.setOnLongClickListener(this);
+        mGift.setOnLongClickListener(this);
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        switch (view.getId()) {
+
+            case R.id.message://消息
+                break;
+            case R.id.video://短视频
+                showpop(1, "预览短视频", "清空短视频");
+                break;
+            case R.id.end://结束语
+                showpop(2, "预览结束语", "清空结束语");
+                break;
+            case R.id.offline://线下
+                showpop(3, "预览线下", "清空线下");
+                break;
+            case R.id.wisdom://智慧之语
+                showpop(4, "预览智慧之语", "清空智慧之语");
+                break;
+            case R.id.selfie://自拍
+                showpop(5, "预览自拍", "清空自拍");
+                break;
+            case R.id.shy://口难开
+                showpop(6, "预览口难开", "清空口难开");
+                break;
+            case R.id.poem://诗歌
+                showpop(6, "预览诗歌", "清空诗歌");
+                break;
+            case R.id.gift://虚拟礼物
+                showpop(8, "预览虚拟礼物", "清空虚拟礼物");
+                break;
+
+
+        }
+        return false;
     }
 }

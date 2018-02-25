@@ -16,13 +16,15 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <com.wzrd.v.view.SwipeMenuLayoutInoux
             android:id="@+id/sm_outbox"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:clickable="true"
             android:paddingBottom="0dp"
             app:ios="false"
