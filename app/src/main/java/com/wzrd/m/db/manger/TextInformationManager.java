@@ -68,7 +68,14 @@ public class TextInformationManager {
     public void deleteUser(TEXTIFORMATION User) {
         mUserDao.delete(User);
     }
-
+    /**
+     * 根据id删除一条数据
+     *
+     * @param id
+     */
+    public void deleteid(String id ) {
+        mUserDao.deleteByKey(id);
+    }
     /**
      * 返回多行记录
      *
@@ -83,6 +90,14 @@ public class TextInformationManager {
         QueryBuilder<TEXTIFORMATION> Users = builder.where(TEXTIFORMATIONDao.Properties.T_pm_id.in(id));
         return Users.list();
     }
+
+
+    public List<TEXTIFORMATION> getBytype(String type){
+        QueryBuilder<TEXTIFORMATION> builder = mUserDao.queryBuilder();
+        QueryBuilder<TEXTIFORMATION> Users = builder.where(TEXTIFORMATIONDao.Properties.T_pm_type.eq(type)).orderDesc(TEXTIFORMATIONDao.Properties.T_pm_modify_time);
+        return Users.list();
+    }
+
 
 
 

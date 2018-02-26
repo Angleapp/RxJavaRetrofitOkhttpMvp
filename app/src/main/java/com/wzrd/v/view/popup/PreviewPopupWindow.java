@@ -2,9 +2,11 @@ package com.wzrd.v.view.popup;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,12 +15,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.been.TEXTIFORMATION;
+import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.v.activity.preview.TextPreviewActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lk on 2018/2/25.
  */
 
 public class PreviewPopupWindow extends PopupWindow {
+    private TextInformationManager manager;
+
     /**
      * @param context
      * @param type           来源 1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
@@ -35,6 +45,7 @@ public class PreviewPopupWindow extends PopupWindow {
         TextView tv_prview = (TextView) binding.getRoot().findViewById(R.id.tv_prview);
         TextView tv_del = (TextView) binding.getRoot().findViewById(R.id.tv_del);
         LinearLayout ll_cancle = (LinearLayout) binding.getRoot().findViewById(R.id.ll_cancle);
+        manager = new TextInformationManager(context);
         this.setContentView(binding.getRoot());
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
         this.setWidth(9 * widthPixels / 10);
@@ -82,6 +93,23 @@ public class PreviewPopupWindow extends PopupWindow {
             case 1:
                 break;
             case 2:
+                String isexit = isexit(context, "2");
+                if (!TextUtils.isEmpty(isexit)) {
+                    if (del == 0) {
+                        Intent intent2 = new Intent(context, TextPreviewActivity.class);
+                        intent2.putExtra("type", "2");
+                        context.startActivity(intent2);
+                        dismiss();
+
+                    } else {
+                        manager.deleteid(isexit);
+                        dismiss();
+                    }
+                } else {
+                    dismiss();
+                }
+
+
                 break;
             case 3:
                 dismiss();
@@ -92,6 +120,21 @@ public class PreviewPopupWindow extends PopupWindow {
                 dismiss();
                 break;
             case 6:
+                String isexit1 = isexit(context, "1");
+                if (!TextUtils.isEmpty(isexit1)) {
+                    if (del == 0) {
+                        Intent intent6 = new Intent(context, TextPreviewActivity.class);
+                        intent6.putExtra("type", "6");
+                        context.startActivity(intent6);
+                        dismiss();
+
+                    } else {
+                        manager.deleteid(isexit1);
+                        dismiss();
+                    }
+                } else {
+                    dismiss();
+                }
                 break;
             case 7:
                 break;
@@ -99,6 +142,20 @@ public class PreviewPopupWindow extends PopupWindow {
                 dismiss();
                 break;
             case 9:
+                String isexit2 = isexit(context, "0");
+                if (!TextUtils.isEmpty(isexit2)) {
+                    if (del == 0) {
+                        Intent intent9 = new Intent(context, TextPreviewActivity.class);
+                        intent9.putExtra("type", "9");
+                        context.startActivity(intent9);
+                        dismiss();
+                    } else {
+                        manager.deleteid(isexit2);
+                        dismiss();
+                    }
+                } else {
+                    dismiss();
+                }
                 break;
             case 10:
                 break;
@@ -110,6 +167,22 @@ public class PreviewPopupWindow extends PopupWindow {
 
         }
 
+    }
+
+    /**
+     * @param activity
+     * @param sqltype  1 口难开 2结束语 0 消息
+     * @return
+     */
+    private String isexit(Activity activity, String sqltype) {
+        //  1 口难开 2结束语 0 消息
+        List<TEXTIFORMATION> list = new ArrayList<>();
+        list = manager.getBytype(sqltype);
+        if (list != null && list.size() > 0) {
+            return list.get(0).getT_pm_id();
+        } else {
+            return null;
+        }
     }
 
 }

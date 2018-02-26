@@ -90,7 +90,7 @@ public class TextActivity extends AppCompatActivity {
                 break;
             case R.id.tv_complete:
                  s = etText.getText().toString();
-                 if(TextUtils.isEmpty(s)){
+                 if(!TextUtils.isEmpty(s)){
                      setdata();
                      finish();
                  }else {

@@ -77,6 +77,7 @@
                     android:src="@mipmap/icon_new_message" />
 
                 <TextView
+                    android:id="@+id/tv_message"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                     android:src="@mipmap/icon_new_video" />
 
                 <TextView
+                    android:id="@+id/tv_video"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,6 +125,7 @@
                     android:src="@mipmap/icon_new_end" />
 
                 <TextView
+                    android:id="@+id/tv_end"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,6 +148,7 @@
                     android:src="@mipmap/icon_new_offline" />
 
                 <TextView
+                    android:id="@+id/tv_offline"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -166,6 +170,7 @@
                     android:src="@mipmap/icon_new_wisdom" />
 
                 <TextView
+                    android:id="@+id/tv_wisdom"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -187,6 +192,7 @@
                     android:src="@mipmap/icon_new_selfile" />
 
                 <TextView
+                    android:id="@+id/tv_selfile"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -208,6 +214,7 @@
                     android:src="@mipmap/icon_new_shy" />
 
                 <TextView
+                    android:id="@+id/tv_shy"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -228,6 +235,7 @@
                     android:src="@mipmap/icon_new_poem" />
 
                 <TextView
+                    android:id="@+id/tv_poem"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -248,6 +256,7 @@
                     android:src="@mipmap/icon_new_gift" />
 
                 <TextView
+                    android:id="@+id/tv_gift"
                     style="@style/subTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

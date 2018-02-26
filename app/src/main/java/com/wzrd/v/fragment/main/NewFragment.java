@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,11 +18,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
+import com.wzrd.m.been.TEXTIFORMATION;
 import com.wzrd.m.been.TSYSCONTANTS;
+import com.wzrd.m.db.manger.TextInformationManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
@@ -80,6 +84,24 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
     CircleLayout circle;
     @BindView(R.id.ll_select1)
     LinearLayout llSelect1;
+    @BindView(R.id.tv_shy)
+    TextView tvShy;
+    @BindView(R.id.tv_end)
+    TextView tvEnd;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
+    @BindView(R.id.tv_video)
+    TextView tvVideo;
+    @BindView(R.id.tv_offline)
+    TextView tvOffline;
+    @BindView(R.id.tv_wisdom)
+    TextView tvWisdom;
+    @BindView(R.id.tv_selfile)
+    TextView tvSelfile;
+    @BindView(R.id.tv_poem)
+    TextView tvPoem;
+    @BindView(R.id.tv_gift)
+    TextView tvGift;
     private View view;
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
@@ -101,10 +123,68 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         setonlongclick();
 
         gif();
+        setvisibility();
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("onResume", "onResume");
+        setvisibility();
+    }
 
+    /**
+     * 下标的显示
+     */
+    private void setvisibility() {
+        Drawable drawable = getResources().getDrawable(R.drawable.blue_circle_dot);
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        //  1 口难开 2结束语 0 消息
+        TextInformationManager manager = new TextInformationManager(getActivity());
+        List<TEXTIFORMATION> list = new ArrayList<>();
+        /**
+         * 口难开
+         */
+        list = manager.getBytype("1");
+        Log.e("list", "list1---" + list.size());
+        if (list != null && list.size() > 0) {
+            tvShy.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvShy.setCompoundDrawables(null, null, null, null);
+        }
+        /**
+         * 结束语
+         */
+        list = manager.getBytype("2");
+        Log.e("list", "list2---" + list.size());
+
+        if (list != null && list.size() > 0) {
+            tvEnd.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvEnd.setCompoundDrawables(null, null, null, null);
+        }
+        /**
+         * 消息
+         */
+        list = manager.getBytype("0");
+        Log.e("list", "list0---" + list.size());
+        if (list != null && list.size() > 0) {
+            tvMessage.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvMessage.setCompoundDrawables(null, null, null, null);
+        }
+        //tvVideo  tvOffline  tvWisdom  tvSelfile  tvPoem  tvGift
+
+        tvOffline.setCompoundDrawables(null, null, null, null);
+        tvGift.setCompoundDrawables(null, null, null, null);
+        tvSelfile.setCompoundDrawables(null, null, null, null);
+    }
+
+    /**
+     * 设置圆心的距离
+     */
     private void setmargin() {
         WindowManager wm = (WindowManager) getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
@@ -190,6 +270,9 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         }
     }
 
+    /**
+     * 选择发送人
+     */
     private void start() {
         Intent intent1 = new Intent(getActivity(), ContastsActivity.class);
         intent1.putExtra("type", "0");
@@ -229,11 +312,14 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         };
     }
 
-
+    /**
+     * 不带参数的activity跳转
+     *
+     * @param c
+     */
     private void startactivity(Class c) {
         Intent intent = new Intent(getActivity(), c);
         startActivity(intent);
-
     }
 
     /**
@@ -248,8 +334,13 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
     private void showpop(int type, String previewmessage, String delmessage) {
         PreviewPopupWindow previewPopupWindow = new PreviewPopupWindow(getActivity(), type, previewmessage, delmessage);
         previewPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 10);
+        previewPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                setvisibility();
+            }
+        });
     }
-
 
 
     //1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
