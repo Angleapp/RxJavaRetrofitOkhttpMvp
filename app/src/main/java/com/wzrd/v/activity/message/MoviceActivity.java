@@ -62,7 +62,7 @@ public class MoviceActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
     private String videoname = "";
-
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class MoviceActivity extends AppCompatActivity {
 
     private void onRecord(boolean start) {
 
-        Intent intent = new Intent(this, RecordingService.class);
+         intent = new Intent(this, RecordingService.class);
 
         if (start) {
             recordAudioFabRecord.setImageResource(R.mipmap.icon_poen_rec_stop);
@@ -120,6 +120,10 @@ public class MoviceActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.record_audio_iv_close:
+                if(intent!=null){
+                    stopService(intent) ;
+                }
+
                 deletdfile();
                 finish();
                 break;

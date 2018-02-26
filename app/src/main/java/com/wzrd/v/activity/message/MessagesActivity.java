@@ -82,7 +82,6 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
 
                 startActivity(new Intent(this, PhotoljActivity.class));
 //                strartcamera();
-
                 break;
         }
     }
