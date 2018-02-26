@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -17,7 +18,11 @@ import android.widget.TextView;
 
 import com.wzrd.R;
 import com.wzrd.m.been.SelectBean;
+import com.wzrd.m.been.TEXTIFORMATION;
+import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.Savephoto;
+import com.wzrd.m.utils.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,6 +52,8 @@ public class TextActivity extends AppCompatActivity {
     @BindView(R.id.tv_shy)
     TextView tvShy;
     private String titlenum = "";//1 口难开
+    private   SelectBean bean;
+    private String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,15 @@ public class TextActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_complete:
-                finish();
+                 s = etText.getText().toString();
+                 if(TextUtils.isEmpty(s)){
+                     setdata();
+                     finish();
+                 }else {
+                     Utils.ToastShort(this,"未填写内容");
+                 }
+
+
                 break;
             case R.id.et_text:
                 break;
@@ -92,6 +107,27 @@ public class TextActivity extends AppCompatActivity {
 
                 break;
         }
+    }
+
+    /**
+     * 保存数据
+     */
+    private void setdata() {
+        TextInformationManager manager=new TextInformationManager(this);
+        TEXTIFORMATION textiformation=new TEXTIFORMATION();
+        textiformation.setT_pm_id(Utils.getuuid());
+        if(bean==null){
+            textiformation.setT_pm_imagepath(R.drawable.a19049ea3874d0bb4837f114095abd601);
+        }else{
+            textiformation.setT_pm_imagepath(bean.getPath());
+        }
+        textiformation.setT_pm_modify_time(DateUtils.getCurrentDate());
+        textiformation.setT_pm_type(titlenum);
+        textiformation.setT_pm_message(s);
+        manager.insertUser(textiformation);
+
+
+
     }
 
 
@@ -120,7 +156,7 @@ public class TextActivity extends AppCompatActivity {
             flText.setBackground(d);
         } else if (SELECTCODE == requestCode && data != null && resultCode == 0x123) {
 
-            SelectBean bean = (SelectBean) data.getExtras().get("bean");
+             bean = (SelectBean) data.getExtras().get("bean");
             if (bean != null) {
                 flText.setBackgroundResource(bean.getPath());
             }

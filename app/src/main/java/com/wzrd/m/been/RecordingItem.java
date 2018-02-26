@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * 录音文件的实体类
  *
- * Created by developerHaoz on 2017/8/12.
+ * Created by lk on 2018/1/12.
  */
 
 public class RecordingItem implements Parcelable {
