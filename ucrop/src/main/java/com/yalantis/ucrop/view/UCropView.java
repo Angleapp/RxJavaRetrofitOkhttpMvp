@@ -3,14 +3,10 @@ package com.yalantis.ucrop.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.yalantis.ucrop.R;
 import com.yalantis.ucrop.callback.CropBoundsChangeListener;
@@ -29,15 +25,9 @@ public class UCropView extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         LayoutInflater.from(context).inflate(R.layout.ucrop_view, this, true);
-
         mGestureCropImageView = (GestureCropImageView) findViewById(R.id.image_view_crop);
         mViewOverlay = (OverlayView) findViewById(R.id.view_overlay);
-//        View view = findViewById(R.id.ll_bacg);
-//       float alpha= (float) 0.8;
-//        view.setAlpha(alpha);
-//        LinearLayout ovalview = (LinearLayout) findViewById(R.id.ll_oval_back);
-//        ovalview.setAlpha(1);
-//        ovalview.setBackgroundResource(R.drawable.frame);
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_UCropView);
         mViewOverlay.processStyledAttributes(a);
         mGestureCropImageView.processStyledAttributes(a);

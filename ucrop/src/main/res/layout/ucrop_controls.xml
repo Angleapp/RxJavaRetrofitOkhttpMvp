@@ -5,8 +5,8 @@
         android:id="@+id/wrapper_controls"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ucrop_height_wrapper_controls"
-        android:layout_above="@+id/wrapper_states"
         android:visibility="gone"
+        android:layout_above="@+id/wrapper_states"
         android:background="@color/ucrop_color_widget_background">
 
         <LinearLayout
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/ucrop_height_divider_shadow"
         android:layout_above="@+id/wrapper_states"
+        android:visibility="gone"
         android:background="@drawable/ucrop_shadow_upside"/>
 
     <LinearLayout
@@ -39,8 +40,8 @@
         android:layout_alignParentBottom="true"
         android:background="@color/ucrop_color_widget_background"
         android:baselineAligned="false"
-        android:visibility="gone"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <FrameLayout
