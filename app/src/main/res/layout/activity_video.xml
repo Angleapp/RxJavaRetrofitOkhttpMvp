@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_blured"
+    android:orientation="vertical"
+    tools:context="com.wzrd.v.activity.home.video.VideoActivity">
+
+    <include layout="@layout/toolbar_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF1A2027"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/express_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/left_circle_selector"
+            android:gravity="center"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp"
+            android:text="表达爱"
+            android:textColor="@drawable/video_tab_text"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/apologize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/middle_rectangle_selector"
+            android:gravity="center"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp"
+            android:text="道歉"
+            android:textColor="@drawable/video_tab_text"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/deepen_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/middle_rectangle_selector"
+            android:gravity="center"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp"
+            android:text="加深爱"
+            android:textColor="@drawable/video_tab_text"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/user_defined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/right_circle_selector"
+            android:gravity="center"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp"
+            android:text="自定义"
+            android:textColor="@drawable/video_tab_text"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/video_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:horizontalSpacing="16dp"
+        android:numColumns="2"
+        android:padding="16dp"
+        android:scrollbars="none"
+        android:verticalSpacing="16dp">
+
+    </GridView>
+</LinearLayout>

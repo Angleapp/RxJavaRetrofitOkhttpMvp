@@ -11,6 +11,7 @@
     <include layout="@layout/toolbar_layout"></include>
 
     <TextView
+        android:id="@+id/change_letter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -22,16 +23,127 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/poem_item_bg"
+        android:padding="2dp"
+        android:scrollbars="none">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
+            android:id="@+id/letter_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/white">
+            android:layout_height="match_parent"
+            android:background="@drawable/a19049ea3874d0bb4837f114095abd601"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        </android.support.v7.widget.CardView>
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:text="关雎"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="诗经"
+                android:textColor="#FF989A9E"
+                android:textSize="14sp"/>
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="26dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:textColor="#FF000000"
+                android:textSize="17sp"/>
+        </LinearLayout>
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/start_speak"
+        android:layout_width="wrap_content"
+        android:layout_height="59.5dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="27dp"
+        android:src="@mipmap/icon_poem_rec"/>
+
+    <LinearLayout
+        android:id="@+id/play_speak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:background="#FF1A2027"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/down_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="13.5dp"
+                android:src="@mipmap/icon_poem_rec_down_arrow"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="9.5dp"
+                android:text="00:18"
+                android:textColor="#FFFFFFFF"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/stop"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="9dp"
+            android:src="@mipmap/icon_poen_rec_stop"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/end_speak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:background="#FF1A2027"
+        android:gravity="center_horizontal"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/unSave"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="80dp"
+            android:src="@mipmap/icon_poem_rec_back"/>
+
+        <ImageView
+            android:id="@+id/save"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/icon_poem_rec_done"/>
+    </LinearLayout>
 </LinearLayout>

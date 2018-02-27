@@ -31,7 +31,7 @@ public class Utils {
      * @param menuImageView
      * @param resId
      */
-    public static void backToolbar(final Activity activity, ImageView backImageView, TextView title, String titleContent, ImageView menuImageView, int resId, final AbsToolBarMenuPresenter callBack,TextView toolbarMenuText,String menuContent) {
+    public static void backToolbar(final Activity activity, ImageView backImageView, TextView title, String titleContent, ImageView menuImageView, int resId, final AbsToolBarMenuPresenter callBack, TextView toolbarMenuText, String menuContent) {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +44,14 @@ public class Utils {
         }
         if (callBack != null) {
             menuImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    callBack.setToolBarMenu();
+                }
+            });
+        }
+        if (!TextUtil.isEmpty(menuContent)) {
+            toolbarMenuText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     callBack.setToolBarMenu();

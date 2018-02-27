@@ -31,6 +31,7 @@ import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.contacts.ContastsActivity;
 import com.wzrd.v.activity.home.poem.PoemActivity;
+import com.wzrd.v.activity.home.video.VideoActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
 import com.wzrd.v.activity.homepage.virtual.VirtualGifActivity;
@@ -249,6 +250,9 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
                 startActivity(endintent);
                 break;
             case R.id.video:
+                //短视频
+                Intent videoIntent = new Intent(getActivity(), VideoActivity.class);
+                startActivity(videoIntent);
                 break;
 
             case R.id.bt_send:

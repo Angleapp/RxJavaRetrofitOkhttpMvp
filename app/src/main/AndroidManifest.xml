@@ -81,12 +81,10 @@
         <activity
             android:name=".v.activity.homepage.officeline.OfficelineActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".v.activity.homepage.WisdomActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".v.activity.contacts.ContastsActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".v.activity.homepage.WisdomActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".v.activity.home.poem.PoemActivity"
             android:screenOrientation="portrait"></activity>
@@ -94,6 +92,11 @@
             android:name=".v.activity.home.poem.AddPoemActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".v.activity.preview.TextPreviewActivity"></activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".v.activity.home.video.VideoActivity">
+        </activity>
+        <activity android:name=".v.activity.home.video.VideoDetailActivity">
+        </activity>
     </application>
 
 </manifest>

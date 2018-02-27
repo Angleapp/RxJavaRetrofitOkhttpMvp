@@ -1,5 +1,6 @@
 package com.wzrd.v.activity.home.poem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -62,6 +63,7 @@ public class PoemActivity extends AppCompatActivity {
 
     @OnClick(R.id.addPoem)
     public void onViewClicked() {
-
+        Intent intent = new Intent(this,AddPoemActivity.class);
+        startActivity(intent);
     }
 }
