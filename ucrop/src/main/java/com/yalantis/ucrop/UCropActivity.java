@@ -255,6 +255,7 @@ public class UCropActivity extends AppCompatActivity {
         } else {
             mGestureCropImageView.setTargetAspectRatio(CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
         }
+        mGestureCropImageView.setTargetAspectRatio((float) 1);
 
         // Result bitmap max size options
         int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
@@ -264,6 +265,7 @@ public class UCropActivity extends AppCompatActivity {
             mGestureCropImageView.setMaxResultImageSizeX(maxSizeX);
             mGestureCropImageView.setMaxResultImageSizeY(maxSizeY);
         }
+
     }
 
     private void setupViews(@NonNull Intent intent) {

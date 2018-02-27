@@ -71,9 +71,9 @@ public class GreenDaoHelper extends Application {
 
                             int permission = ActivityCompat.checkSelfPermission(context,
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                            if (permission != PackageManager.PERMISSION_GRANTED) {
-
+                            int permission1 = ActivityCompat.checkSelfPermission(context,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            if (permission != PackageManager.PERMISSION_GRANTED||permission1!=PackageManager.PERMISSION_GRANTED) {
                                 ActivityCompat.requestPermissions((Activity) context, PERMISSIONS_STORAGE,
                                         REQUEST_EXTERNAL_STORAGE);
                             }
@@ -81,6 +81,9 @@ public class GreenDaoHelper extends Application {
 
                             String dbDir = SDCardUtils.getSDBasePath() + Constants.DATABASE_PATH;
                             // 判断目录是否存在，不存在则创建该目录
+                            String first = SharedPreferencesUtil.getString(this, "first", "");
+
+
                             File dirFile = new File(dbDir);
                             if (!dirFile.exists()) {
                                 try {
@@ -89,12 +92,9 @@ public class GreenDaoHelper extends Application {
                                     e.printStackTrace();
                                 }
 
-
                             }
                             Boolean istrue = new File(dbDir).exists();
                             String dbPath = dbDir + "/" + name;// 数据库路径
-                            Log.e("dbPath", "dbPath-->" + dbPath);
-                            String first = SharedPreferencesUtil.getString(this, "first", "");
                             if ("1".equals(first)) {
 
                             } else {
@@ -104,6 +104,8 @@ public class GreenDaoHelper extends Application {
                                 }
                                 SharedPreferencesUtil.saveString(this, "first", "1");
                             }
+                            Log.e("dbPath", "dbPath-->" + dbPath);
+
                             // 数据库文件是否创建成功
                             boolean isFileCreateSuccess = false;
                             // 判断文件是否存在，不存在则创建该文件
