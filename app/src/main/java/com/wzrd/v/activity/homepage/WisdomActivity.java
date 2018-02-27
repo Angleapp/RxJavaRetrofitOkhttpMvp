@@ -21,16 +21,19 @@ public class WisdomActivity extends AppCompatActivity implements AdapterClickPos
     private List<WisdomBeen> list;
     private int position = 0;
     private   List<String> messlist;
+    private String widom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wisdom);
+        widom = getIntent().getExtras().getString("type");
         list = new ArrayList<>();
         messlist=new ArrayList<>();
         initdata();
         binding.setWisdom(list.get(0));
         binding.setWisdomdata(list);
+
 
     }
 
@@ -46,17 +49,28 @@ public class WisdomActivity extends AppCompatActivity implements AdapterClickPos
         messlist.add("年有春夏秋冬，人有喜怒忧悲。快乐的最好办法就是忘记不快，幸福的最好办法就是忘记不幸。不能忘记失败的教训，但要忘记失败的痛苦。快乐只属于那些善于忘记不快的人，幸福只属于那些善于忘记不幸的人。牢记不快只能使自己痛苦，牢记不幸只能使自己悲伤。遗忘失去的，欣赏拥有的，才能使自己快乐幸福。");
         String id = SharedPreferencesUtil.getString(this, "userid", "");
         String date = DateUtils.getCurrentDate();
-        list.add(new WisdomBeen(Utils.getuuid(), id, messlist.get(0), "1", true, date));
-        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(1), "", false, date));
-        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(2), "", false, date));
-        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(3), "", false, date));
-        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(4), "", false, date));
+        list.add(new WisdomBeen(Utils.getuuid(), id, messlist.get(0), "1", true, date,0));
+        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(1), "", false, date,1));
+        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(2), "", false, date,2));
+        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(3), "", false, date,3));
+        list.add(new WisdomBeen(Utils.getuuid(), id,  messlist.get(4), "", false, date,4));
+        if("popre".equals(widom)){
+            int clickposition = SharedPreferencesUtil.getInt(this, "clickposition", 0);
+            if(clickposition!=0){
+                list.get(0).setIscheckd(false);
+                list.get(clickposition).setIscheckd(true);
+            }
+        }
+
 
     }
 
     @Override
     public void adapterposition(int i) {
         Log.e("i","i----"+i);
-        binding.setWisdom(list.get(i));
+        if(!"popre".equals(widom)){
+            binding.setWisdom(list.get(i));
+        }
+
     }
 }

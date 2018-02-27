@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.wzrd.R;
 import com.wzrd.m.been.TEXTIFORMATION;
 import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.preview.TextPreviewActivity;
 
 import java.util.ArrayList;
@@ -115,6 +117,15 @@ public class PreviewPopupWindow extends PopupWindow {
                 dismiss();
                 break;
             case 4:
+                if (del == 0) {
+                    Intent intent4 = new Intent(context, WisdomActivity.class);
+                    intent4.putExtra("type", "popre");
+                    context.startActivity(intent4);
+                } else {
+                    SharedPreferencesUtil.saveString(context, "wisdom", "");
+                }
+                dismiss();
+
                 break;
             case 5:
                 dismiss();

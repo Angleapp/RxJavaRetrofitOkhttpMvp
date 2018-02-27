@@ -181,6 +181,13 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         tvOffline.setCompoundDrawables(null, null, null, null);
         tvGift.setCompoundDrawables(null, null, null, null);
         tvSelfile.setCompoundDrawables(null, null, null, null);
+        String wisdom = SharedPreferencesUtil.getString(getContext(), "wisdom", "");
+        if("wisdom".equals(wisdom)){
+            tvWisdom.setCompoundDrawables(drawable, null, null, null);
+        }else{
+            tvWisdom.setCompoundDrawables(null, null, null, null);
+        }
+
     }
 
     /**
@@ -239,7 +246,11 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
                 break;
             case R.id.wisdom:
                 //智慧之语
-                startactivity(WisdomActivity.class);
+
+                Intent intent4 = new Intent(getActivity(), WisdomActivity.class);
+                intent4.putExtra("type", "newfragment");
+                getActivity().startActivity(intent4);
+//                startactivity(WisdomActivity.class);
                 break;
             case R.id.offline:
                 startactivity(OfficelineActivity.class);
