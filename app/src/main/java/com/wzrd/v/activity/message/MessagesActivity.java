@@ -15,6 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
+import com.wzrd.v.activity.home.camer.CamerActivity;
 import com.wzrd.v.view.popup.PhotoPopupWindow;
 import com.wzrd.v.view.popup.PreviewPopupWindow;
 
@@ -77,6 +78,7 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
                 startactivity(MoviceActivity.class);
                 break;
             case R.id.ll_camera:
+                startactivity(CamerActivity.class);
                 break;
             case R.id.ll_phone_album:
 

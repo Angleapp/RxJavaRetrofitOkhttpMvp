@@ -30,6 +30,7 @@ import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.contacts.ContastsActivity;
+import com.wzrd.v.activity.home.camer.CamerActivity;
 import com.wzrd.v.activity.home.poem.PoemActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.homepage.officeline.OfficelineActivity;
@@ -234,6 +235,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
                 startActivity(textintent);
                 break;
             case R.id.selfie:
+                startactivity(CamerActivity.class);
                 break;
             case R.id.wisdom:
                 //智慧之语

@@ -68,6 +68,8 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile project(':beautifylib')
     compile project(':ucrop')
+    compile project(':camera')
+
 //    compile 'com.github.xingxing-yan:BLImage:1.0.0'
 //    compile project(path: ':LRecyclerview')
 //    compile 'com.zhy:okhttputils:2.6.2'
