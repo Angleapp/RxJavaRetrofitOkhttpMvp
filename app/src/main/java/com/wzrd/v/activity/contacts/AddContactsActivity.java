@@ -77,6 +77,8 @@ public class AddContactsActivity extends AppCompatActivity {
                     tsysuser.setT_sys_id(userphonenum);
                     tsysuser.setT_sys_username(username);
                     tsysuser.setT_sys_modify_id(userphonenum);
+                    SharedPreferencesUtil.saveString(this,"lovename",name);
+                    SharedPreferencesUtil.saveString(this,"lovephone",lovenum);
                     manager.insertUser(tsysuser);
 
 

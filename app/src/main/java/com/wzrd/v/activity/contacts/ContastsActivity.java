@@ -111,8 +111,11 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                     .into(ivLoverIocn);
             tvLoverName.setText(userName.get(0).getT_sys_lover_name());
         } else {
-
-            tvAddlover.setVisibility(View.VISIBLE);
+            if (!"1".equals(type)) {
+                tvAddlover.setVisibility(View.VISIBLE);
+            }else{
+                tvAddlover.setVisibility(View.INVISIBLE);
+            }
         }
 
         ContactsManager contactsManager = new ContactsManager(ContastsActivity.this);
@@ -124,9 +127,12 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_addlover:
-                Intent intent1 = new Intent(ContastsActivity.this, AddContactsActivity.class);
-                intent1.putExtra("message", "love");
-                startActivity(intent1);
+                if (!"1".equals(type)) {
+                    Intent intent1 = new Intent(ContastsActivity.this, AddContactsActivity.class);
+                    intent1.putExtra("message", "love");
+                    startActivity(intent1);
+                }
+
                 break;
             case R.id.ll_lover:
                 break;

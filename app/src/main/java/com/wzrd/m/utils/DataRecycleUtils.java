@@ -27,9 +27,10 @@ import java.util.List;
  */
 
 public class DataRecycleUtils {
-  private static final int a=R.color.white_9;
+    private static final int a = R.color.white_9;
+
     @BindingAdapter("outboxadapter")
-    public static void setoutboxadapter(RecyclerView recyclerView, List<ContactMessage> data){
+    public static void setoutboxadapter(RecyclerView recyclerView, List<ContactMessage> data) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new RecycleViewDivider(recyclerView.getContext(), LinearLayoutManager.VERTICAL, 1, a));
@@ -49,9 +50,8 @@ public class DataRecycleUtils {
     }
 
 
-
     @BindingAdapter("inboxadapter")
-    public static void setinboxadapter(RecyclerView recyclerView, List<ContactMessage> data){
+    public static void setinboxadapter(RecyclerView recyclerView, List<ContactMessage> data) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.addItemDecoration(new RecycleViewDivider(recyclerView.getContext(), LinearLayoutManager.VERTICAL, 1, a));
         recyclerView.setAdapter(new InboxAdapter(recyclerView.getContext(), data));
@@ -60,16 +60,15 @@ public class DataRecycleUtils {
 
 
     @BindingAdapter("selectdback")
-    public static void setselectdback(RecyclerView recyclerView, List<SelectBean> data){
-        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(),2));
+    public static void setselectdback(RecyclerView recyclerView, List<SelectBean> data) {
+        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
         recyclerView.setAdapter(new SelectAdapter(recyclerView.getContext(), data));
 
     }
 
     @BindingAdapter("wisdomadapter")
-    public static void setwisdom(RecyclerView recyclerView, List<WisdomBeen> data){
+    public static void setwisdom(RecyclerView recyclerView, List<WisdomBeen> data) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new WisdomAdapter(recyclerView.getContext(), data,(WisdomActivity)recyclerView.getContext()));
-
+        recyclerView.setAdapter(new WisdomAdapter(recyclerView.getContext(), data, (WisdomActivity) recyclerView.getContext()));
     }
 }

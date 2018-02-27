@@ -38,7 +38,7 @@ public class SharedPreferencesUtil {
 		sp.edit().putBoolean(key, value).commit();
 	}
 
-	public static boolean getBoolean(Context context, String key, Boolean defValue) {
+	public static boolean getBoolean(Context context, String key, boolean defValue) {
 		if (sp == null)
 			sp = context.getSharedPreferences(SP_NAME, 0);
 		return sp.getBoolean(key, defValue);

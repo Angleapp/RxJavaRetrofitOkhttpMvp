@@ -55,6 +55,8 @@ public class WisdomAdapter extends RecyclerView.Adapter<BindingHolder> {
                 notifyDataSetChanged();
             }
         });
+
+
     }
 
     @Override

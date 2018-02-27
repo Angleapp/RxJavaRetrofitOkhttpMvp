@@ -30,6 +30,7 @@ import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.contacts.ContastsActivity;
+import com.wzrd.v.activity.home.camer.CamerActivity;
 import com.wzrd.v.activity.home.poem.PoemActivity;
 import com.wzrd.v.activity.home.video.VideoActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
@@ -181,6 +182,13 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         tvOffline.setCompoundDrawables(null, null, null, null);
         tvGift.setCompoundDrawables(null, null, null, null);
         tvSelfile.setCompoundDrawables(null, null, null, null);
+        String wisdom = SharedPreferencesUtil.getString(getContext(), "wisdom", "");
+        if("wisdom".equals(wisdom)){
+            tvWisdom.setCompoundDrawables(drawable, null, null, null);
+        }else{
+            tvWisdom.setCompoundDrawables(null, null, null, null);
+        }
+
     }
 
     /**
@@ -235,10 +243,15 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
                 startActivity(textintent);
                 break;
             case R.id.selfie:
+                startactivity(CamerActivity.class);
                 break;
             case R.id.wisdom:
                 //智慧之语
-                startactivity(WisdomActivity.class);
+
+                Intent intent4 = new Intent(getActivity(), WisdomActivity.class);
+                intent4.putExtra("type", "newfragment");
+                getActivity().startActivity(intent4);
+//                startactivity(WisdomActivity.class);
                 break;
             case R.id.offline:
                 startactivity(OfficelineActivity.class);

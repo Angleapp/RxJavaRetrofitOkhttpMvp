@@ -1,1 +1,1 @@
-include ':app', ':beautifylib',':ucrop'
+include ':app', ':beautifylib',':ucrop',':camera'

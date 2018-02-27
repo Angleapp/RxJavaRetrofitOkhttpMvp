@@ -15,6 +15,7 @@ import com.wzrd.m.db.gen.DaoMaster;
 import com.wzrd.m.db.gen.DaoSession;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SDCardUtils;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class GreenDaoHelper extends Application {
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private GreenDaoHelper() {
     }
@@ -70,30 +71,41 @@ public class GreenDaoHelper extends Application {
 
                             int permission = ActivityCompat.checkSelfPermission(context,
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                            if (permission != PackageManager.PERMISSION_GRANTED) {
-
+                            int permission1 = ActivityCompat.checkSelfPermission(context,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            if (permission != PackageManager.PERMISSION_GRANTED||permission1!=PackageManager.PERMISSION_GRANTED) {
                                 ActivityCompat.requestPermissions((Activity) context, PERMISSIONS_STORAGE,
                                         REQUEST_EXTERNAL_STORAGE);
                             }
 
 
-
                             String dbDir = SDCardUtils.getSDBasePath() + Constants.DATABASE_PATH;
                             // 判断目录是否存在，不存在则创建该目录
+                            String first = SharedPreferencesUtil.getString(this, "first", "");
+
+
                             File dirFile = new File(dbDir);
                             if (!dirFile.exists()) {
                                 try {
                                     dirFile.mkdirs();
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
-
                             }
-                            Boolean istrue= new File(dbDir).exists();
+                            Boolean istrue = new File(dbDir).exists();
                             String dbPath = dbDir + "/" + name;// 数据库路径
-                            Log.e("dbPath","dbPath-->"+dbPath);
+                            if ("1".equals(first)) {
+
+                            } else {
+                                File file = new File(dbPath);
+                                if (file.exists()) {
+                                    file.delete();
+                                }
+                                SharedPreferencesUtil.saveString(this, "first", "1");
+                            }
+                            Log.e("dbPath", "dbPath-->" + dbPath);
+
                             // 数据库文件是否创建成功
                             boolean isFileCreateSuccess = false;
                             // 判断文件是否存在，不存在则创建该文件
@@ -169,6 +181,7 @@ public class GreenDaoHelper extends Application {
 
         return daoSession;
     }
+
     /**
      * 适用于未加密的数据库
      */
@@ -181,7 +194,7 @@ public class GreenDaoHelper extends Application {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             super.onUpgrade(db, oldVersion, newVersion);
-            Log.e("===",oldVersion+" to "+ newVersion);
+            Log.e("===", oldVersion + " to " + newVersion);
 //            MigrationHelper.migrate(db, userdao.class);
         }
     }
