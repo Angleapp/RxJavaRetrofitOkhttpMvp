@@ -61,6 +61,7 @@ public class VideoActivity extends AppCompatActivity {
                 Intent intent = new Intent(VideoActivity.this, VideoDetailActivity.class);
                 intent.putExtra("id", mList.get(i).getId());
                 startActivity(intent);
+
             }
         });
     }
