@@ -71,9 +71,7 @@ public class GreenDaoHelper extends Application {
 
                             int permission = ActivityCompat.checkSelfPermission(context,
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                            int permission1 = ActivityCompat.checkSelfPermission(context,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                            if (permission != PackageManager.PERMISSION_GRANTED||permission1!=PackageManager.PERMISSION_GRANTED) {
+                            if (permission != PackageManager.PERMISSION_GRANTED) {
                                 ActivityCompat.requestPermissions((Activity) context, PERMISSIONS_STORAGE,
                                         REQUEST_EXTERNAL_STORAGE);
                             }
@@ -100,7 +98,12 @@ public class GreenDaoHelper extends Application {
                             } else {
                                 File file = new File(dbPath);
                                 if (file.exists()) {
-                                    file.delete();
+                                    try {
+                                        file.delete();
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+
                                 }
                                 SharedPreferencesUtil.saveString(this, "first", "1");
                             }

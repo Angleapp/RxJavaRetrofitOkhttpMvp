@@ -1,16 +1,15 @@
 package com.wzrd.m.been;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * Created by hyj on 2018/2/14.
  */
 @Entity
 public class Poem {
-    @Id(autoincrement = false)
+    @Id
     String id;
     String title;
     String author;
@@ -19,8 +18,8 @@ public class Poem {
     String path;
     int bgPath;
 
-    @Keep
-    public Poem(String id, String title, String author, String content, String isHasVideo, String path,int bgPath) {
+    @Generated(hash = 32421040)
+    public Poem(String id, String title, String author, String content, String isHasVideo, String path, int bgPath) {
         this.id = id;
         this.title = title;
         this.author = author;

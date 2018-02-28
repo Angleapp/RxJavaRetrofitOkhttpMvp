@@ -161,6 +161,7 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
         mPoemManager.insertPoem(poem);
         ToastUtils.toast(this, "保存成功");
         mTime = null;
+        finish();
     }
 
     @Override
