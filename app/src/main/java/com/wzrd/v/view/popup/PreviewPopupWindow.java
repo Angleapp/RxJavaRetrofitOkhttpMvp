@@ -15,9 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.been.Poem;
 import com.wzrd.m.been.TEXTIFORMATION;
+import com.wzrd.m.db.manger.PoemManager;
 import com.wzrd.m.db.manger.TextInformationManager;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.v.activity.home.poem.AddPoemActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.preview.TextPreviewActivity;
 
@@ -148,6 +151,21 @@ public class PreviewPopupWindow extends PopupWindow {
                 }
                 break;
             case 7:
+                PoemManager manager = new PoemManager(context);
+                Poem poem = manager.getLastPoem();
+                if (del == 0) {
+                    if (poem == null) {
+                        dismiss();
+                    } else {
+                        Intent intent = new Intent(context, AddPoemActivity.class);
+                        intent.putExtra("id", poem.getId());
+                        context.startActivity(intent);
+                        dismiss();
+                    }
+                } else {
+                    manager.deletePoem(poem);
+                    dismiss();
+                }
                 break;
             case 8:
                 dismiss();
@@ -161,7 +179,7 @@ public class PreviewPopupWindow extends PopupWindow {
                         context.startActivity(intent9);
                         dismiss();
                     } else {
-                        manager.deleteid(isexit2);
+                        this.manager.deleteid(isexit2);
                         dismiss();
                     }
                 } else {

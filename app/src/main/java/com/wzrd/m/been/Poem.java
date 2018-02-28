@@ -1,20 +1,37 @@
 package com.wzrd.m.been;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by hyj on 2018/2/14.
  */
-
+@Entity
 public class Poem {
+    @Id(autoincrement = false)
     String id;
     String title;
     String author;
     String content;
+    String isHasVideo;
+    String path;
+    int bgPath;
 
-    public Poem(String id, String title, String author, String content) {
+    @Keep
+    public Poem(String id, String title, String author, String content, String isHasVideo, String path,int bgPath) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
+        this.isHasVideo = isHasVideo;
+        this.path = path;
+        this.bgPath = bgPath;
+    }
+
+    @Generated(hash = 1852989059)
+    public Poem() {
     }
 
     public String getId() {
@@ -47,5 +64,29 @@ public class Poem {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getIsHasVideo() {
+        return isHasVideo;
+    }
+
+    public void setIsHasVideo(String isHasVideo) {
+        this.isHasVideo = isHasVideo;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public int getBgPath() {
+        return bgPath;
+    }
+
+    public void setBgPath(int bgPath) {
+        this.bgPath = bgPath;
     }
 }

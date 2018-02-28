@@ -23,8 +23,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzrd.R;
+import com.wzrd.m.been.Poem;
 import com.wzrd.m.been.TEXTIFORMATION;
 import com.wzrd.m.been.TSYSCONTANTS;
+import com.wzrd.m.db.manger.PoemManager;
 import com.wzrd.m.db.manger.TextInformationManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
@@ -183,10 +185,17 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         tvGift.setCompoundDrawables(null, null, null, null);
         tvSelfile.setCompoundDrawables(null, null, null, null);
         String wisdom = SharedPreferencesUtil.getString(getContext(), "wisdom", "");
-        if("wisdom".equals(wisdom)){
+        if ("wisdom".equals(wisdom)) {
             tvWisdom.setCompoundDrawables(drawable, null, null, null);
-        }else{
+        } else {
             tvWisdom.setCompoundDrawables(null, null, null, null);
+        }
+        PoemManager poemManager = PoemManager.getInstance(getActivity());
+        List<Poem> poem = poemManager.getAllPoem();
+        if (poem != null && poem.size() > 0) {
+            tvPoem.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvPoem.setCompoundDrawables(null, null, null, null);
         }
 
     }

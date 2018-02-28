@@ -104,7 +104,6 @@ public class TextActivity extends AppCompatActivity {
             case R.id.iv_bage:
                 Intent intent = new Intent(this, SelectBackActivity.class);
                 startActivityForResult(intent, SELECTCODE);
-
                 break;
         }
     }
@@ -155,7 +154,6 @@ public class TextActivity extends AppCompatActivity {
             Drawable d = Drawable.createFromPath(filePath);
             flText.setBackground(d);
         } else if (SELECTCODE == requestCode && data != null && resultCode == 0x123) {
-
              bean = (SelectBean) data.getExtras().get("bean");
             if (bean != null) {
                 flText.setBackgroundResource(bean.getPath());

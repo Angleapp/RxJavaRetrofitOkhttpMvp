@@ -8,11 +8,13 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.wzrd.m.been.Poem;
 import com.wzrd.m.been.TEXTIFORMATION;
 import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.been.TSYSUSER;
 import com.wzrd.m.been.User;
 
+import com.wzrd.m.db.gen.PoemDao;
 import com.wzrd.m.db.gen.TEXTIFORMATIONDao;
 import com.wzrd.m.db.gen.TSYSCONTANTSDao;
 import com.wzrd.m.db.gen.TSYSUSERDao;
@@ -27,11 +29,13 @@ import com.wzrd.m.db.gen.UserDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig poemDaoConfig;
     private final DaoConfig tEXTIFORMATIONDaoConfig;
     private final DaoConfig tSYSCONTANTSDaoConfig;
     private final DaoConfig tSYSUSERDaoConfig;
     private final DaoConfig userDaoConfig;
 
+    private final PoemDao poemDao;
     private final TEXTIFORMATIONDao tEXTIFORMATIONDao;
     private final TSYSCONTANTSDao tSYSCONTANTSDao;
     private final TSYSUSERDao tSYSUSERDao;
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        poemDaoConfig = daoConfigMap.get(PoemDao.class).clone();
+        poemDaoConfig.initIdentityScope(type);
 
         tEXTIFORMATIONDaoConfig = daoConfigMap.get(TEXTIFORMATIONDao.class).clone();
         tEXTIFORMATIONDaoConfig.initIdentityScope(type);
@@ -53,11 +60,13 @@ public class DaoSession extends AbstractDaoSession {
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
 
+        poemDao = new PoemDao(poemDaoConfig, this);
         tEXTIFORMATIONDao = new TEXTIFORMATIONDao(tEXTIFORMATIONDaoConfig, this);
         tSYSCONTANTSDao = new TSYSCONTANTSDao(tSYSCONTANTSDaoConfig, this);
         tSYSUSERDao = new TSYSUSERDao(tSYSUSERDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
 
+        registerDao(Poem.class, poemDao);
         registerDao(TEXTIFORMATION.class, tEXTIFORMATIONDao);
         registerDao(TSYSCONTANTS.class, tSYSCONTANTSDao);
         registerDao(TSYSUSER.class, tSYSUSERDao);
@@ -65,10 +74,15 @@ public class DaoSession extends AbstractDaoSession {
     }
     
     public void clear() {
+        poemDaoConfig.getIdentityScope().clear();
         tEXTIFORMATIONDaoConfig.getIdentityScope().clear();
         tSYSCONTANTSDaoConfig.getIdentityScope().clear();
         tSYSUSERDaoConfig.getIdentityScope().clear();
         userDaoConfig.getIdentityScope().clear();
+    }
+
+    public PoemDao getPoemDao() {
+        return poemDao;
     }
 
     public TEXTIFORMATIONDao getTEXTIFORMATIONDao() {

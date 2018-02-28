@@ -1,17 +1,24 @@
 package com.wzrd.v.activity.home.poem;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.been.Poem;
+import com.wzrd.m.been.SelectBean;
+import com.wzrd.m.db.manger.PoemManager;
+import com.wzrd.m.utils.TextUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.p.impl.AbsToolBarMenuPresenter;
+import com.wzrd.v.activity.message.SelectBackActivity;
 import com.yyx.beautifylib.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -37,7 +44,7 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
     @BindView(R.id.down_arrow)
     ImageView mDownArrow;
     @BindView(R.id.time)
-    TextView mTime;
+    Chronometer mTime;
     @BindView(R.id.stop)
     ImageView mStop;
     @BindView(R.id.play_speak)
@@ -48,50 +55,57 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
     ImageView mSave;
     @BindView(R.id.end_speak)
     LinearLayout mEndSpeak;
-    int[] resIds = {
-            R.drawable.a19049ea3874d0bb4837f114095abd601,
-            R.drawable.a0d8b0e7b6b175e1c16f243bf37226706,
-            R.drawable.a102f9eadd79722fb050f28da20164241,
-            R.drawable.a33123a94f678b12c875b9d52984bdab2,
-            R.drawable.a3a1a3ea5a1ae9b0235198956b667e04b,
-            R.drawable.a3dc5f8670e187100493889a3453cdeb7,
-            R.drawable.a63edcb4c956631ec618f7445d24a653b,
-            R.drawable.a87fd6d66d5e90b06838b69e90a34e07f,
-            R.drawable.a92a93ff72ea1787961652b107c3d135e,
-            R.drawable.a9bd441b37cad0173906cc75784a8a360,
-            R.drawable.ab92dc4c0d66488cc1448a6996bfb26ee,
-            R.drawable.abfd77aa878c072290bb7e24f2ae6e9db,
-            R.drawable.ac0913c67e9bda9ac7af06c5a21c6734a
-    };
-    int index = 0;
     @BindView(R.id.title)
     EditText mTitle;
     @BindView(R.id.author)
     EditText mAuthor;
     @BindView(R.id.content)
     EditText mContent;
+    private String mId;
+    private PoemManager mPoemManager;
+    private Poem mPoem;
+    private SelectBean mSelectBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_poem);
         ButterKnife.bind(this);
-        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, null, mToolbarMenuText, "完成");
-        mLetterBg.setBackgroundResource(resIds[index]);
-        mContent.setText(Html.fromHtml("关关雎鸠，在河之洲。<br>" +
-                "窈窕淑女，君子好逑。<br>" +
-                "<br>" +
-                "参差荇菜，左右流之。<br>" +
-                "窈窕淑女，寤寐求之。<br>" +
-                "<br>" +
-                "求之不得，寤寐思服。<br>" +
-                "悠哉悠哉，辗转反侧。<br>" +
-                "<br>" +
-                "参差荇菜，左右采之。<br>" +
-                "窈窕淑女，琴瑟友之。<br>" +
-                "<br>" +
-                "参差荇菜，左右芼之。<br>" +
-                "窈窕淑女，钟鼓乐之。"));
+        Intent intent = getIntent();
+        mId = intent.getStringExtra("id");
+        mPoemManager = PoemManager.getInstance(this);
+        if (TextUtil.isEmpty(mId)) {
+            //新增
+            Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, this, mToolbarMenuText, "完成");
+            mLetterBg.setBackgroundResource(R.drawable.a19049ea3874d0bb4837f114095abd601);
+            mContent.setText(Html.fromHtml("关关雎鸠，在河之洲。<br>" +
+                    "窈窕淑女，君子好逑。<br>" +
+                    "<br>" +
+                    "参差荇菜，左右流之。<br>" +
+                    "窈窕淑女，寤寐求之。<br>" +
+                    "<br>" +
+                    "求之不得，寤寐思服。<br>" +
+                    "悠哉悠哉，辗转反侧。<br>" +
+                    "<br>" +
+                    "参差荇菜，左右采之。<br>" +
+                    "窈窕淑女，琴瑟友之。<br>" +
+                    "<br>" +
+                    "参差荇菜，左右芼之。<br>" +
+                    "窈窕淑女，钟鼓乐之。"));
+        } else {
+            //详情页面
+            Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, null, mToolbarMenuText, "");
+            mChangeLetter.setVisibility(View.INVISIBLE);
+            mPoem = mPoemManager.findPoemById(mId);
+            mTitle.setText(mPoem.getTitle());
+            mAuthor.setText(mPoem.getAuthor());
+            mContent.setText(Html.fromHtml(mPoem.getContent()));
+            mTitle.setEnabled(false);
+            mAuthor.setEnabled(false);
+            mContent.setEnabled(false);
+            mLetterBg.setBackgroundResource(mPoem.getBgPath());
+        }
+
 
     }
 
@@ -100,25 +114,28 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
         switch (view.getId()) {
             case R.id.change_letter:
                 //切换信纸
-                if (index == 0) {
-                    index++;
-                }
-                if (index == resIds.length - 1) {
-                    index = 0;
-                }
-
-                mLetterBg.setBackgroundResource(resIds[index]);
-                index++;
+                Intent intent = new Intent(this, SelectBackActivity.class);
+                startActivityForResult(intent, 100);
                 break;
             case R.id.start_speak:
-                mStartSpeak.setVisibility(View.GONE);
-                mPlaySpeak.setVisibility(View.VISIBLE);
+                if (TextUtil.isEmpty(mId)) {
+                    mStartSpeak.setVisibility(View.GONE);
+                    mPlaySpeak.setVisibility(View.VISIBLE);
+                    mTime.start();
+                } else {
+                    //播放录音
+                }
                 break;
             case R.id.down_arrow:
+                //放弃录音
                 mStartSpeak.setVisibility(View.VISIBLE);
                 mPlaySpeak.setVisibility(View.GONE);
                 break;
             case R.id.stop:
+                //录音停止
+                mPlaySpeak.setVisibility(View.GONE);
+                mEndSpeak.setVisibility(View.VISIBLE);
+                mTime.stop();
                 break;
             case R.id.unSave:
                 mStartSpeak.setVisibility(View.VISIBLE);
@@ -135,6 +152,25 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
     //点击完成按钮进行保存
     @Override
     public void setToolBarMenu() {
+        int path = R.drawable.a19049ea3874d0bb4837f114095abd601;
+        if (mSelectBean != null) {
+            path = mSelectBean.getPath();
+        }
+
+        Poem poem = new Poem(Utils.getuuid(), mTitle.getText().toString(), mAuthor.getText().toString(), mContent.getText().toString(), "0", "", path);
+        mPoemManager.insertPoem(poem);
         ToastUtils.toast(this, "保存成功");
+        mTime = null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            mSelectBean = (SelectBean) data.getExtras().get("bean");
+            if (mSelectBean != null) {
+                mLetterBg.setBackgroundResource(mSelectBean.getPath());
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.wzrd.v.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class PoemListAdapter extends BaseAdapter {
         Poem poem = mList.get(i);
         viewHolder.mTitle.setText(poem.getTitle());
         viewHolder.mAuthor.setText(poem.getAuthor());
-        viewHolder.mContent.setText(poem.getContent());
+        viewHolder.mContent.setText(Html.fromHtml(poem.getContent()));
         return view;
     }
 

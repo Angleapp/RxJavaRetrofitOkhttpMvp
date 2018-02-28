@@ -79,7 +79,7 @@ public class SelectBean extends BaseObservable implements Serializable {
 
 
     public void backonclick(View view) {
-         SelectBackActivity activity;
+        SelectBackActivity activity;
         if (Build.VERSION.SDK_INT > 21) {
             activity = (SelectBackActivity) view.getContext();
         } else {
