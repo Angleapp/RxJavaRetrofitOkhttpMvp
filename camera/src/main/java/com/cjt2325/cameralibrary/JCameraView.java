@@ -372,6 +372,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
                         machine.zoom(result - firstTouchLength, CameraInterface.TYPE_CAPTURE);
                     }
 //                    Log.i("CJT", "result = " + (result - firstTouchLength));
+                    
                 }
                 break;
             case MotionEvent.ACTION_UP:
