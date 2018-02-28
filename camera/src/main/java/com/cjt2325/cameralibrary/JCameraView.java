@@ -155,7 +155,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         mVideoView = (VideoView) view.findViewById(R.id.video_preview);
         mPhoto = (ImageView) view.findViewById(R.id.image_photo);
         mSwitchCamera = (ImageView) view.findViewById(R.id.image_switch);
-        mSwitchCamera.setImageResource(iconSrc);
+//        mSwitchCamera.setImageResource(iconSrc);
         mFlashLamp = (ImageView) view.findViewById(R.id.image_flash);
          iv_back= (ImageView) view.findViewById(R.id.iv_back);
 
@@ -185,15 +185,16 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         mCaptureLayout.setCaptureLisenter(new CaptureListener() {
             @Override
             public void takePictures() {
-                mSwitchCamera.setVisibility(INVISIBLE);
-                mFlashLamp.setVisibility(INVISIBLE);
+                mSwitchCamera.setVisibility(GONE);
+                mFlashLamp.setVisibility(GONE);
                 machine.capture();
+
             }
 
             @Override
             public void recordStart() {
-                mSwitchCamera.setVisibility(INVISIBLE);
-                mFlashLamp.setVisibility(INVISIBLE);
+                mSwitchCamera.setVisibility(VISIBLE);
+                mFlashLamp.setVisibility(GONE);
                 machine.record(mVideoView.getHolder().getSurface(), screenProp);
             }
 
@@ -201,7 +202,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
             public void recordShort(final long time) {
                 mCaptureLayout.setTextWithAnimation("录制时间过短");
                 mSwitchCamera.setVisibility(VISIBLE);
-                mFlashLamp.setVisibility(VISIBLE);
+                mFlashLamp.setVisibility(GONE);
                 postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -233,11 +234,13 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
             @Override
             public void cancel() {
                 machine.cancle(mVideoView.getHolder(), screenProp);
+                mCaptureLayout.setVisibility(GONE);
             }
 
             @Override
             public void confirm() {
                 machine.confirm();
+                mCaptureLayout.setVisibility(GONE);
             }
         });
         //退出
@@ -450,7 +453,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
                 break;
         }
         mSwitchCamera.setVisibility(VISIBLE);
-        mFlashLamp.setVisibility(VISIBLE);
+        mFlashLamp.setVisibility(GONE);
         mCaptureLayout.resetCaptureLayout();
     }
 

@@ -60,7 +60,7 @@
             android:text="很难在面对面的时候说出的话："
             android:textSize="18sp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/red"
             android:visibility="gone"
             android:gravity="center"
             />
