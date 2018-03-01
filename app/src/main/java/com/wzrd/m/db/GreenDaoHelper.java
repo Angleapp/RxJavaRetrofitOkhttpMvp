@@ -93,20 +93,20 @@ public class GreenDaoHelper extends Application {
                             }
                             Boolean istrue = new File(dbDir).exists();
                             String dbPath = dbDir + "/" + name;// 数据库路径
-                            if ("1".equals(first)) {
-
-                            } else {
-                                File file = new File(dbPath);
-                                if (file.exists()) {
-                                    try {
-                                        file.delete();
-                                    }catch (Exception e){
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                                SharedPreferencesUtil.saveString(this, "first", "1");
-                            }
+//                            if ("1".equals(first)) {
+//
+//                            } else {
+//                                File file = new File(dbPath);
+//                                if (file.exists()) {
+//                                    try {
+//                                        file.delete();
+//                                    }catch (Exception e){
+//                                        e.printStackTrace();
+//                                    }
+//
+//                                }
+//                                SharedPreferencesUtil.saveString(this, "first", "1");
+//                            }
                             Log.e("dbPath", "dbPath-->" + dbPath);
 
                             // 数据库文件是否创建成功

@@ -36,6 +36,7 @@ public class PoemActivity extends AppCompatActivity {
     ListView mList;
     private PoemManager mPoemManager;
     private List<Poem> mLists = new ArrayList<>();
+    private PoemListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class PoemActivity extends AppCompatActivity {
         mPoemManager = new PoemManager(this);
         List<Poem> allPoem = mPoemManager.getAllPoem();
         mLists.addAll(allPoem);
-        PoemListAdapter adapter = new PoemListAdapter(mLists, this);
+        adapter = new PoemListAdapter(mLists, this);
         mList.setAdapter(adapter);
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,8 +55,21 @@ public class PoemActivity extends AppCompatActivity {
                 Intent intent = new Intent(PoemActivity.this, AddPoemActivity.class);
                 intent.putExtra("id", mLists.get(i).getId());
                 startActivity(intent);
+
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Poem> allPoem = mPoemManager.getAllPoem();
+        if (mLists != null) {
+            mLists.clear();
+        }
+        mLists.addAll(allPoem);
+        adapter.notifyDataSetChanged();
+
     }
 
     /**
