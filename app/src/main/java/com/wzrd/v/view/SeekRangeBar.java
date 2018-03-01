@@ -1,6 +1,7 @@
 package com.wzrd.v.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -48,6 +49,7 @@ public class SeekRangeBar extends View {
     private int miniGap=5;//AB的最小间隔
     private double progressLow;//起点(百分比)
     private double progressHigh;//终点
+    private Bitmap mthumhighbitma;
     Paint paint;
 
     public SeekRangeBar(Context context) {
@@ -62,19 +64,14 @@ public class SeekRangeBar extends View {
         notScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_wbf);
         hasScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_ybf);
         mThumbLow = ContextCompat.getDrawable(_context,R.mipmap.hp_a);
-        mThumbHigh = ContextCompat.getDrawable(_context,R.mipmap.hp_b);
+        mThumbHigh = ContextCompat.getDrawable(_context,R.mipmap.icon_lover_choseed);
+
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
         //设置滑动条高度
         mScollBarHeight = notScrollBarBg.getIntrinsicHeight();
         //设置滑动块直径
         mThumbWidth = mThumbLow.getIntrinsicWidth();
-
-
-
-
-
-
 
     }
 
@@ -97,7 +94,7 @@ public class SeekRangeBar extends View {
         if(defaultScreenHigh != 100) {
             mOffsetHigh = formatInt(defaultScreenHigh / 100 * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2+700);
+        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2+500);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -110,10 +107,10 @@ public class SeekRangeBar extends View {
         Paint text_Paint = new Paint();
         text_Paint.setTextAlign(Paint.Align.CENTER);
         text_Paint.setColor(Color.RED);
-        text_Paint.setTextSize(20);
+        text_Paint.setTextSize(50);
 
-        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2;
-        int bottom = top + mScollBarHeight;
+        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2+200;
+        int bottom = top + mScollBarHeight+10;
 
         if(editable) {//仅可编辑状态下显示进度条
             //白色滑动条，两个滑块各两边部分
@@ -130,7 +127,7 @@ public class SeekRangeBar extends View {
         mThumbLow.draw(canvas);
 
         //后滑块
-        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop);
+        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop-10);
         mThumbHigh.draw(canvas);
 
         //当前滑块刻度
@@ -140,15 +137,11 @@ public class SeekRangeBar extends View {
         //写文字
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(10); //以px为单位
-        canvas.drawText("1:23", (int) mOffsetLow , 50, paint);
-        canvas.drawText("1:23", (int) mOffsetHigh , 50, paint);
+        paint.setTextSize(50); //以px为单位
+        canvas.drawText((int) progressLow + "", (int) mOffsetLow , 100, paint);
+        canvas.drawText((int) progressHigh + "", (int) mOffsetHigh , -100, paint);
         canvas.drawText((int) progressLow + "", (int) mOffsetLow - 2 - 2, mTextViewMarginTop, text_Paint);
         canvas.drawText((int) progressHigh + "", (int) mOffsetHigh - 2, mTextViewMarginTop, text_Paint);
-
-
-
-
 
 
         if (mBarChangeListener != null) {
