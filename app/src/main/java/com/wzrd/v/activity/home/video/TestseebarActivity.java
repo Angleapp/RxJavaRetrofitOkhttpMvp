@@ -20,10 +20,13 @@ public class TestseebarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_testseebar);
         ButterKnife.bind(this);
-        seekrangebar.setEditable(true);
-        seekrangebar.setProgressLow(0);
-        seekrangebar.setProgressHigh(50);
-        seekrangebar.setTotal(50);
+        seekrangebar.setEditable(true);//设置是否可以滑动
+        seekrangebar.setProgressLow(0);//设置初始为a
+        seekrangebar.setProgressHigh(50);//设置初始位置b
+        seekrangebar.setTotal(50);//设置总的proress值
+        /**
+         * 设置监听
+         */
         seekrangebar.setOnSeekBarChangeListener(new SeekRangeBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekRangeBar seekBar, double progressLow, double progressHigh) {
