@@ -21,6 +21,9 @@ public class TestseebarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_testseebar);
         ButterKnife.bind(this);
         seekrangebar.setEditable(true);
+        seekrangebar.setProgressLow(0);
+        seekrangebar.setProgressHigh(50);
+        seekrangebar.setTotal(50);
         seekrangebar.setOnSeekBarChangeListener(new SeekRangeBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekRangeBar seekBar, double progressLow, double progressHigh) {

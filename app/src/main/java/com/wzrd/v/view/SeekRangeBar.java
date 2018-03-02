@@ -49,6 +49,7 @@ public class SeekRangeBar extends View {
     private int miniGap=5;//AB的最小间隔
     private double progressLow;//起点(百分比)
     private double progressHigh;//终点
+    private int total=100;
     private Bitmap mthumhighbitma;
     Paint paint;
 
@@ -63,8 +64,8 @@ public class SeekRangeBar extends View {
         _context=context;
         notScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_wbf);
         hasScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_ybf);
-        mThumbLow = ContextCompat.getDrawable(_context,R.mipmap.hp_a);
-        mThumbHigh = ContextCompat.getDrawable(_context,R.mipmap.icon_lover_choseed);
+        mThumbLow = ContextCompat.getDrawable(_context,R.mipmap.hp_a);//hp-a
+        mThumbHigh = ContextCompat.getDrawable(_context,R.mipmap.hp_b);
 
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
@@ -89,12 +90,12 @@ public class SeekRangeBar extends View {
         }
         mDistance = width - mThumbWidth;
         if(defaultScreenLow != 0) {
-            mOffsetLow = formatInt(defaultScreenLow / 100 * (mDistance)) + mThumbWidth / 2;
+            mOffsetLow = formatInt(defaultScreenLow / total * (mDistance)) + mThumbWidth / 2;
         }
-        if(defaultScreenHigh != 100) {
-            mOffsetHigh = formatInt(defaultScreenHigh / 100 * (mDistance)) + mThumbWidth / 2;
+        if(defaultScreenHigh != total) {
+            mOffsetHigh = formatInt(defaultScreenHigh / total * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2+500);
+        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2+200);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -103,14 +104,8 @@ public class SeekRangeBar extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //当前滑动坐标值
-        Paint text_Paint = new Paint();
-        text_Paint.setTextAlign(Paint.Align.CENTER);
-        text_Paint.setColor(Color.RED);
-        text_Paint.setTextSize(50);
-
-        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2+200;
-        int bottom = top + mScollBarHeight+10;
+        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2+40;
+        int bottom = top + mScollBarHeight;
 
         if(editable) {//仅可编辑状态下显示进度条
             //白色滑动条，两个滑块各两边部分
@@ -123,26 +118,23 @@ public class SeekRangeBar extends View {
         }
 
         //前滑块
-        mThumbLow.setBounds((int) (mOffsetLow - mThumbWidth / 2), mThumbMarginTop, (int) (mOffsetLow + mThumbWidth / 2), mThumbWidth + mThumbMarginTop);
+        mThumbLow.setBounds((int) (mOffsetLow - mThumbWidth / 2), mThumbMarginTop+40, (int) (mOffsetLow + mThumbWidth / 2), mThumbWidth + mThumbMarginTop+40);
         mThumbLow.draw(canvas);
 
         //后滑块
-        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop-10);
+        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop+40, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop+40);
         mThumbHigh.draw(canvas);
 
         //当前滑块刻度
-        progressLow = formatInt((mOffsetLow - mThumbWidth / 2) * 100 / mDistance);
-        progressHigh = formatInt((mOffsetHigh - mThumbWidth / 2) * 100 / mDistance);
+        progressLow = formatInt((mOffsetLow - mThumbWidth / 2) * total / mDistance);
+        progressHigh = formatInt((mOffsetHigh - mThumbWidth / 2) * total / mDistance);
         paint = new Paint();
         //写文字
         paint.setColor(Color.BLACK);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(50); //以px为单位
-        canvas.drawText((int) progressLow + "", (int) mOffsetLow , 100, paint);
-        canvas.drawText((int) progressHigh + "", (int) mOffsetHigh , -100, paint);
-        canvas.drawText((int) progressLow + "", (int) mOffsetLow - 2 - 2, mTextViewMarginTop, text_Paint);
-        canvas.drawText((int) progressHigh + "", (int) mOffsetHigh - 2, mTextViewMarginTop, text_Paint);
-
+        paint.setTextSize(20); //以px为单位
+        canvas.drawText((int) progressLow + "", (int) mOffsetLow , 20, paint);
+        canvas.drawText((int) progressHigh + "", (int) mOffsetHigh , 20, paint);
 
         if (mBarChangeListener != null) {
             mBarChangeListener.onProgressChanged(this, progressLow, progressHigh);
@@ -219,7 +211,7 @@ public class SeekRangeBar extends View {
             if(miniGap>0 && progressHigh<progressLow+miniGap){
                 progressHigh=progressLow+miniGap;
                 this.defaultScreenHigh = progressHigh;
-                mOffsetHigh = formatInt(progressHigh / 100 * (mDistance)) + mThumbWidth / 2;
+                mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
                 invalidate();
             }
         }
@@ -242,8 +234,8 @@ public class SeekRangeBar extends View {
      * @return
      */
     public int getAreaFlag(MotionEvent e) {
-        int top = mThumbMarginTop;
-        int bottom = mThumbWidth + mThumbMarginTop;
+        int top = mThumbMarginTop+40;
+        int bottom = mThumbWidth + mThumbMarginTop+40;
         if (e.getY() >= top && e.getY() <= bottom && e.getX() >= (mOffsetLow - mThumbWidth / 2) && e.getX() <= mOffsetLow + mThumbWidth / 2) {
             return CLICK_ON_LOW;
         } else if (e.getY() >= top && e.getY() <= bottom && e.getX() >= (mOffsetHigh - mThumbWidth / 2) && e.getX() <= (mOffsetHigh + mThumbWidth / 2)) {
@@ -269,7 +261,7 @@ public class SeekRangeBar extends View {
      */
     public void setProgressLow(double progressLow) {
         this.defaultScreenLow = progressLow;
-        mOffsetLow = formatInt(progressLow / 100 * (mDistance)) + mThumbWidth / 2;
+        mOffsetLow = formatInt(progressLow / total * (mDistance)) + mThumbWidth / 2;
         invalidate();
     }
 
@@ -279,7 +271,7 @@ public class SeekRangeBar extends View {
      */
     public void setProgressHigh(double progressHigh) {
         this.defaultScreenHigh = progressHigh;
-        mOffsetHigh = formatInt(progressHigh / 100 * (mDistance)) + mThumbWidth / 2;
+        mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
         invalidate();
     }
 
@@ -308,5 +300,14 @@ public class SeekRangeBar extends View {
         BigDecimal bd = new BigDecimal(value);
         BigDecimal bd1 = bd.setScale(0, BigDecimal.ROUND_HALF_UP);
         return bd1.intValue();
+    }
+
+    /**
+     * 设置总的progess值
+     * @param total
+     */
+    public void setTotal(int total){
+        this.total=total;
+
     }
 }
