@@ -18,6 +18,7 @@ import com.wzrd.R;
 import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.m.utils.Constants;
+import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.calendar.CarcletarActivity;
@@ -48,7 +49,7 @@ public class EditorActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
     private boolean iscannext;
-    private List<TSYSCONTANTS> list;
+    private List<TSYSCONTANTS> list=new ArrayList<>();
     private Boolean exituser;
 
     @Override
@@ -114,13 +115,24 @@ public class EditorActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next:
-                if (iscannext) {
+                //iscannext   判断联系人是否选择   暂时取消
+                if (true) {
                     String s = etText.getText().toString();
                     if (s != null&&!"".equals(s)) {
                         Intent intent = new Intent(this, CarcletarActivity.class);
                         Bundle bundle = new Bundle();
+                        if(list!=null&&list.size()==0){
+                            String uuid = Utils.getuuid();
+                            TSYSCONTANTS modle = new TSYSCONTANTS(uuid, uuid, "测试填充" , uuid, uuid, "/storage/emulated/0/Photo_LJ/fd0bf2e399684aa29740baf6d83e865e.jpg",
+                                    "/storage/emulated/0/Photo_LJ/fd0bf2e399684aa29740baf6d83e865e.jpg",
+                                    DateUtils.getCurrentDate(), "", false);
+                            list.add(modle);
+                        }
                         bundle.putSerializable("list", (Serializable) list);
                         intent.putExtras(bundle);
+                        if(exituser==null){
+                            exituser=false;
+                        }
                         intent.putExtra("id", exituser);
                         startActivity(intent);
                     } else {

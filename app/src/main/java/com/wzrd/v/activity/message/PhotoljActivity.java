@@ -20,6 +20,7 @@ import com.muzhi.camerasdk.library.filter.util.ImageFilterTools;
 import com.muzhi.camerasdk.library.views.HorizontalListView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.yyx.beautifylib.adapter.Filter_Effect_Adapter;
 import com.yyx.beautifylib.model.Filter_Effect_Info;
@@ -56,6 +57,7 @@ public class PhotoljActivity extends AppCompatActivity implements View.OnClickLi
         startPhoto();
         setadapter();
         setlistener();
+        SharedPreferencesUtil.saveString(this,"PhotoljActivity","Photolj");
 
     }
 

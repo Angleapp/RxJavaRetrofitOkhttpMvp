@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,9 +18,7 @@ import com.wzrd.R;
 import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
-import com.wzrd.v.activity.MainActivity;
 import com.wzrd.v.activity.message.EditorActivity;
-import com.wzrd.v.view.popup.EixtPopupWindow;
 import com.wzrd.v.view.popup.TimerPopupWindow;
 
 import java.util.ArrayList;
@@ -101,8 +98,7 @@ public class TimingFragment extends Fragment {
                     for (int i = 0; i < list.size(); i++) {
                         buffer.append(list.get(i).getT_sys_contacts_name() + ",");
                     }
-
-                    buffer.deleteCharAt(buffer.length() - 1);
+                  buffer.deleteCharAt(buffer.length() - 1);
                     Log.e("buffer", "buffer---" + buffer.toString());
                     if(time!=null){
                         String a = "爱的消息将于 " + time + "发送";

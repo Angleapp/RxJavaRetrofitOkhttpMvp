@@ -21,7 +21,9 @@ import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.been.TSYSUSER;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.m.db.manger.UserManager;
+import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.SharedPreferencesUtil;
+import com.wzrd.m.utils.Utils;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.activity.contacts.AddContactsActivity;
 import com.wzrd.v.activity.contacts.ContanctsMessageActivity;
@@ -106,8 +108,18 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
         }
 
         ContactsManager contactsManager = new ContactsManager(getActivity());
-        tsyscontantsList = contactsManager.getByid(id);
-
+        tsyscontantsList = contactsManager.getAllUser();
+//        tsyscontantsList = contactsManager.getByid(id);
+//        TSYSCONTANTS
+        for (int i = 0; i < 10; i++) {
+            String uuid = Utils.getuuid();
+            TSYSCONTANTS modle = new TSYSCONTANTS(uuid, uuid, "测试" + i, uuid, uuid, "/storage/emulated/0/Photo_LJ/fd0bf2e399684aa29740baf6d83e865e.jpg",
+                    "/storage/emulated/0/Photo_LJ/fd0bf2e399684aa29740baf6d83e865e.jpg",
+                    DateUtils.getCurrentDate(), "", false);
+            tsyscontantsList.add(modle);
+        }
+//
+//        List<TSYSCONTANTS>
 
     }
 

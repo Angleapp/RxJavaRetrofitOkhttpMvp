@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.services.RecordingService;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
 import com.yyx.beautifylib.utils.Constants;
 import com.yyx.beautifylib.utils.SDCardUtils;
@@ -75,6 +76,7 @@ public class MoviceActivity extends AppCompatActivity {
         broadcastReceiver();
         // 注册广播
         registeBoardCast();
+        SharedPreferencesUtil.saveString(this,"moviceactivity","movice");
     }
 
     private void onRecord(boolean start) {

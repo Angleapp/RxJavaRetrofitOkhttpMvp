@@ -186,11 +186,32 @@ public class PreviewPopupWindow extends PopupWindow {
                     dismiss();
                 }
                 break;
-            case 10:
+            case 10://语音
+                if (del == 0) {
+                    dismiss();
+                } else {
+                    SharedPreferencesUtil.saveString(context, "moviceactivity", "");
+                    dismiss();
+                }
                 break;
             case 11:
+
+                if (del == 0) {
+                    dismiss();
+                } else {
+                    SharedPreferencesUtil.saveString(context, "PhotoljActivity", "");
+                    dismiss();
+                }
+
                 break;
             case 12:
+
+                if (del == 0) {
+                    dismiss();
+                } else {
+                    SharedPreferencesUtil.saveString(context, "cameractivity", "");
+                    dismiss();
+                }
                 break;
 
 

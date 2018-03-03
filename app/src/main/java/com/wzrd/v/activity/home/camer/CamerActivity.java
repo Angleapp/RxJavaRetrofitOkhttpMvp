@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.cjt2325.cameralibrary.JCameraView;
 import com.cjt2325.cameralibrary.listener.JCameraListener;
 import com.wzrd.R;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 
 import java.io.File;
 
@@ -71,6 +72,7 @@ public class CamerActivity extends AppCompatActivity {
 //        });
         //6.0动态权限获取
         getPermissions();
+        SharedPreferencesUtil.saveString(this,"cameractivity","camer");
     }
 
     @Override

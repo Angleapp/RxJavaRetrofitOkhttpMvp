@@ -1,32 +1,31 @@
 package com.wzrd.v.activity.message;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
-import com.wzrd.m.utils.Constants;
-import com.wzrd.m.utils.Utils;
+import com.wzrd.m.been.TEXTIFORMATION;
+import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.v.activity.home.camer.CamerActivity;
 import com.wzrd.v.view.popup.PhotoPopupWindow;
 import com.wzrd.v.view.popup.PreviewPopupWindow;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 
-public class MessagesActivity extends AppCompatActivity implements View.OnLongClickListener{
+public class MessagesActivity extends AppCompatActivity implements View.OnLongClickListener {
 
     @BindView(R.id.iv_message_back)
     ImageView ivMessageBack;
@@ -42,6 +41,14 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
     private static final int MESSIMAGE_REQUEST_CODE = 0x104;
     private static final int REQUEST_CODE_BEAUTIFY_IMAGE = 0x105;
     public static final String KEY = "beautify_image";
+    @BindView(R.id.tv_text_ring)
+    TextView tvTextRing;
+    @BindView(R.id.tv_movice_ring)
+    TextView tvMoviceRing;
+    @BindView(R.id.tv_phone_album_ring)
+    TextView tvPhoneAlbumRing;
+    @BindView(R.id.tv_camera_ring)
+    TextView tvCameraRing;
     private View view;
 
     @Override
@@ -50,9 +57,60 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
         view = getLayoutInflater().inflate(R.layout.activity_messages, null);
         setContentView(view);
         ButterKnife.bind(this);
-
+        initvisivii();
         startonlongclick();
-;
+
+    }
+
+    /**
+     * 判断下面的小蓝点是否显示
+     */
+    private void initvisivii() {
+        //tvTextRing  tvMoviceRing  tvPhoneAlbumRing  tvCameraRing
+        Drawable drawable = getResources().getDrawable(R.drawable.blue_circle_dot_big);
+        // 这一步必须要做,否则不会显示.
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        TextInformationManager manager = new TextInformationManager(this);
+        /**
+         * 消息
+         */
+
+        List<TEXTIFORMATION> list = manager.getBytype("0");
+        if (list != null && list.size() > 0) {
+            tvTextRing.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvTextRing.setCompoundDrawables(null, null, null, null);
+        }
+        /**
+         * 录音
+         */
+        String movice = SharedPreferencesUtil.getString(this, "moviceactivity", "");
+        if("movice".equals(movice)){
+            tvMoviceRing.setCompoundDrawables(drawable, null, null, null);
+        }else{
+            tvMoviceRing.setCompoundDrawables(null, null, null, null);
+        }
+
+        /**
+         * 相机
+         */
+        String camer = SharedPreferencesUtil.getString(this, "cameractivity", "");
+        if("camer".equals(camer)){
+            tvCameraRing.setCompoundDrawables(drawable, null, null, null);
+        }else{
+            tvCameraRing.setCompoundDrawables(null, null, null, null);
+        }
+
+        /**
+         * 相册
+         */
+        String Photolj = SharedPreferencesUtil.getString(this, "PhotoljActivity", "");
+        if("Photolj".equals(Photolj)){
+            tvPhoneAlbumRing.setCompoundDrawables(drawable, null, null, null);
+        }else{
+            tvPhoneAlbumRing.setCompoundDrawables(null, null, null, null);
+        }
+
     }
 
     private void startonlongclick() {
@@ -60,6 +118,12 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
         llVoice.setOnLongClickListener(this);
         llCamera.setOnLongClickListener(this);
         llPhoneAlbum.setOnLongClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initvisivii();
     }
 
     @OnClick({R.id.iv_message_back, R.id.ll_text, R.id.ll_voice, R.id.ll_camera, R.id.ll_phone_album})
@@ -71,7 +135,7 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
             case R.id.ll_text:
 //                startactivity(TextActivity.class);
                 Intent endintent = new Intent(this, TextActivity.class);
-                endintent.putExtra("title","0");
+                endintent.putExtra("title", "0");
                 startActivity(endintent);
                 break;
             case R.id.ll_voice:
@@ -88,55 +152,6 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
         }
     }
 
-    private void strartcamera() {
-        final Activity activity = MessagesActivity.this;
-        RxPermissions rxPermissions = new RxPermissions(activity);
-        rxPermissions
-                .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .observeOn(AndroidSchedulers.mainThread())
-
-                .subscribe(new Observer<Boolean>() {
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Boolean aBoolean) {
-                        /**
-                         * aBoolean为true  同意权限
-                         * aBoolean为false 没同意权限
-                         */
-
-                        if (!aBoolean) {
-                            Utils.ToastShort(activity, Constants.RDWISDPREMISS);
-                        } else {
-                            Intent intent = new Intent();
-                            intent.addCategory(Intent.CATEGORY_OPENABLE);
-                            intent.setType(IMAGE_TYPE);
-                            if (Build.VERSION.SDK_INT < 19) {
-                                intent.setAction(Intent.ACTION_GET_CONTENT);
-                            } else {
-                                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                            }
-                            activity.startActivityForResult(intent, MESSIMAGE_REQUEST_CODE);
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
     public void startactivity(Class aclass) {
         Intent intent = new Intent(MessagesActivity.this, aclass);
@@ -161,24 +176,33 @@ public class MessagesActivity extends AppCompatActivity implements View.OnLongCl
     //1 短视屏 2 结束语 3 线下 4智慧之语 5自拍 6口难开 7诗歌 8虚拟礼物 9(消息里面) 文字 10 语音 11 相册 12相机
     @Override
     public boolean onLongClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ll_text:
-                showpop(9,"预览文字","删除文字");
+                showpop(9, "预览文字", "删除文字");
                 break;
             case R.id.ll_voice:
-                showpop(10,"预览语音","删除语音");
+                showpop(10, "预览语音", "删除语音");
                 break;
             case R.id.ll_camera:
-                showpop(11,"预览相册","删除相册");
+                showpop(12, "预览相机", "删除相机");
                 break;
             case R.id.ll_phone_album:
-                showpop(12,"预览相机","删除相机");
+
+                showpop(11, "预览相册", "删除相册");
                 break;
         }
         return false;
     }
+
     private void showpop(int type, String previewmessage, String delmessage) {
         PreviewPopupWindow previewPopupWindow = new PreviewPopupWindow(this, type, previewmessage, delmessage);
         previewPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 10);
+        previewPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                initvisivii();
+
+            }
+        });
     }
 }

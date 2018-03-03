@@ -33,55 +33,90 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/ll_text"
                 style="@style/message"
-
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/pic_text_background"
-                android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/ll_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@mipmap/pic_text_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="文字"
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="文字"
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="3dp">
+
+                    <TextView
+                        android:id="@+id/tv_text_ring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:drawableLeft="@drawable/blue_circle_dot_big"
+                        android:drawablePadding="4dp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_voice"
                 style="@style/message"
-
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/pic_voice_background"
-                android:gravity="center"
-                android:orientation="vertical"
+                android:orientation="vertical">
 
-                >
+                <LinearLayout
+                    android:id="@+id/ll_voice"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@mipmap/pic_voice_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="语音"
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="语音"
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="3dp">
+
+                    <TextView
+                        android:id="@+id/tv_movice_ring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:drawableLeft="@drawable/blue_circle_dot_big"
+                        android:drawablePadding="4dp"/>
+                </LinearLayout>
+
             </LinearLayout>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -92,41 +127,82 @@
 
             <LinearLayout
                 style="@style/message"
-
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/pic_album_background"
-                android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@mipmap/pic_album_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="相册"
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="相册"
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="3dp">
+
+                    <TextView
+                        android:id="@+id/tv_phone_album_ring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:drawableLeft="@drawable/blue_circle_dot_big"
+                        android:drawablePadding="4dp"
+                        />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_camera"
                 style="@style/message"
-
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/pic_camera_background"
-                android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/ll_camera"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@mipmap/pic_camera_background"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="相机"
+                        android:textColor="@color/white"
+                        android:textSize="21sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="相机"
-                    android:textColor="@color/white"
-                    android:textSize="21sp" />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingTop="3dp">
 
+                    <TextView
+                        android:id="@+id/tv_camera_ring"
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"
+                        android:drawableLeft="@drawable/blue_circle_dot_big"
+                        android:drawablePadding="4dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
