@@ -1,5 +1,6 @@
 package com.wzrd.v.activity.home.video;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,8 +23,14 @@ public class TestseebarActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         seekrangebar.setEditable(true);//设置是否可以滑动
         seekrangebar.setProgressLow(0);//设置初始为a
-        seekrangebar.setProgressHigh(50);//设置初始位置b
-        seekrangebar.setTotal(50);//设置总的proress值
+        seekrangebar.setProgressHigh(500000);//设置初始位置b
+        seekrangebar.setTotal(500000);//设置总的proress值
+        seekrangebar.setColora(Color.BLUE);
+        seekrangebar.setColorb(Color.RED);
+        seekrangebar.setFontSizea(10);
+        seekrangebar.setFontSizea(30);
+
+
         /**
          * 设置监听
          */

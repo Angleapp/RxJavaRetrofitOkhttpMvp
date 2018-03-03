@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.wzrd.R;
+import com.wzrd.m.utils.MoviceDateUtils;
 
 import java.math.BigDecimal;
 
@@ -40,32 +41,38 @@ public class SeekRangeBar extends View {
     private int mThumbWidth;        //滑动块直径
     private double mOffsetLow = 0;     //前滑块中心坐标
     private double mOffsetHigh = 0;    //后滑块中心坐标
-    private int mDistance=0;      //总刻度是固定距离 两边各去掉半个滑块距离
+    private int mDistance = 0;      //总刻度是固定距离 两边各去掉半个滑块距离
     private int mFlag = CLICK_INVAILD;   //手指按下的类型
     private double defaultScreenLow = 0;    //默认前滑块位置百分比
     private double defaultScreenHigh = 100;  //默认后滑块位置百分比
     private OnSeekBarChangeListener mBarChangeListener;
-    private boolean editable=false;//是否处于可编辑状态
-    private int miniGap=5;//AB的最小间隔
+    private boolean editable = false;//是否处于可编辑状态
+    private int miniGap = 5;//AB的最小间隔
     private double progressLow;//起点(百分比)
     private double progressHigh;//终点
-    private int total=100;
+    private int total = 100;
     private Bitmap mthumhighbitma;
-    Paint paint;
+    private int fontsizea = 20;//字体的大小
+    private int fontsizeb = 20;//字体的大小
+    private int coclora = Color.BLACK;//字体的颜色
+    private int coclorb = Color.BLACK;//字体的颜色
+
 
     public SeekRangeBar(Context context) {
         this(context, null);
     }
+
     public SeekRangeBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public SeekRangeBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        _context=context;
-        notScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.select_line_bg);
-        hasScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.selected_line_bg);
-        mThumbLow = ContextCompat.getDrawable(_context,R.drawable.clip_time_shape_start);
-        mThumbHigh = ContextCompat.getDrawable(_context,R.drawable.clip_time_shape_end);
+        _context = context;
+        notScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_wbf);
+        hasScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_ybf);
+        mThumbLow = ContextCompat.getDrawable(_context, R.mipmap.hp_a);//hp-a
+        mThumbHigh = ContextCompat.getDrawable(_context, R.mipmap.hp_b);
 
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
@@ -78,24 +85,25 @@ public class SeekRangeBar extends View {
 
     /**
      * 测量view尺寸（在onDraw()之前）
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         mScollBarWidth = width;
-        if(mDistance==0) {//只是初始化的时候测量
+        if (mDistance == 0) {//只是初始化的时候测量
             mOffsetLow = mThumbWidth / 2;
             mOffsetHigh = width - mThumbWidth / 2;
         }
         mDistance = width - mThumbWidth;
-        if(defaultScreenLow != 0) {
+        if (defaultScreenLow != 0) {
             mOffsetLow = formatInt(defaultScreenLow / total * (mDistance)) + mThumbWidth / 2;
         }
-        if(defaultScreenHigh != total) {
+        if (defaultScreenHigh != total) {
             mOffsetHigh = formatInt(defaultScreenHigh / total * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2+200);
+        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 200);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -104,10 +112,10 @@ public class SeekRangeBar extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2+40;
+        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2 + 40;
         int bottom = top + mScollBarHeight;
 
-        if(editable) {//仅可编辑状态下显示进度条
+        if (editable) {//仅可编辑状态下显示进度条
             //白色滑动条，两个滑块各两边部分
             notScrollBarBg.setBounds(mThumbWidth / 2, top, mScollBarWidth - mThumbWidth / 2, bottom);
             notScrollBarBg.draw(canvas);
@@ -118,23 +126,30 @@ public class SeekRangeBar extends View {
         }
 
         //前滑块
-        mThumbLow.setBounds((int) (mOffsetLow - mThumbWidth / 2), mThumbMarginTop+40, (int) (mOffsetLow + mThumbWidth / 2), mThumbWidth + mThumbMarginTop+40);
+        mThumbLow.setBounds((int) (mOffsetLow - mThumbWidth / 2), mThumbMarginTop + 40, (int) (mOffsetLow + mThumbWidth / 2), mThumbWidth + mThumbMarginTop + 40);
         mThumbLow.draw(canvas);
 
         //后滑块
-        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop+40, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop+40);
+        mThumbHigh.setBounds((int) (mOffsetHigh - mThumbWidth / 2), mThumbMarginTop + 40, (int) (mOffsetHigh + mThumbWidth / 2), mThumbWidth + mThumbMarginTop + 40);
         mThumbHigh.draw(canvas);
 
         //当前滑块刻度
         progressLow = formatInt((mOffsetLow - mThumbWidth / 2) * total / mDistance);
         progressHigh = formatInt((mOffsetHigh - mThumbWidth / 2) * total / mDistance);
-        paint = new Paint();
+        Paint painta = new Paint();
         //写文字
-        paint.setColor(Color.WHITE);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(20); //以px为单位
-        canvas.drawText((int) progressLow + "", (int) mOffsetLow , 20, paint);
-        canvas.drawText((int) progressHigh + "", (int) mOffsetHigh , 20, paint);
+        painta.setColor(coclora);
+        painta.setTextAlign(Paint.Align.CENTER);
+        painta.setTextSize(fontsizea); //以px为单位
+
+        Paint paintb = new Paint();
+        paintb.setColor(coclorb);
+        paintb.setTextAlign(Paint.Align.CENTER);
+        paintb.setTextSize(fontsizeb); //以px为单位
+        MoviceDateUtils utils=new MoviceDateUtils();
+
+        canvas.drawText(utils.stringForTime((int) progressLow)+ "", (int) mOffsetLow, 20, painta);
+        canvas.drawText(utils.stringForTime((int) progressHigh) + "", (int) mOffsetHigh, 20, paintb);
 
         if (mBarChangeListener != null) {
             mBarChangeListener.onProgressChanged(this, progressLow, progressHigh);
@@ -143,7 +158,7 @@ public class SeekRangeBar extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        if(!editable) {
+        if (!editable) {
             return false;
         }
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
@@ -174,7 +189,7 @@ public class SeekRangeBar extends View {
                 }
             }
             //更新滑块
-            Log.d("LOGCAT","refresh down");
+            Log.d("LOGCAT", "refresh down");
             invalidate();
         } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
             if (mFlag == CLICK_ON_LOW) {
@@ -205,11 +220,11 @@ public class SeekRangeBar extends View {
             //更新滑块
             invalidate();
         } else if (e.getAction() == MotionEvent.ACTION_UP) {
-            Log.d("LOGCAT","ACTION UP:"+progressHigh+"-"+progressLow);
+            Log.d("LOGCAT", "ACTION UP:" + progressHigh + "-" + progressLow);
             mThumbLow.setState(STATE_NORMAL);
             mThumbHigh.setState(STATE_NORMAL);
-            if(miniGap>0 && progressHigh<progressLow+miniGap){
-                progressHigh=progressLow+miniGap;
+            if (miniGap > 0 && progressHigh < progressLow + miniGap) {
+                progressHigh = progressLow + miniGap;
                 this.defaultScreenHigh = progressHigh;
                 mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
                 invalidate();
@@ -220,22 +235,61 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置是否可编辑状态
+     *
      * @param _b
      */
-    public void setEditable(boolean _b){
-        editable=_b;
+    public void setEditable(boolean _b) {
+        editable = _b;
         invalidate();
-        Log.d("LOGCAT","editable:"+editable);
+        Log.d("LOGCAT", "editable:" + editable);
+    }
+
+    /**
+     * 设置a左边字体的大小
+     *
+     * @param size
+     */
+    public void setFontSizea(int size) {
+        this.fontsizea = size;
+        invalidate();
+    }
+
+    /**
+     * 设置b右边字体的大小
+     *
+     * @param size
+     */
+    public void setFontSizeb(int size) {
+        this.fontsizeb = size;
+        invalidate();
+    }
+
+    /**
+     * 设置corlor a 的颜色
+     * @param colora
+     */
+    public void setColora(int colora) {
+        this.coclora = colora;
+        invalidate();
+    }
+    /**
+     * 设置corlor b 的颜色
+     * @param colorb
+     */
+    public void setColorb(int colorb) {
+        this.coclorb = colorb;
+        invalidate();
     }
 
     /**
      * 获取当前手指位置
+     *
      * @param e
      * @return
      */
     public int getAreaFlag(MotionEvent e) {
-        int top = mThumbMarginTop+40;
-        int bottom = mThumbWidth + mThumbMarginTop+40;
+        int top = mThumbMarginTop + 40;
+        int bottom = mThumbWidth + mThumbMarginTop + 40;
         if (e.getY() >= top && e.getY() <= bottom && e.getX() >= (mOffsetLow - mThumbWidth / 2) && e.getX() <= mOffsetLow + mThumbWidth / 2) {
             return CLICK_ON_LOW;
         } else if (e.getY() >= top && e.getY() <= bottom && e.getX() >= (mOffsetHigh - mThumbWidth / 2) && e.getX() <= (mOffsetHigh + mThumbWidth / 2)) {
@@ -257,6 +311,7 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置前滑块的值
+     *
      * @param progressLow
      */
     public void setProgressLow(double progressLow) {
@@ -267,6 +322,7 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置后滑块的值
+     *
      * @param progressHigh
      */
     public void setProgressHigh(double progressHigh) {
@@ -277,6 +333,7 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置滑动监听
+     *
      * @param mListener
      */
     public void setOnSeekBarChangeListener(OnSeekBarChangeListener mListener) {
@@ -293,6 +350,7 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置滑动结果为整数
+     *
      * @param value
      * @return
      */
@@ -304,10 +362,11 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置总的progess值
+     *
      * @param total
      */
-    public void setTotal(int total){
-        this.total=total;
+    public void setTotal(int total) {
+        this.total = total;
 
     }
 }

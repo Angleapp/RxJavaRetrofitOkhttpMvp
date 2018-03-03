@@ -106,6 +106,8 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
     TextView tvPoem;
     @BindView(R.id.tv_gift)
     TextView tvGift;
+    @BindView(R.id.ll_title_all)
+    LinearLayout llTitleAll;
     private View view;
     private BroadcastReceiver broadcastReceiver;
     private IntentFilter dynamic_filter;
@@ -128,6 +130,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
 
         gif();
         setvisibility();
+
         return view;
     }
 
@@ -223,6 +226,7 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
      */
     private void gif() {
         Glide.with(getActivity()).load(R.drawable.a001).into(mSendMessage);
+
     }
 
     @Override
