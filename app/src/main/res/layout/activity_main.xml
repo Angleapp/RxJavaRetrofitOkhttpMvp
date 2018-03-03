@@ -22,7 +22,6 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:background="@color/black_half"
-
         android:gravity="center_horizontal|bottom">
 
         <com.wzrd.v.view.BannerTabHost
