@@ -62,10 +62,10 @@ public class SeekRangeBar extends View {
     public SeekRangeBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         _context=context;
-        notScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_wbf);
-        hasScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_ybf);
-        mThumbLow = ContextCompat.getDrawable(_context,R.mipmap.hp_a);//hp-a
-        mThumbHigh = ContextCompat.getDrawable(_context,R.mipmap.hp_b);
+        notScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.select_line_bg);
+        hasScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.selected_line_bg);
+        mThumbLow = ContextCompat.getDrawable(_context,R.drawable.clip_time_shape_start);
+        mThumbHigh = ContextCompat.getDrawable(_context,R.drawable.clip_time_shape_end);
 
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
@@ -130,7 +130,7 @@ public class SeekRangeBar extends View {
         progressHigh = formatInt((mOffsetHigh - mThumbWidth / 2) * total / mDistance);
         paint = new Paint();
         //写文字
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(20); //以px为单位
         canvas.drawText((int) progressLow + "", (int) mOffsetLow , 20, paint);
