@@ -104,6 +104,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".v.activity.home.video.VideoDetailActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
 
 <activity android:name=".v.activity.home.video.TestseebarActivity"/>

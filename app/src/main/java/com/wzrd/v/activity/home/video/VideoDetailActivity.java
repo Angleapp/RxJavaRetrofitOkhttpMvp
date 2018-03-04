@@ -8,12 +8,14 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,7 @@ import com.wzrd.m.utils.Utils;
 import com.wzrd.v.view.MyVideoView;
 import com.wzrd.v.view.SeekRangeBar;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -199,6 +202,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         mTime.setText("00:00");
         mSeekRangeBar.setProgressLow(0);
         int high = mVideoView.getDuration();
+        mSeekRangeBar.setTotal(high);
         mSeekRangeBar.setProgressHigh(high);
         mSeekRangeBar.setColora(Color.WHITE);
         mSeekRangeBar.setFontSizea(24);
@@ -260,10 +264,10 @@ public class VideoDetailActivity extends AppCompatActivity {
                 updateTime(mTextTime, (int) progressHigh);
             }
         });
-       /* String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+mVideo.getVideo_path();
-        Log.e("====",path);
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path();
+        Log.e("====", path);
         mVideoView.setVideoPath(path);
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+          /*  MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         if (Build.VERSION.SDK_INT>14){
             mmr.setDataSource(path, new HashMap<String, String>());
         }else{
@@ -321,9 +325,14 @@ public class VideoDetailActivity extends AppCompatActivity {
                 setFullScreen();
                 break;
             case R.id.reduce:
+                endTime--;
+                mSeekRangeBar.setProgressHigh(endTime);
+                updateTime(mTextTime, endTime);
                 break;
             case R.id.plus:
-
+                endTime++;
+                mSeekRangeBar.setProgressHigh(endTime);
+                updateTime(mTextTime, endTime);
                 break;
             case R.id.clip:
                 break;
@@ -364,12 +373,15 @@ public class VideoDetailActivity extends AppCompatActivity {
             mVideoView.setBackgroundColor(Color.parseColor("#FF000000"));
         }
         mVideoView.setEnabled(false);
-        mClose.setImageResource(R.mipmap.icon_video_close);
+        mClose.setImageResource(R.mipmap.icon_titlebar_back);
         isBack = true;
         mContentShow.setVisibility(View.GONE);
         mSeekRangeBar.setVisibility(View.GONE);
         mSelectTextType.setVisibility(View.GONE);
         mBottomLayout.setVisibility(View.GONE);
+        mDelete.setVisibility(View.GONE);
+        mSelectTime.setVisibility(View.GONE);
+        mSave.setVisibility(View.GONE);
         mFinish.setVisibility(View.VISIBLE);
     }
 
@@ -561,7 +573,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             //改变全屏图标
             mFullScreen.setImageResource(R.mipmap.icon_video_close);
             //显示底部操作布局
-            mBottomLayout.setVisibility(View.VISIBLE);
+            mBottomLayout.setVisibility(View.GONE);
             isFullScreen = true;
         }
     }
@@ -637,6 +649,8 @@ public class VideoDetailActivity extends AppCompatActivity {
                 mSeekbar.setMax(totalDuration);
                 updateTime(mTime, currentPosition);
                 updateTime(mTextTime, totalDuration);
+                startTime = currentPosition;
+                mSeekRangeBar.setProgressLow(currentPosition);
                 mSeekbar.setProgress(currentPosition);
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.leftMargin = 10;
