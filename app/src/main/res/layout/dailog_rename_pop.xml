@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/felife_back_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_tishi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="重命名"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_tile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_tishi"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="长度不能超过15个字符"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_tile"
+                    android:text="命名过长"
+                    android:padding="5dp"
+                    android:textColor="@color/red"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    />
+                <EditText
+                    android:id="@+id/et_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_below="@id/tv_hint"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_first"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_below="@id/rl"
+                android:background="#969696">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#969696" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/rl"
+                android:gravity="center"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/tv_qx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="取消"
+                    android:textColor="#007AFF"
+                    android:textSize="20sp" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="#969696"
+                    />
+                <TextView
+                    android:id="@+id/tv_sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="确定"
+                    android:textColor="#007AFF"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

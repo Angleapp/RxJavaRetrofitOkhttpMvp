@@ -3,6 +3,7 @@ package com.wzrd.v.activity.home.video;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -14,6 +15,7 @@ import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.adapter.VideoGridViewAdapter;
+import com.wzrd.v.view.popup.RmnamePopupwindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +74,8 @@ public class VideoActivity extends AppCompatActivity {
                 Video video = mList.get(i);
                 if (video.getVideo_type()=="3"){//自定义
                     //重命名
+                    RmnamePopupwindow popupwindow=new RmnamePopupwindow(VideoActivity.this);
+                    popupwindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
                 }
                 return false;
