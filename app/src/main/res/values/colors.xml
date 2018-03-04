@@ -4,12 +4,14 @@
     <color name="colorPrimaryDark">#FF1A2027</color>
     <color name="colorAccent">#FF1A2027</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_0">#33FFFFFF</color>
     <color name="white_9">#969696</color>
     <color name="blue">#0066FF</color>
     <color name="no_color">#00000000</color>
     <color name="bg_color">#F4F3F3</color>
     <color name="bg_color_deep">#E5E5E5</color>
     <color name="black">#000000</color>
+    <color name="black_1">#1AD8D8D8</color>
     <color name="text_color">#434343</color>
     <color name="black_half">#FF192028</color>
     <color name="black_half_true">#FF2F3944</color>
@@ -17,7 +19,12 @@
     <color name="cardview_shadow_start_color">#37000000</color>
     <color name="contant_bag">#1A2027</color>
     <color name="contant_bag_all">#FF000000</color>
-    <color name="blue_0">#007AFF</color>
+    <color name="blue_0">#FF007AFF</color>
+    <color name="black_2">#0DFFFFFF</color>
+    <color name="text_style_0">#FFFFC942</color>
+    <color name="text_style_1">#FFFF215C</color>
+    <color name="text_style_3">#FF1EF994</color>
+    <color name="text_style_4">#FF0087EE</color>
 
 
     <color name="border_line_true">#FF007AFF</color>

@@ -1,19 +1,18 @@
 package com.wzrd.v.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
-import com.wzrd.v.view.GlideRoundTransform;
+import com.wzrd.m.utils.TextUtil;
 
 import java.util.List;
 
@@ -21,12 +20,12 @@ import java.util.List;
  * Created by hyj on 2018/2/26.
  */
 
-public class VideoRecyclerAdapter extends BaseAdapter {
+public class VideoGridViewAdapter extends BaseAdapter {
     private List<Video> mList;
     private Context mContext;
     private LayoutInflater mInflater;
 
-    public VideoRecyclerAdapter(List<Video> list, Context context) {
+    public VideoGridViewAdapter(List<Video> list, Context context) {
         mList = list;
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
@@ -58,28 +57,26 @@ public class VideoRecyclerAdapter extends BaseAdapter {
             viewHolder = (MyViewHolder) view.getTag();
         }
         Video video = mList.get(i);
-        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels - 50;
-        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(widthPixels / 2, (int) (widthPixels / 2 * 0.62));
+        int widthPixels = mContext.getResources().getDisplayMetrics().widthPixels;
+        int w = (int) (widthPixels * 0.436);
+        AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(w, (int) (w * 0.62));
         view.setLayoutParams(layoutParams);
-        if (TextUtils.isEmpty(video.getVideoPic())) {
-            viewHolder.mVideoPic.setImageResource(R.mipmap.pic_text_background);
+        if (TextUtil.isEmpty(video.getFace_pic_path())) {
+            viewHolder.mVideoPic.setBackgroundResource(R.mipmap.pic_text_background);
         } else {
-            Glide.with(mContext)
-                    .load(video.getVideoPic())
-                    .transform(new GlideRoundTransform(mContext,20))
-                    .into(viewHolder.mVideoPic);
+            Glide.with(mContext).load(video.getFace_pic_path()).into(viewHolder.mVideoPic);
         }
         viewHolder.mVideoTitle.setText(video.getTitle());
         return view;
     }
 
     class MyViewHolder {
-        ImageView mVideoPic;
+        RoundedImageView mVideoPic;
         TextView mVideoTitle;
 
         public MyViewHolder(View itemView) {
             mVideoTitle = (TextView) itemView.findViewById(R.id.video_title);
-            mVideoPic = (ImageView) itemView.findViewById(R.id.video_pic);
+            mVideoPic = (RoundedImageView) itemView.findViewById(R.id.video_pic);
         }
     }
 }

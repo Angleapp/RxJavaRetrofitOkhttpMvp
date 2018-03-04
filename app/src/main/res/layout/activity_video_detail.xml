@@ -12,7 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="@color/black_half">
+        android:background="@color/black_half"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/close"
@@ -40,43 +41,83 @@
         android:id="@+id/video_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical">
 
-        <VideoView
-            android:id="@+id/videoView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="210.5dp"
-            android:layout_below="@id/toolbar"/>
+            android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
+            <com.wzrd.v.view.MyVideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="210.5dp"
+                android:layout_below="@id/toolbar"/>
 
             <ImageView
-                android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="106dp"
-                android:layout_marginTop="5dp"
-                android:src="@mipmap/icon_video_addtext_delete"/>
+                android:id="@+id/first_frame"
+                android:layout_width="match_parent"
+                android:layout_height="210.5dp"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/contentShow"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/video_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/white_border"
-                android:hint="点击编辑文字"
+                android:gravity="center"
                 android:paddingBottom="4.5dp"
                 android:paddingLeft="17.5dp"
                 android:paddingRight="17.5dp"
                 android:paddingTop="4.5dp"
+                android:text="点击编辑文本"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="15sp"/>
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="-10dp"
+                android:layout_toLeftOf="@id/video_text"
+                android:src="@mipmap/icon_video_addtext_delete"/>
+
+            <ImageView
+                android:id="@+id/emoticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"/>
         </RelativeLayout>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/text_style"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:orientation="horizontal"></LinearLayout>
+        </HorizontalScrollView>
+
     </LinearLayout>
 
 
@@ -85,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@id/video_layout"
-        android:background="@color/black_half"
+        android:background="#0DFFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
@@ -127,11 +168,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/selectTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/handle"
         android:layout_marginTop="25dp"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/reduce"
@@ -165,46 +208,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="39dp"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </RelativeLayout>
+        <com.wzrd.v.view.SeekRangeBar
+            android:id="@+id/seekRangeBar"
+            android:layout_width="wrap_content"
+            android:layout_height="50.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone"/>
 
         <HorizontalScrollView
-            android:id="@+id/select_area"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scrollbars="none">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/selectTextType"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:background="@color/black_2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </ListView>
             </LinearLayout>
         </HorizontalScrollView>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <com.wzrd.v.view.SeekRangeBar
-                android:id="@+id/seekrangebar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </LinearLayout>
         <LinearLayout
+            android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="49dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black_half"
+            android:background="#E6192028"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -231,5 +267,37 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="70.5dp"
+        android:orientation="vertical"
+        android:visibility="gone">
 
+        <Button
+            android:id="@+id/send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="27.5dp"
+            android:layout_marginRight="27.5dp"
+            android:background="@drawable/bnt_bg_shape"
+            android:text="准备发送"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="27.5dp"
+            android:layout_marginRight="27.5dp"
+            android:background="@drawable/bnt_bg_shape"
+            android:text="回到列表"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
+    </LinearLayout>
 </RelativeLayout>

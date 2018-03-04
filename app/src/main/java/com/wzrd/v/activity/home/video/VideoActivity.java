@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
+import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
-import com.wzrd.v.adapter.VideoRecyclerAdapter;
+import com.wzrd.v.adapter.VideoGridViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,8 @@ public class VideoActivity extends AppCompatActivity {
     @BindView(R.id.video_list)
     GridView mVideoList;
     List<Video> mList = new ArrayList<>();
-    private VideoRecyclerAdapter mRecyclerAdapter;
+    private VideoGridViewAdapter mGridViewAdpter;
+    private VideoManager mVideoManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,10 @@ public class VideoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "短视频", mToolbarMenu, 0, null, mToolbarMenuText, "");
         mExpressLove.setSelected(true);
+        
         getListData();
-        mRecyclerAdapter = new VideoRecyclerAdapter(mList, this);
-        mVideoList.setAdapter(mRecyclerAdapter);
+        mGridViewAdpter = new VideoGridViewAdapter(mList, this);
+        mVideoList.setAdapter(mGridViewAdpter);
 
         mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,7 +64,17 @@ public class VideoActivity extends AppCompatActivity {
                 Intent intent = new Intent(VideoActivity.this, VideoDetailActivity.class);
                 intent.putExtra("id", mList.get(i).getId());
                 startActivity(intent);
+            }
+        });
+        mVideoList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> view, View view1, int i, long l) {
+                Video video = mList.get(i);
+                if (video.getVideo_type()=="3"){//自定义
+                    //重命名
 
+                }
+                return false;
             }
         });
     }
@@ -70,10 +83,30 @@ public class VideoActivity extends AppCompatActivity {
      * 获取数据
      */
     private void getListData() {
-        mList.add(new Video("1", "http://img5.imgtn.bdimg.com/it/u=104961686,3757525983&fm=27&gp=0.jpg", "", "书写爱"));
-        mList.add(new Video("2", "http://pic4.nipic.com/20091121/3764872_215617048242_2.jpg", "", "爱的声音"));
-        mList.add(new Video("3", "http://pic2.ooopic.com/12/42/25/02bOOOPIC95_1024.jpg", "", "旅游记录"));
-        mList.add(new Video("4", "", "", "摄影游记"));
+        mVideoManager = VideoManager.getInstance(this);
+        List<Video> allVideo = mVideoManager.getAllVideo();
+        if (allVideo==null || allVideo.size()==0){
+            List<Video> videoList = new ArrayList<>();
+            videoList.add(new Video(Utils.getuuid(), "0", "video.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975167&di=ebb075892e6b15ba5a6bc5fed6e2752a&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110805%2F7017024_111804711000_2.jpg", "书写爱"));
+            videoList.add(new Video(Utils.getuuid(), "0", "video1.mp4","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2269428676,3617972594&fm=27&gp=0.jpg", "爱的声音"));
+            videoList.add(new Video(Utils.getuuid(),  "0","video1.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975167&di=559af3f7e3353ba6c97ca7b0a10cdb9a&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb17eca8065380cd7d55f8dd7aa44ad3459828142.jpg", "旅游记录"));
+            videoList.add(new Video(Utils.getuuid(), "0", "video0.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975166&di=468fcfbe813f01ad21f86a0aa676ffd2&imgtype=0&src=http%3A%2F%2Fp1.wmpic.me%2Farticle%2F2017%2F01%2F07%2F1483769832_IoSTSUWn.jpg","摄影游记"));
+            videoList.add(new Video(Utils.getuuid(), "1", "video.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975165&di=777ab862618ff73492602b7b4f83ed96&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F3801213fb80e7bec0d082ddb242eb9389b506b3d.jpg","sorry"));
+            videoList.add(new Video(Utils.getuuid(), "1", "video1.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975164&di=1369ebff43bda5f8d8f8118f6ad7bb25&imgtype=0&src=http%3A%2F%2Fwww.th7.cn%2Fd%2Ffile%2Fp%2F2014%2F06%2F26%2Fae984cda0475c2c00347a7daf4dac2f5.jpg","why"));
+            videoList.add(new Video(Utils.getuuid(),  "1","video1.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975166&di=468fcfbe813f01ad21f86a0aa676ffd2&imgtype=0&src=http%3A%2F%2Fp1.wmpic.me%2Farticle%2F2017%2F01%2F07%2F1483769832_IoSTSUWn.jpg","对不起"));
+            videoList.add(new Video(Utils.getuuid(), "1", "video0.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975164&di=1369ebff43bda5f8d8f8118f6ad7bb25&imgtype=0&src=http%3A%2F%2Fwww.th7.cn%2Fd%2Ffile%2Fp%2F2014%2F06%2F26%2Fae984cda0475c2c00347a7daf4dac2f5.jpg", "歉意"));
+            videoList.add(new Video(Utils.getuuid(), "2", "video.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975165&di=777ab862618ff73492602b7b4f83ed96&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F3801213fb80e7bec0d082ddb242eb9389b506b3d.jpg","书写爱"));
+            videoList.add(new Video(Utils.getuuid(), "2", "video1.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975166&di=468fcfbe813f01ad21f86a0aa676ffd2&imgtype=0&src=http%3A%2F%2Fp1.wmpic.me%2Farticle%2F2017%2F01%2F07%2F1483769832_IoSTSUWn.jpg", "爱的声音"));
+            videoList.add(new Video(Utils.getuuid(),  "2","video1.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975166&di=468fcfbe813f01ad21f86a0aa676ffd2&imgtype=0&src=http%3A%2F%2Fp1.wmpic.me%2Farticle%2F2017%2F01%2F07%2F1483769832_IoSTSUWn.jpg","旅游记录"));
+            videoList.add(new Video(Utils.getuuid(), "2", "video0.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975164&di=1369ebff43bda5f8d8f8118f6ad7bb25&imgtype=0&src=http%3A%2F%2Fwww.th7.cn%2Fd%2Ffile%2Fp%2F2014%2F06%2F26%2Fae984cda0475c2c00347a7daf4dac2f5.jpg", "摄影游记"));
+            videoList.add(new Video(Utils.getuuid(), "3", "video.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520071122258&di=7ed2da0afe9b13d6f8e748efbf8a08f2&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D207814470%2C4197991601%26fm%3D214%26gp%3D0.jpg", "书写爱"));
+            videoList.add(new Video(Utils.getuuid(), "3", "video1.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520071122258&di=7ed2da0afe9b13d6f8e748efbf8a08f2&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D207814470%2C4197991601%26fm%3D214%26gp%3D0.jpg", "爱的声音"));
+            videoList.add(new Video(Utils.getuuid(),  "3","video1.mp4","https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975165&di=777ab862618ff73492602b7b4f83ed96&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F3801213fb80e7bec0d082ddb242eb9389b506b3d.jpg", "旅游记录"));
+            videoList.add(new Video(Utils.getuuid(), "3", "video0.mp4", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520070975166&di=468fcfbe813f01ad21f86a0aa676ffd2&imgtype=0&src=http%3A%2F%2Fp1.wmpic.me%2Farticle%2F2017%2F01%2F07%2F1483769832_IoSTSUWn.jpg","摄影游记"));
+            mVideoManager.insertMultVideo(videoList);
+        }
+        List<Video> videos = mVideoManager.findVideoByVideoType("0");
+        mList.addAll(videos);
     }
 
     @OnClick({R.id.express_love, R.id.apologize, R.id.deepen_love, R.id.user_defined})
@@ -81,17 +114,32 @@ public class VideoActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.express_love:
                 setTabState(mExpressLove);
+                updateListData("0");
                 break;
             case R.id.apologize:
                 setTabState(mApologize);
+                updateListData("1");
                 break;
             case R.id.deepen_love:
                 setTabState(mDeepenLove);
+                updateListData("2");
                 break;
             case R.id.user_defined:
                 setTabState(mUserDefined);
+                updateListData("3");
                 break;
         }
+    }
+
+    /**
+     * 更换列表的数据
+     * @param type
+     */
+    private void updateListData(String type) {
+        List<Video> videoType = mVideoManager.findVideoByVideoType(type);
+        mList.clear();
+        mList.addAll(videoType);
+        mGridViewAdpter.notifyDataSetChanged();
     }
 
     /**

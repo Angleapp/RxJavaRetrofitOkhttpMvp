@@ -2,14 +2,11 @@ package com.wzrd.m.been;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import com.wzrd.BR;
 import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.Utils;
-import com.wzrd.v.activity.welcome.BindingLoversActivity;
 import com.wzrd.v.fragment.contanct.OutboxFragment;
 
 
