@@ -370,6 +370,5 @@ public class SeekRangeBar extends View {
      */
     public void setTotal(int total) {
         this.total = total;
-
     }
 }
