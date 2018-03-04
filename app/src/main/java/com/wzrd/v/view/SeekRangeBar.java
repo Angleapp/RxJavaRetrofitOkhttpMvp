@@ -69,10 +69,10 @@ public class SeekRangeBar extends View {
     public SeekRangeBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         _context = context;
-        notScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_wbf);
-        hasScrollBarBg = ContextCompat.getDrawable(_context, R.mipmap.hp_ybf);
-        mThumbLow = ContextCompat.getDrawable(_context, R.mipmap.hp_a);//hp-a
-        mThumbHigh = ContextCompat.getDrawable(_context, R.mipmap.hp_b);
+        notScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.select_line_bg);
+        hasScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.selected_line_bg);
+        mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
+        mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
 
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
@@ -146,9 +146,9 @@ public class SeekRangeBar extends View {
         paintb.setColor(coclorb);
         paintb.setTextAlign(Paint.Align.CENTER);
         paintb.setTextSize(fontsizeb); //以px为单位
-        MoviceDateUtils utils=new MoviceDateUtils();
+        MoviceDateUtils utils = new MoviceDateUtils();
 
-        canvas.drawText(utils.stringForTime((int) progressLow)+ "", (int) mOffsetLow, 20, painta);
+        canvas.drawText(utils.stringForTime((int) progressLow) + "", (int) mOffsetLow, 20, painta);
         canvas.drawText(utils.stringForTime((int) progressHigh) + "", (int) mOffsetHigh, 20, paintb);
 
         if (mBarChangeListener != null) {
@@ -266,14 +266,17 @@ public class SeekRangeBar extends View {
 
     /**
      * 设置corlor a 的颜色
+     *
      * @param colora
      */
     public void setColora(int colora) {
         this.coclora = colora;
         invalidate();
     }
+
     /**
      * 设置corlor b 的颜色
+     *
      * @param colorb
      */
     public void setColorb(int colorb) {
