@@ -27,9 +27,9 @@ public class DaoMaster extends AbstractDaoMaster {
         TSYSUSERDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
         VideoDao.createTable(db, ifNotExists);
+        EmoticonCodeDao.createTable(db, ifNotExists);
         TextStyleCodeDao.createTable(db, ifNotExists);
         VideoContentDao.createTable(db, ifNotExists);
-        EmoticonCodeDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -40,9 +40,9 @@ public class DaoMaster extends AbstractDaoMaster {
         TSYSUSERDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
         VideoDao.dropTable(db, ifExists);
+        EmoticonCodeDao.dropTable(db, ifExists);
         TextStyleCodeDao.dropTable(db, ifExists);
         VideoContentDao.dropTable(db, ifExists);
-        EmoticonCodeDao.dropTable(db, ifExists);
     }
 
     /**
@@ -67,9 +67,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(TSYSUSERDao.class);
         registerDaoClass(UserDao.class);
         registerDaoClass(VideoDao.class);
+        registerDaoClass(EmoticonCodeDao.class);
         registerDaoClass(TextStyleCodeDao.class);
         registerDaoClass(VideoContentDao.class);
-        registerDaoClass(EmoticonCodeDao.class);
     }
 
     public DaoSession newSession() {
