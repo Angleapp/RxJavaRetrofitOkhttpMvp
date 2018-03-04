@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -143,6 +145,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private String iconPath = "";
     private String clipPath = "";
     private boolean isBack = false;
+    private int high;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +204,16 @@ public class VideoDetailActivity extends AppCompatActivity {
     private void initViewData() {
         mTime.setText("00:00");
         mSeekRangeBar.setProgressLow(0);
-        int high = mVideoView.getDuration();
+         high = mVideoView.getDuration();
+        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                high=  mediaPlayer.getDuration();
+                mSeekRangeBar.setTotal(high);
+                mSeekRangeBar.setProgressHigh(high);
+            }
+        });
+
         mSeekRangeBar.setTotal(high);
         mSeekRangeBar.setProgressHigh(high);
         mSeekRangeBar.setColora(Color.WHITE);
@@ -265,7 +277,9 @@ public class VideoDetailActivity extends AppCompatActivity {
             }
         });
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path();
-        Log.e("====", path);
+        File file=new File(path);
+        Log.e("====", path+file.exists());
+
         mVideoView.setVideoPath(path);
           /*  MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         if (Build.VERSION.SDK_INT>14){
@@ -276,7 +290,16 @@ public class VideoDetailActivity extends AppCompatActivity {
         Bitmap bitmap = mmr.getFrameAtTime();//获取第一帧图片
         mFirstFrame.setImageBitmap(bitmap);
         mmr.release();//释放资源*/
-        Glide.with(this).load(mVideo.getFace_pic_path()).into(mFirstFrame);
+
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(file.getAbsolutePath());
+        Bitmap firstFrame = mmr.getFrameAtTime();
+        mFirstFrame.setImageBitmap(firstFrame);
+//        if(firstFrame!=null){
+//            Glide.with(this).load(firstFrame).into(mFirstFrame);
+//        }
+
+
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer player) {

@@ -21,27 +21,27 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        EmoticonCodeDao.createTable(db, ifNotExists);
         PoemDao.createTable(db, ifNotExists);
         TEXTIFORMATIONDao.createTable(db, ifNotExists);
-        TextStyleCodeDao.createTable(db, ifNotExists);
         TSYSCONTANTSDao.createTable(db, ifNotExists);
         TSYSUSERDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
         VideoDao.createTable(db, ifNotExists);
+        EmoticonCodeDao.createTable(db, ifNotExists);
+        TextStyleCodeDao.createTable(db, ifNotExists);
         VideoContentDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        EmoticonCodeDao.dropTable(db, ifExists);
         PoemDao.dropTable(db, ifExists);
         TEXTIFORMATIONDao.dropTable(db, ifExists);
-        TextStyleCodeDao.dropTable(db, ifExists);
         TSYSCONTANTSDao.dropTable(db, ifExists);
         TSYSUSERDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
         VideoDao.dropTable(db, ifExists);
+        EmoticonCodeDao.dropTable(db, ifExists);
+        TextStyleCodeDao.dropTable(db, ifExists);
         VideoContentDao.dropTable(db, ifExists);
     }
 
@@ -61,14 +61,14 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(EmoticonCodeDao.class);
         registerDaoClass(PoemDao.class);
         registerDaoClass(TEXTIFORMATIONDao.class);
-        registerDaoClass(TextStyleCodeDao.class);
         registerDaoClass(TSYSCONTANTSDao.class);
         registerDaoClass(TSYSUSERDao.class);
         registerDaoClass(UserDao.class);
         registerDaoClass(VideoDao.class);
+        registerDaoClass(EmoticonCodeDao.class);
+        registerDaoClass(TextStyleCodeDao.class);
         registerDaoClass(VideoContentDao.class);
     }
 
