@@ -17,14 +17,37 @@ import android.widget.TextView;
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
+import com.wzrd.v.activity.home.video.VideoActivity;
 
 /**
  * Created by lk on 2018/3/4.
  */
 
 public class VideoPopupWindow extends PopupWindow {
-    public VideoPopupWindow(final Activity context, final Video video) {
+    private Context context ;
+    private Video video;
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int id = view.getId();
+            switch (id) {
+                case R.id.tv_sure:
+                    VideoManager videoManager = VideoManager.getInstance(context);
+                    videoManager.deleteVideo(video);
+                    mSelectPopupWindow.dismiss();
+                    break;
+                case R.id.tv_unSure:
+                    mSelectPopupWindow.dismiss();
+                    break;
+            }
+        }
+    };
+    private SelectPopupWindow mSelectPopupWindow;
+
+    public VideoPopupWindow(final Activity context, final Video video, final VideoActivity videoActivity) {
         super(context);
+        this.context = context;
+        this.video = video;
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.dailog_video_pop, null, false);
@@ -62,33 +85,19 @@ public class VideoPopupWindow extends PopupWindow {
             @Override
             public void onClick(View view) {
                 //重命名
-                RenamePopupWindow popupWindow = new RenamePopupWindow(context, video);
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                 dismiss();
+                RenamePopupWindow popupWindow = new RenamePopupWindow(context, video,videoActivity);
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             }
         });
+
         //删除
         tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final SelectPopupWindow selectPopupWindow = new SelectPopupWindow(context, "删除此视频", "删除视频后将无法还原，您可以重新选择视频进行编辑", "取消", Color.parseColor("#FF007AFF"), "确定删除", Color.parseColor("#FFFD4137"), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int id = view.getId();
-                        switch (id) {
-                            case R.id.tv_sure:
-                                VideoManager videoManager = VideoManager.getInstance(context);
-                                videoManager.deleteVideo(video);
-                                dismiss();
-                                break;
-                            case R.id.tv_unSure:
-                                dismiss();
-                                break;
-                        }
-                    }
-                });
-                selectPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                 dismiss();
+                mSelectPopupWindow = new SelectPopupWindow(context, "删除此视频", "删除视频后将无法还原，您可以重新选择视频进行编辑", "取消", Color.parseColor("#FF007AFF"), "确定删除", Color.parseColor("#FFFD4137"), onClickListener);
+                mSelectPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             }
         });
         //取消
@@ -96,7 +105,6 @@ public class VideoPopupWindow extends PopupWindow {
             @Override
             public void onClick(View view) {
                 dismiss();
-
             }
         });
 

@@ -72,9 +72,9 @@ public class VideoActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> view, View view1, int i, long l) {
                 Video video = mList.get(i);
-                if (video.getVideo_type()=="3"){//自定义
-                    VideoPopupWindow videoPopupWindow = new VideoPopupWindow(VideoActivity.this,video);
-                    videoPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                if (video.getVideo_type().equals("3")){//自定义
+                    VideoPopupWindow videoPopupWindow = new VideoPopupWindow(VideoActivity.this,video,VideoActivity.this);
+                    videoPopupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
                 }
                 return true;
             }
@@ -155,5 +155,9 @@ public class VideoActivity extends AppCompatActivity {
         mDeepenLove.setSelected(false);
         mUserDefined.setSelected(false);
         selectedTab.setSelected(true);
+    }
+
+    public void refreshList(){
+        mGridViewAdpter.notifyDataSetChanged();
     }
 }

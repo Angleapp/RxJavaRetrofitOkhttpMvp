@@ -226,7 +226,6 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
      */
     private void gif() {
         Glide.with(getActivity()).load(R.drawable.a001).into(mSendMessage);
-
     }
 
     @Override

@@ -18,13 +18,14 @@ import com.wzrd.R;
 import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
+import com.wzrd.v.activity.home.video.VideoActivity;
 
 /**
  * Created by lk on 2018/3/4.
  */
 
 public class RenamePopupWindow extends PopupWindow {
-    public RenamePopupWindow(final Activity context, final Video video) {
+    public RenamePopupWindow(final Activity context, final Video video, final VideoActivity videoActivity) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -32,7 +33,7 @@ public class RenamePopupWindow extends PopupWindow {
         final TextView tv_hint = (TextView) binding.getRoot().findViewById(R.id.tv_hint);
         final EditText et_message = (EditText) binding.getRoot().findViewById(R.id.et_message);
         TextView tv_qx = (TextView) binding.getRoot().findViewById(R.id.tv_qx);
-        TextView tv_sure = (TextView)binding.getRoot().findViewById(R.id.tv_sure);
+        TextView tv_sure = (TextView) binding.getRoot().findViewById(R.id.tv_sure);
         this.setContentView(binding.getRoot());
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
         this.setWidth(3 * widthPixels / 4);
@@ -56,16 +57,17 @@ public class RenamePopupWindow extends PopupWindow {
             @Override
             public void afterTextChanged(Editable editable) {
                 String s = editable.toString();
-                if(s.equals(video.getTitle())){
+                if (s.equals(video.getTitle())) {
                     tv_hint.setVisibility(View.VISIBLE);
                     tv_hint.setText("命名重复");
-                } else if(s.length()>15){
+                } else if (s.length() > 15) {
                     tv_hint.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     tv_hint.setVisibility(View.GONE);
                     video.setTitle(s);
                     VideoManager videoManager = VideoManager.getInstance(context);
                     videoManager.updateVideo(video);
+                    videoActivity.refreshList();
                 }
             }
         });
@@ -80,18 +82,16 @@ public class RenamePopupWindow extends PopupWindow {
             @Override
             public void onClick(View view) {
                 String s = et_message.getText().toString();
-                if(s!=null&&s.length()>0&&s.length()<15){
+                if (s != null && s.length() > 0 && s.length() < 15) {
                     dismiss();
-                }else {
-                    Utils.ToastShort(context,"命名不规范");
+                } else {
+                    Utils.ToastShort(context, "命名不规范");
                 }
 
             }
         });
 
     }
-
-
 
 
 }
