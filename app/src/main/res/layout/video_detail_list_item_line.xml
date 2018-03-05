@@ -8,9 +8,11 @@
     android:padding="6dp">
 
     <ImageView
-        android:id="@+id/icon"
-        android:layout_width="77dp"
-        android:layout_height="77dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"/>
+        android:id="@+id/line"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="11.5dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="11.5dp"/>
 </LinearLayout>

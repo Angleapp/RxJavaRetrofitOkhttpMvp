@@ -64,8 +64,7 @@
         <RelativeLayout
             android:id="@+id/contentShow"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingBottom="4dp"
+            android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:visibility="gone">
 
@@ -75,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="14dp"
                 android:background="@drawable/white_border"
                 android:gravity="center"
                 android:paddingBottom="4.5dp"
@@ -98,24 +97,39 @@
             <ImageView
                 android:id="@+id/emoticon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="4dp">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/line_gif"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:src="@drawable/line0"
+                android:visibility="gone"/>
+        </LinearLayout>
+
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:visibility="gone">
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/text_style"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center"
-                android:orientation="horizontal"></LinearLayout>
+                android:orientation="horizontal"
+                android:visibility="gone">
+            </LinearLayout>
         </HorizontalScrollView>
 
     </LinearLayout>
@@ -265,39 +279,5 @@
                 android:layout_weight="1"
                 android:src="@mipmap/icon_video_expression"/>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/finish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/handle"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="70.5dp"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <Button
-            android:id="@+id/send"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="27.5dp"
-            android:layout_marginRight="27.5dp"
-            android:background="@drawable/bnt_bg_shape"
-            android:text="准备发送"
-            android:textColor="@color/white"
-            android:textSize="17sp"/>
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="27.5dp"
-            android:layout_marginRight="27.5dp"
-            android:background="@drawable/bnt_bg_shape"
-            android:text="回到列表"
-            android:textColor="@color/white"
-            android:textSize="17sp"/>
     </LinearLayout>
 </RelativeLayout>

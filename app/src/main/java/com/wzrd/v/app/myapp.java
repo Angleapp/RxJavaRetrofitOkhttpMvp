@@ -1,6 +1,7 @@
 package com.wzrd.v.app;
 
 import android.app.Application;
+import android.content.Context;
 
 //import com.zhy.http.okhttp.OkHttpUtils;
 //import com.zhy.http.okhttp.cookie.CookieJarImpl;
@@ -12,10 +13,20 @@ import android.app.Application;
 
 public class myapp extends Application {
 
+    private Context mAppContext;
+
+    public Context getAppContext() {
+        return mAppContext;
+    }
+
+    public void setAppContext(Context appContext) {
+        mAppContext = appContext;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mAppContext = getAppContext();
 //        CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
 //        OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .cookieJar(cookieJar)

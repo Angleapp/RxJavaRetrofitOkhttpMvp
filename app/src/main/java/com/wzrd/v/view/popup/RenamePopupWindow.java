@@ -7,7 +7,6 @@ import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,14 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
+import com.wzrd.m.been.Video;
+import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
 
 /**
  * Created by lk on 2018/3/4.
  */
 
-public class RmnamePopupwindow extends PopupWindow {
-    public RmnamePopupwindow(final Activity context) {
+public class RenamePopupWindow extends PopupWindow {
+    public RenamePopupWindow(final Activity context, final Video video) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -54,17 +55,17 @@ public class RmnamePopupwindow extends PopupWindow {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
                 String s = editable.toString();
-                Log.e("s","s----"+s);
-                if("测试重复".equals(s)){
+                if(s.equals(video.getTitle())){
                     tv_hint.setVisibility(View.VISIBLE);
                     tv_hint.setText("命名重复");
-                }
-                else if(s.length()>15){
+                } else if(s.length()>15){
                     tv_hint.setVisibility(View.VISIBLE);
                 }else{
                     tv_hint.setVisibility(View.GONE);
+                    video.setTitle(s);
+                    VideoManager videoManager = VideoManager.getInstance(context);
+                    videoManager.updateVideo(video);
                 }
             }
         });
@@ -73,7 +74,6 @@ public class RmnamePopupwindow extends PopupWindow {
             @Override
             public void onClick(View view) {
                 dismiss();
-
             }
         });
         tv_sure.setOnClickListener(new View.OnClickListener() {

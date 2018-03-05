@@ -27,7 +27,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property VideoId = new Property(1, String.class, "videoId", false, "VIDEO_ID");
         public final static Property Time = new Property(2, String.class, "time", false, "TIME");
-        public final static Property TextId = new Property(3, String.class, "textId", false, "TEXT_ID");
+        public final static Property LineId = new Property(3, int.class, "lineId", false, "LINE_ID");
         public final static Property PicPath = new Property(4, String.class, "picPath", false, "PIC_PATH");
         public final static Property IconPath = new Property(5, String.class, "iconPath", false, "ICON_PATH");
         public final static Property Text = new Property(6, String.class, "text", false, "TEXT");
@@ -49,7 +49,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"VIDEO_ID\" TEXT," + // 1: videoId
                 "\"TIME\" TEXT," + // 2: time
-                "\"TEXT_ID\" TEXT," + // 3: textId
+                "\"LINE_ID\" INTEGER NOT NULL ," + // 3: lineId
                 "\"PIC_PATH\" TEXT," + // 4: picPath
                 "\"ICON_PATH\" TEXT," + // 5: iconPath
                 "\"TEXT\" TEXT);"); // 6: text
@@ -79,11 +79,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         if (time != null) {
             stmt.bindString(3, time);
         }
- 
-        String textId = entity.getTextId();
-        if (textId != null) {
-            stmt.bindString(4, textId);
-        }
+        stmt.bindLong(4, entity.getLineId());
  
         String picPath = entity.getPicPath();
         if (picPath != null) {
@@ -119,11 +115,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         if (time != null) {
             stmt.bindString(3, time);
         }
- 
-        String textId = entity.getTextId();
-        if (textId != null) {
-            stmt.bindString(4, textId);
-        }
+        stmt.bindLong(4, entity.getLineId());
  
         String picPath = entity.getPicPath();
         if (picPath != null) {
@@ -152,7 +144,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // videoId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // time
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // textId
+            cursor.getInt(offset + 3), // lineId
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // picPath
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // iconPath
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // text
@@ -165,7 +157,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setVideoId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTextId(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setLineId(cursor.getInt(offset + 3));
         entity.setPicPath(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setIconPath(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setText(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));

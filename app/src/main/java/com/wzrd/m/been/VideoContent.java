@@ -14,17 +14,17 @@ public class VideoContent {
     private String id;
     private String videoId;
     private String time;//时间点
-    private String textId;//文本样式的id
+    private int lineId;//分隔线id
     private String picPath;//裁剪视频的路径
     private String iconPath;//表情包路径
     private String text;//文本内容
 
     @Keep
-    public VideoContent(String id, String videoId, String time, String textId, String picPath, String iconPath,String text) {
+    public VideoContent(String id, String videoId, String time, int lineId, String picPath, String iconPath,String text) {
         this.id = id;
         this.videoId = videoId;
         this.time = time;
-        this.textId = textId;
+        this.lineId = lineId;
         this.picPath = picPath;
         this.iconPath = iconPath;
         this.text = text;
@@ -58,12 +58,12 @@ public class VideoContent {
         this.time = time;
     }
 
-    public String getTextId() {
-        return textId;
+    public int getLineId() {
+        return lineId;
     }
 
-    public void setTextId(String textId) {
-        this.textId = textId;
+    public void setLineId(int lineId) {
+        this.lineId = lineId;
     }
 
     public String getPicPath() {

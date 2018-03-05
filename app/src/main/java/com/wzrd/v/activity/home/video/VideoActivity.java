@@ -15,7 +15,7 @@ import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.adapter.VideoGridViewAdapter;
-import com.wzrd.v.view.popup.RmnamePopupwindow;
+import com.wzrd.v.view.popup.VideoPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +73,10 @@ public class VideoActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> view, View view1, int i, long l) {
                 Video video = mList.get(i);
                 if (video.getVideo_type()=="3"){//自定义
-                    //重命名
-                    RmnamePopupwindow popupwindow=new RmnamePopupwindow(VideoActivity.this);
-                    popupwindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
+                    VideoPopupWindow videoPopupWindow = new VideoPopupWindow(VideoActivity.this,video);
+                    videoPopupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                 }
-                return false;
+                return true;
             }
         });
     }

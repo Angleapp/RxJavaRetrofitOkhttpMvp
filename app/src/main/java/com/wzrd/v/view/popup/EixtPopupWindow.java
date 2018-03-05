@@ -12,17 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
-import com.wzrd.m.db.manger.UserManager;
 import com.wzrd.m.utils.ActivityCollector;
-import com.wzrd.m.utils.SharedPreferencesUtil;
 
 /**
  * Created by lk on 2018/2/14.
  */
 
 public class EixtPopupWindow extends PopupWindow {
-
-
     private View mMenuView;
 
     public EixtPopupWindow(final Activity context) {
@@ -52,7 +48,6 @@ public class EixtPopupWindow extends PopupWindow {
         tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                context.finish();
                 ActivityCollector.finishAll();
                 dismiss();
             }
