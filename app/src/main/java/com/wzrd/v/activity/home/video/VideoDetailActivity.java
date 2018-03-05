@@ -566,7 +566,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         }
         mSelectTextType.setVisibility(View.VISIBLE);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, mSelectTextType.getHeight());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if ("裁剪".equals(type)) {
             updataClipList(layoutInflater, layoutParams);
         } else if ("文本".equals(type)) {//文本
@@ -722,6 +722,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mFullScreen.setImageResource(R.mipmap.icon_video_close);
             //显示底部操作布局
             mBottomLayout.setVisibility(View.GONE);
+//            mVideoView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             isFullScreen = true;
         }
     }
@@ -732,9 +733,9 @@ public class VideoDetailActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         //当屏幕方向是横屏的时候,我们应该对VideoView以及包裹VideoView的布局（也就是对整体）进行拉伸
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,"1");
         } else {  //当屏幕方向是竖屏的时候，竖屏的时候的高我们需要把dp转为px
-            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(this, 240));
+            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(this, 240),"2");
         }
 
     }
@@ -752,14 +753,20 @@ public class VideoDetailActivity extends AppCompatActivity {
      *
      * @param width
      * @param height
+     * type 1 全屏 2 书评
      */
-    private void setVideoViewScale(int width, int height) {
+    private void setVideoViewScale(int width, int height,String type) {
         //获取VideoView宽和高
         ViewGroup.LayoutParams layoutParams = mVideoView.getLayoutParams();
         //赋值给VideoView的宽和高
         layoutParams.width = width;
         layoutParams.height = height;
         //设置VideoView的宽和高
+        if("1".equals(type)){
+            mFirstFrame.setVisibility(View.GONE);
+        }else{
+            mFirstFrame.setVisibility(View.VISIBLE);
+        }
         mVideoView.setLayoutParams(layoutParams);
     }
 
@@ -854,7 +861,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         // 取得视频的长度(单位为秒)
         int seconds = max / 1000;
         // 得到每一秒时刻的bitmap比如第一秒,第二秒
-        for (int i = 1; i <= seconds; i++) {
+        for (int i = 1; i <= seconds; i=i+8) {
             Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
             list.add(bitmap);
         }
