@@ -24,8 +24,9 @@ import com.wzrd.v.activity.home.video.VideoActivity;
  */
 
 public class VideoPopupWindow extends PopupWindow {
-    private Context context ;
+    private Context context;
     private Video video;
+    private VideoActivity mActivity;
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -34,6 +35,7 @@ public class VideoPopupWindow extends PopupWindow {
                 case R.id.tv_sure:
                     VideoManager videoManager = VideoManager.getInstance(context);
                     videoManager.deleteVideo(video);
+                    mActivity.refreshList();
                     mSelectPopupWindow.dismiss();
                     break;
                 case R.id.tv_unSure:
@@ -48,6 +50,7 @@ public class VideoPopupWindow extends PopupWindow {
         super(context);
         this.context = context;
         this.video = video;
+        this.mActivity = videoActivity;
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, R.layout.dailog_video_pop, null, false);
@@ -86,7 +89,7 @@ public class VideoPopupWindow extends PopupWindow {
             public void onClick(View view) {
                 //重命名
                 dismiss();
-                RenamePopupWindow popupWindow = new RenamePopupWindow(context, video,videoActivity);
+                RenamePopupWindow popupWindow = new RenamePopupWindow(context, video, videoActivity);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             }
         });
