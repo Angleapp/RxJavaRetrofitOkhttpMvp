@@ -21,12 +21,14 @@
                 android:textColor="@color/white_9"
                 android:textSize="18sp"
                 android:text="更多"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="gone"
                 android:background="@color/white_9"/>
             <TextView
                 android:id="@+id/tv_send"
@@ -35,6 +37,7 @@
                 android:textColor="@color/blue_0"
                 android:textSize="18sp"
                 android:text="发送"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 android:gravity="center"
                 />
