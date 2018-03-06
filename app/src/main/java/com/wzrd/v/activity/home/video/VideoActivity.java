@@ -1,7 +1,9 @@
 package com.wzrd.v.activity.home.video;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -57,9 +59,10 @@ public class VideoActivity extends AppCompatActivity {
         mExpressLove.setSelected(true);
         
         getListData();
+        int loadMedia = getLoadMedia();
+        Utils.ToastShort(this,loadMedia+"");
         mGridViewAdpter = new VideoGridViewAdapter(mList, this);
         mVideoList.setAdapter(mGridViewAdpter);
-
         mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
@@ -159,5 +162,30 @@ public class VideoActivity extends AppCompatActivity {
 
     public void refreshList(){
         mGridViewAdpter.notifyDataSetChanged();
+    }
+
+    public int  getLoadMedia() {
+        int a=0;
+        Cursor cursor = this.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, MediaStore.Video.Media.DEFAULT_SORT_ORDER);
+        try {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)); // id
+                String displayName =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+                String album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ALBUM)); // 专辑
+                String artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST)); // 艺术家
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)); // 显示名称
+                String mimeType =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
+                String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)); // 路径
+                long duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)); // 时长
+                long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)); // 大小
+                String resolution =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RESOLUTION));
+           a=a+1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+        return a;
     }
 }
