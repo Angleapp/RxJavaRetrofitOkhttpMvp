@@ -29,7 +29,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         public final static Property Time = new Property(2, String.class, "time", false, "TIME");
         public final static Property LineId = new Property(3, int.class, "lineId", false, "LINE_ID");
         public final static Property PicPath = new Property(4, String.class, "picPath", false, "PIC_PATH");
-        public final static Property IconPath = new Property(5, String.class, "iconPath", false, "ICON_PATH");
+        public final static Property IconId = new Property(5, int.class, "iconId", false, "ICON_ID");
         public final static Property Text = new Property(6, String.class, "text", false, "TEXT");
     };
 
@@ -51,7 +51,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
                 "\"TIME\" TEXT," + // 2: time
                 "\"LINE_ID\" INTEGER NOT NULL ," + // 3: lineId
                 "\"PIC_PATH\" TEXT," + // 4: picPath
-                "\"ICON_PATH\" TEXT," + // 5: iconPath
+                "\"ICON_ID\" INTEGER NOT NULL ," + // 5: iconId
                 "\"TEXT\" TEXT);"); // 6: text
     }
 
@@ -85,11 +85,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         if (picPath != null) {
             stmt.bindString(5, picPath);
         }
- 
-        String iconPath = entity.getIconPath();
-        if (iconPath != null) {
-            stmt.bindString(6, iconPath);
-        }
+        stmt.bindLong(6, entity.getIconId());
  
         String text = entity.getText();
         if (text != null) {
@@ -121,11 +117,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         if (picPath != null) {
             stmt.bindString(5, picPath);
         }
- 
-        String iconPath = entity.getIconPath();
-        if (iconPath != null) {
-            stmt.bindString(6, iconPath);
-        }
+        stmt.bindLong(6, entity.getIconId());
  
         String text = entity.getText();
         if (text != null) {
@@ -146,7 +138,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // time
             cursor.getInt(offset + 3), // lineId
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // picPath
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // iconPath
+            cursor.getInt(offset + 5), // iconId
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // text
         );
         return entity;
@@ -159,7 +151,7 @@ public class VideoContentDao extends AbstractDao<VideoContent, String> {
         entity.setTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setLineId(cursor.getInt(offset + 3));
         entity.setPicPath(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setIconPath(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setIconId(cursor.getInt(offset + 5));
         entity.setText(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     

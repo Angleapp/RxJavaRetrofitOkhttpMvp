@@ -17,10 +17,13 @@ import android.widget.TextView;
 import com.wzrd.R;
 import com.wzrd.m.been.Poem;
 import com.wzrd.m.been.TEXTIFORMATION;
+import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.PoemManager;
 import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.v.activity.home.poem.AddPoemActivity;
+import com.wzrd.v.activity.home.video.LookAtVideoActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
 import com.wzrd.v.activity.preview.TextPreviewActivity;
 
@@ -96,6 +99,20 @@ public class PreviewPopupWindow extends PopupWindow {
     private void perform(int type, int del, Activity context) {
         switch (type) {
             case 1:
+                VideoManager videoManager = VideoManager.getInstance(context);
+                Video lastVideo = videoManager.getLastVideo();
+                if (del == 0) {//预览
+                    if (lastVideo != null) {
+                        Intent intent = new Intent(context, LookAtVideoActivity.class);
+                        context.startActivity(intent);
+                        dismiss();
+                    } else {
+                        dismiss();
+                    }
+                } else {//删除
+                    videoManager.deleteVideo(lastVideo);
+                    dismiss();
+                }
                 break;
             case 2:
                 String isexit = isexit(context, "2");

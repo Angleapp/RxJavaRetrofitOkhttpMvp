@@ -16,7 +16,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +32,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
-import com.wzrd.m.been.EmoticonCode;
 import com.wzrd.m.been.Video;
 import com.wzrd.m.been.VideoContent;
-import com.wzrd.m.db.manger.EmoticonCodeManager;
 import com.wzrd.m.db.manger.VideoContentManager;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Constants;
@@ -46,6 +43,7 @@ import com.wzrd.m.utils.Utils;
 import com.wzrd.v.view.MyVideoView;
 import com.wzrd.v.view.SeekRangeBar;
 import com.wzrd.v.view.popup.VideoSavePopwindow;
+import com.yyx.beautifylib.utils.ToastUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,30 +61,29 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class VideoDetailActivity extends AppCompatActivity {
 
-    //    头部的关闭
+
     @BindView(R.id.close)
     ImageView mClose;
-    //    保存编辑
     @BindView(R.id.save)
     ImageView mSave;
-    //    toolbar的布局
     @BindView(R.id.toolbar)
     RelativeLayout mToolbar;
-    //    视频控件
     @BindView(R.id.videoView)
     MyVideoView mVideoView;
-    //    显示第一帧图片
     @BindView(R.id.first_frame)
     ImageView mFirstFrame;
-    //    删除视频下方的文本编辑
-    @BindView(R.id.delete)
-    ImageView mDelete;
     @BindView(R.id.video_text)
     EditText mVideoText;
+    @BindView(R.id.delete)
+    ImageView mDelete;
     @BindView(R.id.contentShow)
     RelativeLayout mContentShow;
-    @BindView(R.id.video_layout)
-    LinearLayout mVideoLayout;
+    @BindView(R.id.line_gif)
+    GifImageView mLineGif;
+    @BindView(R.id.emoticon)
+    GifImageView mEmoticon;
+    @BindView(R.id.videoContent)
+    LinearLayout mVideoContent;
     @BindView(R.id.start_play)
     ImageView mStartPlay;
     @BindView(R.id.seekbar)
@@ -95,16 +92,14 @@ public class VideoDetailActivity extends AppCompatActivity {
     TextView mTime;
     @BindView(R.id.fullScreen)
     ImageView mFullScreen;
-    @BindView(R.id.handle)
-    LinearLayout mHandle;
+    @BindView(R.id.control)
+    LinearLayout mControl;
     @BindView(R.id.reduce)
     ImageView mReduce;
     @BindView(R.id.text_time)
     TextView mTextTime;
     @BindView(R.id.plus)
     ImageView mPlus;
-    @BindView(R.id.selectTime)
-    LinearLayout mSelectTime;
     @BindView(R.id.seekRangeBar)
     SeekRangeBar mSeekRangeBar;
     @BindView(R.id.selectTextType)
@@ -117,41 +112,39 @@ public class VideoDetailActivity extends AppCompatActivity {
     ImageView mIcon;
     @BindView(R.id.bottom_layout)
     LinearLayout mBottomLayout;
-    @BindView(R.id.emoticon)
-    ImageView mEmoticon;
-    @BindView(R.id.text_style)
-    LinearLayout mTextStyle;
-    @BindView(R.id.line_gif)
-    GifImageView mLineGif;
+    @BindView(R.id.handleArea)
+    LinearLayout mHandlerArea;
     private Unbinder mUnbinder;
     private int PLAY_BNT_STATE = 0;//0  未播放 1 播放
     private boolean isFullScreen = false;//是否是全屏
     //刷新UI的标志
     private static final int UPDATE_UI = 1;
+    private int UPDATE_CLIP_UI = 2;//更新视频页面
     private boolean isEditText = false;//是否在编辑文本
     private int currentEditContent = 0;//0 裁剪 1 文本 2 表情
     private VideoContentManager mVideoContentManager;
     private int preSelected = 0;
     private Video mVideo;//传过来的视频
     private int[] gifs = {
-            R.drawable.line0,
-            R.drawable.line1,
-            R.drawable.line2,
-            R.drawable.line3,
-            R.drawable.line4,
-            R.drawable.line6,
-            R.drawable.line7,
-            R.drawable.line8,
+            R.drawable.line0, R.drawable.line1, R.drawable.line2, R.drawable.line3,
+            R.drawable.line4, R.drawable.line6, R.drawable.line7, R.drawable.line8,
             R.drawable.line9
     };
+    private int[] emoticons = {
+            R.drawable.emoticon1, R.drawable.emoticon2, R.drawable.emoticon3, R.drawable.emoticon4, R.drawable.emoticon5, R.drawable.emoticon6,
+            R.drawable.emoticon7, R.drawable.emoticon8, R.drawable.emoticon9, R.drawable.emoticon10
+    };
+    private List<Bitmap> list = new ArrayList<>();
+    private List<Bitmap> bitmaps = new ArrayList<>();
     private int startTime = 0;
     private int endTime = 0;
     private int lineId = -1;
-    private String iconPath = "";
+    private int iconId = -1;
     private Bitmap mBitmap = null;
     private boolean isBack = false;
     private int max = 0;//视频总共的毫秒值
     private int high;
+    private VideoContent mCurrentVideoContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,10 +157,11 @@ public class VideoDetailActivity extends AppCompatActivity {
         mVideo = videoManager.findVideoById(id);
         mSeekRangeBar.setEditable(true);
         mUnbinder = ButterKnife.bind(this);
-        //模拟数据
+        //获取数据
         setData();
         //初始化权限
         requestSDPermission();
+        initView();
         //设置视频路径
         initVideoPath();
         //设置进度条的进度
@@ -177,22 +171,84 @@ public class VideoDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * 模拟数据
+     * 初始化布局
+     */
+    private void initView() {
+        setToolbarContent(1);
+        setVideoContentLayout();
+        setHandlerAreaContent();
+    }
+
+    /**
+     * 设置操作区域布局
+     */
+    private void setHandlerAreaContent() {
+        mHandlerArea.setVisibility(View.INVISIBLE);//操作内容区域
+    }
+
+    /**
+     * 设置视频内容布局
+     */
+    private void setVideoContentLayout() {
+        if (mCurrentVideoContent != null) {
+            mVideoContent.setVisibility(View.VISIBLE);//视频内容布局
+            if (!TextUtil.isEmpty(mCurrentVideoContent.getText())) {
+                mVideoText.setVisibility(View.VISIBLE);
+                mDelete.setVisibility(View.VISIBLE);
+                mVideoText.setText(mCurrentVideoContent.getText());
+            } else {
+                mDelete.setVisibility(View.GONE);
+                mVideoText.setVisibility(View.GONE);
+            }
+            if (mCurrentVideoContent.getLineId() != -1) {
+                mLineGif.setVisibility(View.VISIBLE);
+                mLineGif.setImageResource(gifs[mCurrentVideoContent.getLineId()]);
+            } else {
+                mLineGif.setVisibility(View.GONE);
+            }
+            if (mCurrentVideoContent.getIconId() != -1) {
+                mEmoticon.setVisibility(View.VISIBLE);
+                mEmoticon.setImageResource(emoticons[mCurrentVideoContent.getIconId()]);
+            } else {
+                mEmoticon.setVisibility(View.GONE);
+            }
+        } else {
+            mVideoContent.setVisibility(View.GONE);//视频内容布局
+            mVideoText.setVisibility(View.GONE);
+            mDelete.setVisibility(View.GONE);
+            mLineGif.setVisibility(View.GONE);
+            mEmoticon.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置toolbar布局
+     */
+    private void setToolbarContent(int num) {
+        if (num == 1) {
+            mToolbar.setVisibility(View.GONE);//toolbar布局
+            mClose.setImageResource(R.mipmap.icon_video_close);
+            mSave.setVisibility(View.VISIBLE);
+            isBack = false;
+        } else if (num == 2) {
+            mToolbar.setVisibility(View.VISIBLE);//toolbar布局
+            mClose.setImageResource(R.mipmap.icon_video_close);
+            mSave.setVisibility(View.VISIBLE);
+            isBack = false;
+        } else {
+            mToolbar.setVisibility(View.VISIBLE);
+            mClose.setImageResource(R.mipmap.icon_titlebar_back);
+            mSave.setVisibility(View.GONE);
+            isBack = true;
+        }
+    }
+
+    /**
+     * 获取数据
      */
     private void setData() {
-        EmoticonCodeManager emoticonCodeManager = EmoticonCodeManager.getInstance(this);
-        List<EmoticonCode> emoticonCodes = emoticonCodeManager.getAllEmoticonCode();
-        if (emoticonCodes == null || emoticonCodes.size() == 0) {
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822485&di=24354639016c4b828e973eca2e74929a&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F5bafa40f4bfbfbed4eff075a72f0f736afc31f74.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4046513553,596615943&fm=200&gp=0.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822906&di=1a6d7581dbb51915e65ecae8ab606dfb&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F279759ee3d6d55fb58f8020067224f4a20a4ddde.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822906&di=ac2bf5cd66582c34fa580cd8887b25a7&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F6609c93d70cf3bc7058ce4c9db00baa1cd112a02.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822905&di=162d00b36a30bd3894ef4cca285e32b2&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F2fdda3cc7cd98d10de02a8132b3fb80e7bec903a.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822905&di=c5fee25aa3a104a3ef6b49663d48a197&imgtype=0&src=http%3A%2F%2Fimg11.weikeimg.com%2Fdata%2Fuploads%2F2014%2F03%2F11%2F1733328762531ea9cb3789d.gif"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822905&di=6243751eb9ae971b30d6e5791b9cbc7b&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fd53f8794a4c27d1ec79abde111d5ad6eddc43852.jpg"));
-            emoticonCodes.add(new EmoticonCode(Utils.getuuid(), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520147822911&di=ecfc62c4bbf491d637a9e9e3e004a8fe&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe850352ac65c1038aa3ba5e4b8119313b07e894b.jpg"));
-            emoticonCodeManager.insertMultEmoticonCode(emoticonCodes);
-        }
+        mVideoContentManager = VideoContentManager.getInstance(this);
+        mCurrentVideoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(0));
     }
 
     /**
@@ -216,7 +272,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         mSeekRangeBar.setFontSizea(24);
         mSeekRangeBar.setColorb(Color.parseColor("#FF007AFF"));
         updateTime(mTextTime, mVideoView.getDuration());
-        mVideoContentManager = VideoContentManager.getInstance(this);
     }
 
     /**
@@ -313,7 +368,6 @@ public class VideoDetailActivity extends AppCompatActivity {
         });
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path();
         File file = new File(path);
-        Log.e("====", path + file.exists());
 
         mVideoView.setVideoPath(path);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
@@ -327,12 +381,6 @@ public class VideoDetailActivity extends AppCompatActivity {
                 mStartPlay.setImageResource(R.mipmap.icon_video_replay);
                 PLAY_BNT_STATE = 0;
                 mFirstFrame.setVisibility(View.VISIBLE);
-            }
-        });
-        mVideoView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
             }
         });
     }
@@ -361,6 +409,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                     finish();
                 } else {
                     mContentShow.setVisibility(View.GONE);
+                    mCurrentVideoContent = null;
                 }
                 break;
             case R.id.save:
@@ -407,39 +456,40 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 保存编辑的数据
      */
     private void saveEditData() {
-        VideoSavePopwindow popupwindow = new VideoSavePopwindow(VideoDetailActivity.this);
-        popupwindow.showAtLocation(mBottomLayout, Gravity.CENTER, 0, 0);
-        List<VideoContent> list = new ArrayList<>();
-        if (currentEditContent == 0) {//裁剪
-
-        } else if (currentEditContent == 1) {//文本
-            for (int i = startTime; i <= endTime; i += 1000) {
-                VideoContent videoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), intToStr(i), lineId, "", "", mVideoText.getText().toString());
-                list.add(videoContent);
+        if (mCurrentVideoContent != null) {
+            VideoSavePopwindow popupwindow = new VideoSavePopwindow(VideoDetailActivity.this);
+            popupwindow.showAtLocation(mBottomLayout, Gravity.CENTER, 0, 0);
+            List<VideoContent> list = new ArrayList<>();
+            for (int i = startTime; i <= endTime; i = i + 1000) {
+                mCurrentVideoContent.setTime(Utils.intToStr(i));
+                VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(i));
+                if (videoContent == null) {
+                    videoContent = mCurrentVideoContent;
+                    list.add(videoContent);
+                } else {
+                    mCurrentVideoContent.setId(videoContent.getId());
+                    mVideoContentManager.updateVideoContent(mCurrentVideoContent);
+                }
             }
-        } else {//表情
-            for (int i = startTime; i <= endTime; i += 1000) {
-                VideoContent videoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), intToStr(i), -1, "", iconPath, "");
-                list.add(videoContent);
+            mVideoContentManager.insertMultVideoContent(list);
+            setToolbarContent(3);
+            mVideoContent.setVisibility(View.GONE);
+            mHandlerArea.setVisibility(View.INVISIBLE);
+            mClip.setEnabled(true);
+            mIcon.setEnabled(true);
+            mText.setEnabled(true);
+            mCurrentVideoContent = null;
+            //当前选中的按钮状态的更改
+            if (currentEditContent == 0) {
+                mClip.setImageResource(R.mipmap.icon_video_cut);
+            } else if (currentEditContent == 1) {
+                mText.setImageResource(R.mipmap.icon_video_text);
+            } else {
+                mIcon.setImageResource(R.mipmap.icon_video_expression);
             }
+        } else {
+            ToastUtils.toast(this, "当前没有编辑的数据");
         }
-        mVideoView.setEnabled(false);
-        mClose.setImageResource(R.mipmap.icon_titlebar_back);
-        isBack = true;
-        mContentShow.setVisibility(View.GONE);
-        mSeekRangeBar.setVisibility(View.GONE);
-        mSelectTextType.setVisibility(View.GONE);
-        mSelectTime.setVisibility(View.GONE);
-        mSave.setVisibility(View.GONE);
-        mDelete.setVisibility(View.GONE);
-        mLineGif.setVisibility(View.GONE);
-        mEmoticon.setVisibility(View.GONE);
-        mText.setImageResource(R.mipmap.icon_video_text);
-        mClip.setEnabled(true);
-        mIcon.setEnabled(true);
-        mText.setEnabled(true);
-
-        mVideoContentManager.insertMultVideoContent(list);
 
     }
 
@@ -449,24 +499,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     private void setTimeAreaClip() {
         if (isEditText) {
             mClip.setImageResource(R.mipmap.icon_video_cut);
-            mContentShow.setVisibility(View.GONE);//显示视屏上的文本
-            mSeekRangeBar.setVisibility(View.GONE);
-            mSelectTextType.setVisibility(View.GONE);
-            mSelectTime.setVisibility(View.GONE);
-            mTextStyle.setVisibility(View.VISIBLE);
-            mToolbar.setVisibility(View.GONE);
+            setGoneLayout();
             mIcon.setEnabled(true);
             mText.setEnabled(true);
             isEditText = false;
         } else {
             mClip.setImageResource(R.mipmap.icon_video_cut_edit);
-            mSeekRangeBar.setVisibility(View.VISIBLE);
-            mSelectTime.setVisibility(View.VISIBLE);
-            mToolbar.setVisibility(View.VISIBLE);
-            mClose.setImageResource(R.mipmap.icon_video_close);
-            mSave.setVisibility(View.VISIBLE);
-            isBack = false;
-            mTextStyle.setVisibility(View.GONE);
+            setVisibleLayout();
             updateList("裁剪");
             mText.setEnabled(false);
             mClip.setEnabled(false);
@@ -475,29 +514,42 @@ public class VideoDetailActivity extends AppCompatActivity {
     }
 
     /**
+     * 设置显示布局
+     */
+    private void setVisibleLayout() {
+        if (PLAY_BNT_STATE == 1) {//此时正在播放
+            mVideoView.pause();
+            PLAY_BNT_STATE = 0;
+            mHandler.removeMessages(UPDATE_UI);
+            mStartPlay.setImageResource(R.mipmap.icon_video_play);
+        }
+        setToolbarContent(2);
+        mVideoContent.setVisibility(View.VISIBLE);
+        mHandlerArea.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 设置隐藏布局
+     */
+    private void setGoneLayout() {
+        setToolbarContent(1);
+        mVideoContent.setVisibility(View.GONE);
+        mHandlerArea.setVisibility(View.INVISIBLE);
+    }
+
+    /**
      * 设置表情图标
      */
     private void setTimeAreaIcon() {
         if (isEditText) {
             mIcon.setImageResource(R.mipmap.icon_video_expression);
-            mContentShow.setVisibility(View.GONE);//显示视屏上的文本
-            mSeekRangeBar.setVisibility(View.GONE);
-            mSelectTextType.setVisibility(View.GONE);
-            mSelectTime.setVisibility(View.GONE);
-            mTextStyle.setVisibility(View.VISIBLE);
-            mToolbar.setVisibility(View.GONE);
+            setGoneLayout();
             mClip.setEnabled(true);
             mText.setEnabled(true);
             isEditText = false;
         } else {
-            mClose.setImageResource(R.mipmap.icon_video_close);
-            mSave.setVisibility(View.VISIBLE);
-            isBack = false;
             mIcon.setImageResource(R.mipmap.icon_video_expression_edit);
-            mSeekRangeBar.setVisibility(View.VISIBLE);
-            mSelectTime.setVisibility(View.VISIBLE);
-            mToolbar.setVisibility(View.VISIBLE);
-            mTextStyle.setVisibility(View.GONE);
+            setVisibleLayout();
             updateList("表情");
             mText.setEnabled(false);
             mClip.setEnabled(false);
@@ -530,24 +582,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     private void setTimeAreaText() {
         if (isEditText) {
             mText.setImageResource(R.mipmap.icon_video_text);
-            mContentShow.setVisibility(View.GONE);//显示视屏上的文本
-            mSeekRangeBar.setVisibility(View.GONE);
-            mSelectTextType.setVisibility(View.GONE);
-            mSelectTime.setVisibility(View.GONE);
-            mToolbar.setVisibility(View.GONE);
-            mTextStyle.setVisibility(View.VISIBLE);
+            setGoneLayout();
             mClip.setEnabled(true);
             mIcon.setEnabled(true);
             isEditText = false;
         } else {
-            mClose.setImageResource(R.mipmap.icon_video_close);
-            mSave.setVisibility(View.VISIBLE);
-            isBack = false;
             mText.setImageResource(R.mipmap.icon_video_text_edit);
-            mSeekRangeBar.setVisibility(View.VISIBLE);
-            mSelectTime.setVisibility(View.VISIBLE);
-            mToolbar.setVisibility(View.VISIBLE);
-            mTextStyle.setVisibility(View.GONE);
+            setVisibleLayout();
             updateList("文本");
             mClip.setEnabled(false);
             mIcon.setEnabled(false);
@@ -568,46 +609,17 @@ public class VideoDetailActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if ("裁剪".equals(type)) {
-            updataClipList(layoutInflater, layoutParams);
+            updateClipList();
         } else if ("文本".equals(type)) {//文本
-            updataTextList(layoutInflater, layoutParams);
+            updateTextList(layoutInflater, layoutParams);
         } else {//表情
-            updataIconList(layoutInflater, layoutParams);
+            updateIconList(layoutInflater, layoutParams);
         }
 
     }
 
-    private void updataClipList(LayoutInflater layoutInflater, LinearLayout.LayoutParams layoutParams) {
-        List<Bitmap> list = getBitmapsFromVideo(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path());
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                final int index = i;
-                final Bitmap bitmap = list.get(i);
-                View view = layoutInflater.inflate(R.layout.video_detail_list_item, null, false);
-                view.setLayoutParams(layoutParams);
-                final ImageView imageView = (ImageView) view.findViewById(R.id.icon);
-                imageView.setImageBitmap(bitmap);
-               /* view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        View v = mSelectTextType.getChildAt(preSelected);
-                        v.setSelected(false);
-                        view.setSelected(true);
-                        preSelected = index;
-                        //在屏幕编辑区显示表情符号
-                        mContentShow.setVisibility(View.VISIBLE);
-                        mEmoticon.setVisibility(View.VISIBLE);
-                        mDelete.setVisibility(View.GONE);
-                        mVideoText.setVisibility(View.GONE);
-                        mLineGif.setVisibility(View.GONE);
-
-                    }
-                });*/
-                mSelectTextType.addView(view);
-            }
-        } else {
-            mSelectTextType.setVisibility(View.GONE);
-        }
+    private void updateClipList() {
+        getBitmapsFromVideo(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path());
     }
 
     /**
@@ -616,17 +628,14 @@ public class VideoDetailActivity extends AppCompatActivity {
      * @param layoutInflater
      * @param layoutParams
      */
-    private void updataIconList(LayoutInflater layoutInflater, LinearLayout.LayoutParams layoutParams) {
-        EmoticonCodeManager emoticonCodeManager = EmoticonCodeManager.getInstance(this);
-        List<EmoticonCode> allEmoticonCode = emoticonCodeManager.getAllEmoticonCode();
-        if (allEmoticonCode != null && allEmoticonCode.size() > 0) {
-            for (int i = 0; i < allEmoticonCode.size(); i++) {
+    private void updateIconList(LayoutInflater layoutInflater, LinearLayout.LayoutParams layoutParams) {
+        if (emoticons != null && emoticons.length > 0) {
+            for (int i = 0; i < emoticons.length; i++) {
                 final int index = i;
-                final EmoticonCode emoticonCode = allEmoticonCode.get(i);
                 View view = layoutInflater.inflate(R.layout.video_detail_list_item, null, false);
                 view.setLayoutParams(layoutParams);
                 final ImageView imageView = (ImageView) view.findViewById(R.id.icon);
-                Glide.with(this).load(emoticonCode.getPath()).into(imageView);
+                imageView.setImageResource(emoticons[i]);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -634,14 +643,14 @@ public class VideoDetailActivity extends AppCompatActivity {
                         v.setSelected(false);
                         view.setSelected(true);
                         preSelected = index;
+                        iconId = index;
                         //在屏幕编辑区显示表情符号
-                        mContentShow.setVisibility(View.VISIBLE);
-                        mEmoticon.setVisibility(View.VISIBLE);
-                        mDelete.setVisibility(View.GONE);
-                        mVideoText.setVisibility(View.GONE);
-                        mLineGif.setVisibility(View.GONE);
-                        iconPath = emoticonCode.getPath();
-                        Glide.with(VideoDetailActivity.this).load(emoticonCode.getPath()).into(mEmoticon);
+                        if (mCurrentVideoContent == null) {
+                            mCurrentVideoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), "", -1, "", index, "");
+                        } else {
+                            mCurrentVideoContent.setIconId(index);
+                        }
+                        setVideoContentLayout();
                     }
                 });
                 mSelectTextType.addView(view);
@@ -657,7 +666,7 @@ public class VideoDetailActivity extends AppCompatActivity {
      * @param layoutInflater
      * @param layoutParams
      */
-    private void updataTextList(LayoutInflater layoutInflater, LinearLayout.LayoutParams layoutParams) {
+    private void updateTextList(LayoutInflater layoutInflater, LinearLayout.LayoutParams layoutParams) {
         View view = layoutInflater.inflate(R.layout.video_detail_list_item_text, null, false);
         view.setLayoutParams(layoutParams);
         view.setOnClickListener(new View.OnClickListener() {
@@ -668,11 +677,13 @@ public class VideoDetailActivity extends AppCompatActivity {
                 view.setSelected(true);
                 preSelected = 0;
                 //在屏幕编辑区显示表情符号
-                mContentShow.setVisibility(View.VISIBLE);
-                mEmoticon.setVisibility(View.GONE);
-                mDelete.setVisibility(View.VISIBLE);
-                mVideoText.setVisibility(View.VISIBLE);
-                mLineGif.setVisibility(View.GONE);
+                if (mCurrentVideoContent == null) {
+                    mCurrentVideoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), "", -1, "", -1, "点击编辑文本");
+                } else {
+                    mCurrentVideoContent.setText("点击编辑文本");
+                }
+                mCurrentVideoContent.setText("点击编辑文本");
+                setVideoContentLayout();
             }
         });
         mSelectTextType.addView(view);
@@ -685,18 +696,17 @@ public class VideoDetailActivity extends AppCompatActivity {
             line.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //在屏幕编辑区显示表情符号
-                    mContentShow.setVisibility(View.VISIBLE);
-                    mEmoticon.setVisibility(View.GONE);
-                    mDelete.setVisibility(View.VISIBLE);
-                    mVideoText.setVisibility(View.VISIBLE);
-                    mLineGif.setVisibility(View.VISIBLE);
-                    mLineGif.setImageResource(gifs[index - 1]);
                     View v = mSelectTextType.getChildAt(preSelected);
                     v.setSelected(false);
                     view.setSelected(true);
                     lineId = index - 1;
                     preSelected = index;
+                    if (mCurrentVideoContent == null) {
+                        mCurrentVideoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), "", lineId, "", -1, "");
+                    } else {
+                        mCurrentVideoContent.setLineId(lineId);
+                    }
+                    setVideoContentLayout();
                 }
             });
             mSelectTextType.addView(line);
@@ -733,9 +743,9 @@ public class VideoDetailActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         //当屏幕方向是横屏的时候,我们应该对VideoView以及包裹VideoView的布局（也就是对整体）进行拉伸
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,"1");
+            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, "1");
         } else {  //当屏幕方向是竖屏的时候，竖屏的时候的高我们需要把dp转为px
-            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(this, 240),"2");
+            setVideoViewScale(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(this, 240), "2");
         }
 
     }
@@ -752,19 +762,18 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 设置VideoView的大小
      *
      * @param width
-     * @param height
-     * type 1 全屏 2 书评
+     * @param height type 1 全屏 2 竖屏
      */
-    private void setVideoViewScale(int width, int height,String type) {
+    private void setVideoViewScale(int width, int height, String type) {
         //获取VideoView宽和高
         ViewGroup.LayoutParams layoutParams = mVideoView.getLayoutParams();
         //赋值给VideoView的宽和高
         layoutParams.width = width;
         layoutParams.height = height;
         //设置VideoView的宽和高
-        if("1".equals(type)){
+        if ("1".equals(type)) {
             mFirstFrame.setVisibility(View.GONE);
-        }else{
+        } else {
             mFirstFrame.setVisibility(View.VISIBLE);
         }
         mVideoView.setLayoutParams(layoutParams);
@@ -774,24 +783,9 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 时间的格式化 * @param textView * @param millisecond
      */
     public void updateTime(TextView textView, int millisecond) {
-        String str = intToStr(millisecond);
+        String str = Utils.intToStr(millisecond);
         textView.setText(str);
     }
-
-    private String intToStr(int millisecond) {
-        int second = millisecond / 1000; //总共换算的秒
-        int hh = second / 3600; //小时
-        int mm = second % 3600 / 60; //分钟
-        int ss = second % 60; //时分秒中的秒的得数
-        String str = null;
-        if (hh != 0) { //如果是个位数的话，前面可以加0 时分秒
-            str = String.format("%02d:%02d:%02d", hh, mm, ss);
-        } else {
-            str = String.format("%02d:%02d", mm, ss);
-        }
-        return str;
-    }
-
 
     //更新UI的handler
     private Handler mHandler = new Handler() {
@@ -807,67 +801,65 @@ public class VideoDetailActivity extends AppCompatActivity {
                 startTime = currentPosition;
                 mSeekRangeBar.setProgressLow(currentPosition);
                 mSeekbar.setProgress(currentPosition);
-                setAlreadyContent(currentPosition);
+                VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(currentPosition));
+                mCurrentVideoContent = videoContent;
+                setVideoContentLayout();
                 mHandler.sendEmptyMessageDelayed(UPDATE_UI, 500);
+            } else if (msg.what == UPDATE_CLIP_UI) {
+                //更新视频布局
+                list.clear();
+                list.addAll(bitmaps);
+                bitmaps.clear();
+                setClipLayout();
             }
-
         }
     };
 
-    private void setAlreadyContent(int currentPosition) {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = 10;
-        layoutParams.rightMargin = 10;
-        layoutParams.topMargin = 5;
-        layoutParams.leftMargin = 5;
-        List<VideoContent> videoContents = mVideoContentManager.findVideoContentByVideoId(mVideo.getId(), intToStr(currentPosition));
-        if (videoContents != null && videoContents.size() > 0) {
-            mTextStyle.setVisibility(View.VISIBLE);
-            mTextStyle.removeAllViews();
-            for (int i = 0; i < videoContents.size(); i++) {
-                VideoContent videoContent = videoContents.get(i);
-                if (!TextUtil.isEmpty(videoContent.getText())) {
-                    TextView textView = new TextView(VideoDetailActivity.this);
-                    textView.setTextColor(Color.WHITE);
-                    textView.setTextSize(15);
-                    textView.setPadding(13, 10, 13, 10);
-                    textView.setText(videoContent.getText());
-                    textView.setGravity(Gravity.CENTER);
-                    if (videoContent.getLineId() != -1) {
-                        textView.setCompoundDrawablePadding(10);
-                        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, gifs[videoContent.getLineId()]);
-                    }
-                    mTextStyle.addView(textView);
-                }
-                if (!TextUtil.isEmpty(videoContent.getIconPath())) {
-                    ImageView imageView = new ImageView(VideoDetailActivity.this);
-                    imageView.setLayoutParams(layoutParams);
-                    Glide.with(VideoDetailActivity.this).load(videoContent.getIconPath()).into(imageView);
-                    mTextStyle.addView(imageView);
-                }
+    private void setClipLayout() {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        if (list != null && list.size() > 0) {
+            mSelectTextType.setVisibility(View.VISIBLE);
+            for (int i = 0; i < list.size(); i++) {
+                final Bitmap bitmap = list.get(i);
+                View view = layoutInflater.inflate(R.layout.video_detail_list_item, null, false);
+                view.setLayoutParams(layoutParams);
+                final ImageView imageView = (ImageView) view.findViewById(R.id.icon);
+                imageView.setImageBitmap(bitmap);
+                mSelectTextType.addView(view);
             }
-        } else {
-            mTextStyle.setVisibility(View.GONE);
+        }
+        if (mSelectTextType.getChildCount() == 0) {
+            mSelectTextType.setVisibility(View.GONE);
         }
     }
 
-    public List<Bitmap> getBitmapsFromVideo(String clipPath) {
+
+    public void getBitmapsFromVideo(String clipPath) {
         File file = new File(clipPath);
-        List<Bitmap> list = new ArrayList<>();
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        final MediaMetadataRetriever retriever = new MediaMetadataRetriever();
 
         retriever.setDataSource(file.getAbsolutePath());
 
         // 取得视频的长度(单位为秒)
-        int seconds = max / 1000;
-        // 得到每一秒时刻的bitmap比如第一秒,第二秒
-        for (int i = 1; i <= seconds; i=i+8) {
-            Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
-            list.add(bitmap);
-        }
-        return list;
-    }
 
+        // 得到每一秒时刻的bitmap比如第一秒,第二秒
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //子线程操作
+                int seconds = max / 1000;
+                for (int i = 1; i <= seconds; i++) {
+                    Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
+                    bitmaps.add(bitmap);
+                    mHandler.sendEmptyMessageDelayed(UPDATE_CLIP_UI, 500);
+                }
+            }
+        });
+
+
+    }
 
     /**
      * 保存帧图片

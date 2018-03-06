@@ -78,7 +78,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:padding="15dp"
-                    android:text="发送成功"
+                    android:text="保存成功"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 

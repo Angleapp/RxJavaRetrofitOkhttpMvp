@@ -100,11 +100,15 @@ public class VideoContentManager {
             return null;
         }
     }
-    public List<VideoContent> findVideoContentByVideoId(String videoId,String time) {
+    public VideoContent findVideoContentByVideoIdAndTime(String videoId,String time) {
         QueryBuilder<VideoContent> builder = mVideoContentDao.queryBuilder();
         WhereCondition whereCondition = builder.and(VideoContentDao.Properties.VideoId.eq(videoId), VideoContentDao.Properties.Time.eq(time));
         List<VideoContent> list = builder.where(whereCondition).list();
-        return list;
+        if (list!=null&&list.size()>0){
+            return  list.get(0);
+        }else{
+            return null;
+        }
     }
 
 }

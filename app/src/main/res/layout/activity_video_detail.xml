@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,9 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         android:background="@color/black_half"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/close"
@@ -37,36 +37,38 @@
             android:src="@mipmap/icon_video_done"/>
     </RelativeLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.wzrd.v.view.MyVideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"/>
+
+        <ImageView
+            android:id="@+id/first_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+    </FrameLayout>
+
     <LinearLayout
-        android:id="@+id/video_layout"
+        android:id="@+id/videoContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.wzrd.v.view.MyVideoView
-                android:id="@+id/videoView"
-                android:layout_width="match_parent"
-                android:layout_height="210.5dp"
-                android:layout_below="@id/toolbar"/>
-
-            <ImageView
-                android:id="@+id/first_frame"
-                android:layout_width="match_parent"
-                android:layout_height="210.5dp"
-                android:scaleType="fitXY"/>
-        </FrameLayout>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/contentShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/video_text"
@@ -94,52 +96,28 @@
                 android:layout_toLeftOf="@id/video_text"
                 android:src="@mipmap/icon_video_addtext_delete"/>
 
-            <ImageView
-                android:id="@+id/emoticon"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"/>
+
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="4dp">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/line_gif"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:src="@drawable/line0"
-                android:visibility="gone"/>
-        </LinearLayout>
-
-        <HorizontalScrollView
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/line_gif"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:layout_height="20dp"/>
 
-            <LinearLayout
-                android:id="@+id/text_style"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-            </LinearLayout>
-        </HorizontalScrollView>
-
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/emoticon"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/handle"
+        android:id="@+id/control"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@id/video_layout"
         android:background="#0DFFFFFF"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
@@ -181,61 +159,61 @@
             android:src="@mipmap/icon_video_fullscreen"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/selectTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/handle"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/reduce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_video_addtext_time_j"/>
-
-        <TextView
-            android:id="@+id/text_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/text_round_bg"
-            android:paddingBottom="7.5dp"
-            android:paddingLeft="18dp"
-            android:paddingRight="18dp"
-            android:paddingTop="7.5dp"
-            android:text="00:58"
-            android:textColor="#FFFFFFFF"
-            android:textSize="12sp"/>
-
-        <ImageView
-            android:id="@+id/plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_video_addtext_time_a"/>
-    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/handleArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="39dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/reduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_video_addtext_time_j"/>
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/text_round_bg"
+                android:paddingBottom="7.5dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingTop="7.5dp"
+                android:text="00:58"
+                android:textColor="#FFFFFFFF"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_video_addtext_time_a"/>
+        </LinearLayout>
 
         <com.wzrd.v.view.SeekRangeBar
             android:id="@+id/seekRangeBar"
             android:layout_width="wrap_content"
-            android:layout_height="50.5dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:visibility="gone"/>
+            android:layout_marginRight="16dp"/>
+
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:scrollbars="none">
 
             <LinearLayout
@@ -246,38 +224,37 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone">
-
             </LinearLayout>
         </HorizontalScrollView>
-
-        <LinearLayout
-            android:id="@+id/bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:background="#E6192028"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/clip"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_video_cut"/>
-
-            <ImageView
-                android:id="@+id/text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_video_text"/>
-
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_video_expression"/>
-        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="#E6192028"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/clip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_video_cut"/>
+
+        <ImageView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_video_text"/>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_video_expression"/>
+    </LinearLayout>
+</LinearLayout>

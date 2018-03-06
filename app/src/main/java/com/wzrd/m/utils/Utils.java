@@ -69,6 +69,24 @@ public class Utils {
     }
 
     /**
+     * 时间转换
+     * @param millisecond
+     * @return
+     */
+    public static String intToStr(int millisecond) {
+        int second = millisecond / 1000; //总共换算的秒
+        int hh = second / 3600; //小时
+        int mm = second % 3600 / 60; //分钟
+        int ss = second % 60; //时分秒中的秒的得数
+        String str = null;
+        if (hh != 0) { //如果是个位数的话，前面可以加0 时分秒
+            str = String.format("%02d:%02d:%02d", hh, mm, ss);
+        } else {
+            str = String.format("%02d:%02d", mm, ss);
+        }
+        return str;
+    }
+    /**
      * toast long
      *
      * @param context
