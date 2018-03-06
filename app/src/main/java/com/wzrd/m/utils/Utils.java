@@ -9,12 +9,14 @@ import android.widget.Toast;
 
 import com.wzrd.p.impl.AbsToolBarMenuPresenter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  * Created by lk on 2017/12/31.
@@ -70,6 +72,7 @@ public class Utils {
 
     /**
      * 时间转换
+     *
      * @param millisecond
      * @return
      */
@@ -86,6 +89,7 @@ public class Utils {
         }
         return str;
     }
+
     /**
      * toast long
      *
@@ -152,5 +156,19 @@ public class Utils {
     public static float[] getXYPoint(float[] centrePoint, int radius, float o) {
         float[] xyPoint = {(float) (radius * Math.sin(o) + centrePoint[0]), (float) ((-1) * radius * Math.cos(o) + centrePoint[1])};
         return xyPoint;
+    }
+
+    /**
+     * 对文件重命名
+     *
+     * @param filePath 文件的路径
+     */
+    public static String chageFileName(String filePath, String reName) {
+        File file = new File(filePath);
+        //前面路径必须一样才能修改成功
+        String path = filePath.substring(0, filePath.lastIndexOf("/") + 1) + reName + filePath.substring(filePath.lastIndexOf("."), filePath.length());
+        File newFile = new File(path);
+        file.renameTo(newFile);
+        return  path;
     }
 }

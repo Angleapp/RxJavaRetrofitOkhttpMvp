@@ -1,9 +1,15 @@
 package com.wzrd.v.activity.home.video;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -11,20 +17,29 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
+import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.adapter.VideoGridViewAdapter;
 import com.wzrd.v.view.popup.VideoPopupWindow;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 public class VideoActivity extends AppCompatActivity {
 
@@ -49,7 +64,7 @@ public class VideoActivity extends AppCompatActivity {
     List<Video> mList = new ArrayList<>();
     private VideoGridViewAdapter mGridViewAdpter;
     private VideoManager mVideoManager;
-
+    private Map<String,Bitmap> mMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,16 +73,19 @@ public class VideoActivity extends AppCompatActivity {
         Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "短视频", mToolbarMenu, 0, null, mToolbarMenuText, "");
         mExpressLove.setSelected(true);
         
-        getListData();
-        int loadMedia = getLoadMedia();
-        Utils.ToastShort(this,loadMedia+"");
-        mGridViewAdpter = new VideoGridViewAdapter(mList, this);
+        mList = getLoadMedia("0");
+        //初始化权限
+        requestSDPermission();
+        mGridViewAdpter = new VideoGridViewAdapter(mList, this,mMap);
         mVideoList.setAdapter(mGridViewAdpter);
         mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
                 Intent intent = new Intent(VideoActivity.this, VideoDetailActivity.class);
-                intent.putExtra("id", mList.get(i).getId());
+                Video video = mList.get(i);
+                intent.putExtra("path",video.getVideo_path() );
+                intent.putExtra("type",video.getVideo_type());
+                intent.putExtra("title",video.getTitle());
                 startActivity(intent);
             }
         });
@@ -82,6 +100,88 @@ public class VideoActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    /**
+     * 申请权限
+     */
+    private void requestSDPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions
+                    .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .observeOn(AndroidSchedulers.mainThread())
+
+                    .subscribe(new Observer<Boolean>() {
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Boolean aBoolean) {
+                            /**
+                             * aBoolean为true  同意权限
+                             * aBoolean为false 没同意权限
+                             */
+
+                            if (!aBoolean) {
+                                Utils.ToastShort(VideoActivity.this, Constants.RDWISDPREMISS);
+                            } else {
+                                getFirstFrame();
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        } else {
+            getFirstFrame();
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getFirstFrame();
+                } else {
+                    Toast.makeText(this, "拒绝权限将无法使用程序", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+        }
+    }
+    /**
+     * 获取方法
+     */
+    private void getFirstFrame() {
+        if (mList!=null&&mList.size()>0){
+            for (int i = 0; i < mList.size(); i++) {
+                Video video =mList.get(i);
+                File file = new File(video.getVideo_path());
+                if (file.exists()){
+                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                    mmr.setDataSource(file.getAbsolutePath());
+                    Bitmap firstFrame = mmr.getFrameAtTime();
+                    mMap.put(video.getVideo_path(),firstFrame);
+                }
+            }
+
+        }
+
     }
 
     /**
@@ -141,7 +241,7 @@ public class VideoActivity extends AppCompatActivity {
      * @param type
      */
     private void updateListData(String type) {
-        List<Video> videoType = mVideoManager.findVideoByVideoTypeAndIsEdit(type,0);
+        List<Video> videoType = getLoadMedia(type);
         mList.clear();
         mList.addAll(videoType);
         mGridViewAdpter.notifyDataSetChanged();
@@ -164,13 +264,13 @@ public class VideoActivity extends AppCompatActivity {
         mGridViewAdpter.notifyDataSetChanged();
     }
 
-    public int  getLoadMedia() {
-        int a=0;
+    public List<Video>  getLoadMedia(String type) {
+        List<Video> list = new ArrayList<>();
         Cursor cursor = this.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, MediaStore.Video.Media.DEFAULT_SORT_ORDER);
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID)); // id
-                String displayName =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+                String displayName =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));//标题
                 String album = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ALBUM)); // 专辑
                 String artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST)); // 艺术家
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)); // 显示名称
@@ -179,13 +279,16 @@ public class VideoActivity extends AppCompatActivity {
                 long duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)); // 时长
                 long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE)); // 大小
                 String resolution =cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.RESOLUTION));
-           a=a+1;
+                if (size!=0){
+                    Video video = new Video(Utils.getuuid(),type,path,"",title,0);
+                    list.add(video);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             cursor.close();
         }
-        return a;
+        return list;
     }
 }

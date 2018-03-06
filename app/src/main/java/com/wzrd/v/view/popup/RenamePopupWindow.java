@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
-import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.activity.home.video.VideoActivity;
 
@@ -64,9 +63,8 @@ public class RenamePopupWindow extends PopupWindow {
                     tv_hint.setVisibility(View.VISIBLE);
                 } else {
                     tv_hint.setVisibility(View.GONE);
-                    video.setTitle(s);
-                    VideoManager videoManager = VideoManager.getInstance(context);
-                    videoManager.updateVideo(video);
+                    String fileName = Utils.chageFileName(video.getVideo_path(), s);
+                    video.setVideo_path(fileName);
                     videoActivity.refreshList();
                 }
             }

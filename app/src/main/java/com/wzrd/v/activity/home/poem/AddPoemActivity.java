@@ -71,6 +71,7 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_poem);
         ButterKnife.bind(this);
+        mTime = (Chronometer) findViewById(R.id.time);
         Intent intent = getIntent();
         mId = intent.getStringExtra("id");
         mPoemManager = PoemManager.getInstance(this);
@@ -78,20 +79,10 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
             //新增
             Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, this, mToolbarMenuText, "完成");
             mLetterBg.setBackgroundResource(R.drawable.a19049ea3874d0bb4837f114095abd601);
-            mContent.setText(Html.fromHtml("关关雎鸠，在河之洲。<br>" +
-                    "窈窕淑女，君子好逑。<br>" +
-                    "<br>" +
-                    "参差荇菜，左右流之。<br>" +
-                    "窈窕淑女，寤寐求之。<br>" +
-                    "<br>" +
-                    "求之不得，寤寐思服。<br>" +
-                    "悠哉悠哉，辗转反侧。<br>" +
-                    "<br>" +
-                    "参差荇菜，左右采之。<br>" +
-                    "窈窕淑女，琴瑟友之。<br>" +
-                    "<br>" +
-                    "参差荇菜，左右芼之。<br>" +
-                    "窈窕淑女，钟鼓乐之。"));
+            mContent.setText("");
+            mTitle.setHint("请输入诗标题");
+            mAuthor.setHint("请输入作者姓名");
+            mContent.setHint("请输入诗内容");
         } else {
             //详情页面
             Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, null, mToolbarMenuText, "");

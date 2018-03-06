@@ -45,13 +45,12 @@
 
                 <EditText
                     android:id="@+id/title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:background="@android:color/transparent"
-                    android:text="关雎"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/black"
                     android:textSize="20sp"/>
 
                 <EditText
@@ -60,7 +59,6 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:text="诗经"
                     android:textColor="#FF989A9E"
                     android:textSize="14sp"/>
 

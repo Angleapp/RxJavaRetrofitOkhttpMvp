@@ -1,6 +1,7 @@
 package com.wzrd.v.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +9,13 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.wzrd.R;
 import com.wzrd.m.been.Video;
 import com.wzrd.m.utils.TextUtil;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hyj on 2018/2/26.
@@ -23,11 +24,13 @@ import java.util.List;
 public class VideoGridViewAdapter extends BaseAdapter {
     private List<Video> mList;
     private Context mContext;
+    private Map<String, Bitmap> mMap;
     private LayoutInflater mInflater;
 
-    public VideoGridViewAdapter(List<Video> list, Context context) {
+    public VideoGridViewAdapter(List<Video> list, Context context, Map<String, Bitmap> map) {
         mList = list;
         mContext = context;
+        mMap = map;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -61,10 +64,10 @@ public class VideoGridViewAdapter extends BaseAdapter {
         int w = (int) (widthPixels * 0.436);
         AbsListView.LayoutParams layoutParams = new AbsListView.LayoutParams(w, (int) (w * 0.62));
         view.setLayoutParams(layoutParams);
-        if (TextUtil.isEmpty(video.getFace_pic_path())) {
-            viewHolder.mVideoPic.setBackgroundResource(R.mipmap.pic_text_background);
-        } else {
-            Glide.with(mContext).load(video.getFace_pic_path()).into(viewHolder.mVideoPic);
+        String path = video.getVideo_path();
+        if (!TextUtil.isEmpty(path)) {
+            Bitmap bitmap = mMap.get(path);
+            viewHolder.mVideoPic.setImageBitmap(bitmap);
         }
         viewHolder.mVideoTitle.setText(video.getTitle());
         return view;

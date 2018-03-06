@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -153,9 +152,10 @@ public class VideoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_detail);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        VideoManager videoManager = VideoManager.getInstance(this);
-        mVideo = videoManager.findVideoById(id);
+        String path = intent.getStringExtra("path");
+        String type = intent.getStringExtra("type");
+        String title = intent.getStringExtra("title");
+        mVideo = new Video(Utils.getuuid(),type,path,"",title,0);
         mSeekRangeBar.setEditable(true);
         mUnbinder = ButterKnife.bind(this);
         //获取数据
@@ -367,7 +367,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                 updateTime(mTextTime, (int) progressHigh);
             }
         });
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path();
+        String path =mVideo.getVideo_path();
         File file = new File(path);
 
         mVideoView.setVideoPath(path);
@@ -633,7 +633,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     }
 
     private void updateClipList() {
-        getBitmapsFromVideo(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + mVideo.getVideo_path());
+        getBitmapsFromVideo( mVideo.getVideo_path());
     }
 
     /**
