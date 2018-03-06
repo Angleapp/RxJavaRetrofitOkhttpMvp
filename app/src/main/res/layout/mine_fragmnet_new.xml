@@ -122,7 +122,7 @@
 
                 <ToggleButton
                     android:id="@+id/new_request_swichbtn"
-                    android:layout_width="51dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ios7_btn"
                     android:checked="false"
