@@ -850,11 +850,11 @@ public class VideoDetailActivity extends AppCompatActivity {
             public void run() {
                 //子线程操作
                 int seconds = max / 1000;
-                for (int i = 1; i <= seconds; i++) {
+                for (int i = 1; i <= seconds; i+=2) {
                     Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
                     bitmaps.add(bitmap);
                     int i1 = i % 5;
-                    if(i1==0||i==seconds){
+                    if(i1==0||i>=seconds){
                         mHandler.sendEmptyMessageDelayed(UPDATE_CLIP_UI, 500);
                     }
 
