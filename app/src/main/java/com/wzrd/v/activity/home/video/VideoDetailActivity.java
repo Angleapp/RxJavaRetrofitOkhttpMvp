@@ -853,10 +853,14 @@ public class VideoDetailActivity extends AppCompatActivity {
                 for (int i = 1; i <= seconds; i++) {
                     Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
                     bitmaps.add(bitmap);
-                    mHandler.sendEmptyMessageDelayed(UPDATE_CLIP_UI, 500);
+                    int i1 = i % 5;
+                    if(i1==0||i==seconds){
+                        mHandler.sendEmptyMessageDelayed(UPDATE_CLIP_UI, 500);
+                    }
+
                 }
             }
-        });
+        }).start();
 
 
     }
