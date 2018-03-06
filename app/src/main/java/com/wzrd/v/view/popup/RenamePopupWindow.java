@@ -63,9 +63,6 @@ public class RenamePopupWindow extends PopupWindow {
                     tv_hint.setVisibility(View.VISIBLE);
                 } else {
                     tv_hint.setVisibility(View.GONE);
-                    String fileName = Utils.chageFileName(video.getVideo_path(), s);
-                    video.setVideo_path(fileName);
-                    videoActivity.refreshList();
                 }
             }
         });
@@ -85,7 +82,9 @@ public class RenamePopupWindow extends PopupWindow {
                 } else {
                     Utils.ToastShort(context, "命名不规范");
                 }
-
+                String fileName = Utils.chageFileName(video.getVideo_path(), s);
+                video.setVideo_path(fileName);
+                videoActivity.refreshList();
             }
         });
 
