@@ -8,6 +8,7 @@ import com.wzrd.m.db.gen.DaoSession;
 import com.wzrd.m.db.gen.VideoDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.List;
 
@@ -94,6 +95,7 @@ public class VideoManager {
             return null;
         }
     }
+
     public List<Video> findVideoByVideoType(String videoType) {
         QueryBuilder<Video> builder = mVideoDao.queryBuilder();
         List<Video> list = builder.where(VideoDao.Properties.Video_type.eq(videoType)).list();
@@ -103,10 +105,32 @@ public class VideoManager {
             return null;
         }
     }
+
+    public List<Video> findVideoByIsEdit(int isEdit) {
+        QueryBuilder<Video> builder = mVideoDao.queryBuilder();
+        List<Video> list = builder.where(VideoDao.Properties.IsEdit.eq(isEdit)).list();
+        if (list != null) {
+            return list;
+        } else {
+            return null;
+        }
+    }
+
     public Video getLastVideo() {
-        List<Video> videos = mVideoDao.loadAll();
-        if (videos != null) {
+        List<Video> videos = findVideoByIsEdit(1);
+        if (videos != null && videos.size() > 0) {
             return videos.get(videos.size() - 1);
+        } else {
+            return null;
+        }
+    }
+
+    public List<Video> findVideoByVideoTypeAndIsEdit(String videoType, int isEdit) {
+        QueryBuilder<Video> builder = mVideoDao.queryBuilder();
+        WhereCondition whereCondition = builder.and(VideoDao.Properties.Video_type.eq(videoType), VideoDao.Properties.IsEdit.eq(isEdit));
+        List<Video> list = builder.where(whereCondition).list();
+        if (list != null) {
+            return list;
         } else {
             return null;
         }

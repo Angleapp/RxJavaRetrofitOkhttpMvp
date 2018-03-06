@@ -29,6 +29,7 @@ public class VideoDao extends AbstractDao<Video, String> {
         public final static Property Video_path = new Property(2, String.class, "video_path", false, "VIDEO_PATH");
         public final static Property Face_pic_path = new Property(3, String.class, "face_pic_path", false, "FACE_PIC_PATH");
         public final static Property Title = new Property(4, String.class, "title", false, "TITLE");
+        public final static Property IsEdit = new Property(5, int.class, "isEdit", false, "IS_EDIT");
     };
 
 
@@ -48,7 +49,8 @@ public class VideoDao extends AbstractDao<Video, String> {
                 "\"VIDEO_TYPE\" TEXT," + // 1: video_type
                 "\"VIDEO_PATH\" TEXT," + // 2: video_path
                 "\"FACE_PIC_PATH\" TEXT," + // 3: face_pic_path
-                "\"TITLE\" TEXT);"); // 4: title
+                "\"TITLE\" TEXT," + // 4: title
+                "\"IS_EDIT\" INTEGER NOT NULL );"); // 5: isEdit
     }
 
     /** Drops the underlying database table. */
@@ -85,6 +87,7 @@ public class VideoDao extends AbstractDao<Video, String> {
         if (title != null) {
             stmt.bindString(5, title);
         }
+        stmt.bindLong(6, entity.getIsEdit());
     }
 
     @Override
@@ -115,6 +118,7 @@ public class VideoDao extends AbstractDao<Video, String> {
         if (title != null) {
             stmt.bindString(5, title);
         }
+        stmt.bindLong(6, entity.getIsEdit());
     }
 
     @Override
@@ -129,7 +133,8 @@ public class VideoDao extends AbstractDao<Video, String> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // video_type
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // video_path
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // face_pic_path
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // title
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // title
+            cursor.getInt(offset + 5) // isEdit
         );
         return entity;
     }
@@ -141,6 +146,7 @@ public class VideoDao extends AbstractDao<Video, String> {
         entity.setVideo_path(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setFace_pic_path(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setTitle(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIsEdit(cursor.getInt(offset + 5));
      }
     
     @Override

@@ -26,8 +26,10 @@ import com.wzrd.R;
 import com.wzrd.m.been.Poem;
 import com.wzrd.m.been.TEXTIFORMATION;
 import com.wzrd.m.been.TSYSCONTANTS;
+import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.PoemManager;
 import com.wzrd.m.db.manger.TextInformationManager;
+import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.Utils;
@@ -200,7 +202,12 @@ public class NewFragment extends Fragment implements View.OnLongClickListener {
         } else {
             tvPoem.setCompoundDrawables(null, null, null, null);
         }
-
+        List<Video> videoList = VideoManager.getInstance(getActivity()).findVideoByIsEdit(1);
+        if (videoList != null && videoList.size() > 0) {
+            tvVideo.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            tvVideo.setCompoundDrawables(null, null, null, null);
+        }
     }
 
     /**

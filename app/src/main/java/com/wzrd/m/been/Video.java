@@ -12,18 +12,20 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Video {
     @Id(autoincrement = false)
     private String id;
-   private String video_type;//0 表达爱 1 道歉  2 加深爱  3 自定义
-   private  String video_path;//视频路径
-    String face_pic_path;//视频封面图片路径
-    String title;
+    private String video_type;//0 表达爱 1 道歉  2 加深爱  3 自定义
+    private String video_path;//视频路径
+    private String face_pic_path;//视频封面图片路径
+    private int isEdit = 0;//0 未编辑 1 编辑过
+    private String title;
 
     @Keep
-    public Video(String id, String video_type, String video_path, String face_pic_path, String title) {
+    public Video(String id, String video_type, String video_path, String face_pic_path, String title,int isEdit) {
         this.id = id;
         this.video_type = video_type;
         this.video_path = video_path;
         this.face_pic_path = face_pic_path;
         this.title = title;
+        this.isEdit = isEdit;
     }
 
     @Generated(hash = 237528154)
@@ -68,5 +70,13 @@ public class Video {
 
     public void setFace_pic_path(String face_pic_path) {
         this.face_pic_path = face_pic_path;
+    }
+
+    public int getIsEdit() {
+        return isEdit;
+    }
+
+    public void setIsEdit(int isEdit) {
+        this.isEdit = isEdit;
     }
 }

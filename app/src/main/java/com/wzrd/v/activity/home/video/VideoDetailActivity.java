@@ -145,6 +145,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private int max = 0;//视频总共的毫秒值
     private int high;
     private VideoContent mCurrentVideoContent;
+    private Thread mThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -408,7 +409,16 @@ public class VideoDetailActivity extends AppCompatActivity {
                 if (isBack) {
                     finish();
                 } else {
-                    mContentShow.setVisibility(View.GONE);
+                    setToolbarContent(1);
+                    mHandlerArea.setVisibility(View.INVISIBLE);
+                    //当前选中的按钮状态的更改
+                    if (currentEditContent == 0) {
+                        mClip.setImageResource(R.mipmap.icon_video_cut);
+                    } else if (currentEditContent == 1) {
+                        mText.setImageResource(R.mipmap.icon_video_text);
+                    } else {
+                        mIcon.setImageResource(R.mipmap.icon_video_expression);
+                    }
                     mCurrentVideoContent = null;
                 }
                 break;
@@ -464,13 +474,15 @@ public class VideoDetailActivity extends AppCompatActivity {
                 mCurrentVideoContent.setTime(Utils.intToStr(i));
                 VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(i));
                 if (videoContent == null) {
-                    videoContent = new VideoContent(Utils.getuuid(),mVideo.getId(),Utils.intToStr(i),mCurrentVideoContent.getLineId(),mCurrentVideoContent.getPicPath(),mCurrentVideoContent.getIconId(),mCurrentVideoContent.getText());
+                    videoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), Utils.intToStr(i), mCurrentVideoContent.getLineId(), mCurrentVideoContent.getPicPath(), mCurrentVideoContent.getIconId(), mCurrentVideoContent.getText());
                     list.add(videoContent);
                 } else {
                     mCurrentVideoContent.setId(videoContent.getId());
                     mVideoContentManager.updateVideoContent(mCurrentVideoContent);
                 }
             }
+            mVideo.setIsEdit(1);
+            VideoManager.getInstance(this).updateVideo(mVideo);
             mVideoContentManager.insertMultVideoContent(list);
             setToolbarContent(3);
             mVideoContent.setVisibility(View.GONE);
@@ -478,6 +490,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mClip.setEnabled(true);
             mIcon.setEnabled(true);
             mText.setEnabled(true);
+            isEditText = false;
             mCurrentVideoContent = null;
             //当前选中的按钮状态的更改
             if (currentEditContent == 0) {
@@ -499,6 +512,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private void setTimeAreaClip() {
         if (isEditText) {
             mClip.setImageResource(R.mipmap.icon_video_cut);
+            mSelectTextType.removeAllViews();
             setGoneLayout();
             mIcon.setEnabled(true);
             mText.setEnabled(true);
@@ -508,7 +522,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             setVisibleLayout();
             updateList("裁剪");
             mText.setEnabled(false);
-            mClip.setEnabled(false);
+            mIcon.setEnabled(false);
             isEditText = true;
         }
     }
@@ -773,8 +787,10 @@ public class VideoDetailActivity extends AppCompatActivity {
         //设置VideoView的宽和高
         if ("1".equals(type)) {
             mFirstFrame.setVisibility(View.GONE);
+            mHandlerArea.setVisibility(View.GONE);
         } else {
             mFirstFrame.setVisibility(View.VISIBLE);
+            mHandlerArea.setVisibility(View.INVISIBLE);
         }
         mVideoView.setLayoutParams(layoutParams);
     }
@@ -822,7 +838,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mSelectTextType.setVisibility(View.VISIBLE);
             for (int i = 0; i < list.size(); i++) {
                 final Bitmap bitmap = list.get(i);
-                View view = layoutInflater.inflate(R.layout.video_detail_list_item, null, false);
+                View view = layoutInflater.inflate(R.layout.video_detail_list_item_clip, null, false);
                 view.setLayoutParams(layoutParams);
                 final ImageView imageView = (ImageView) view.findViewById(R.id.icon);
                 imageView.setImageBitmap(bitmap);
@@ -845,22 +861,23 @@ public class VideoDetailActivity extends AppCompatActivity {
 
         // 得到每一秒时刻的bitmap比如第一秒,第二秒
 
-        new Thread(new Runnable() {
+        mThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 //子线程操作
                 int seconds = max / 1000;
-                for (int i = 1; i <= seconds; i+=2) {
+                for (int i = 1; i <= seconds; i += 3) {
                     Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000);
                     bitmaps.add(bitmap);
                     int i1 = i % 5;
-                    if(i1==0||i>=seconds){
+                    if (i1 == 0 || i >= seconds) {
                         mHandler.sendEmptyMessageDelayed(UPDATE_CLIP_UI, 500);
                     }
 
                 }
             }
-        }).start();
+        });
+        mThread.start();
 
 
     }

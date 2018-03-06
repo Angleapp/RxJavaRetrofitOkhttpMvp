@@ -95,7 +95,7 @@ public class LookAtVideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_look_at_video);
         VideoManager videoManager = VideoManager.getInstance(this);
-        mVideoList = videoManager.getAllVideo();
+        mVideoList = videoManager.findVideoByIsEdit(1);
         ButterKnife.bind(this);
         if (mVideoList != null && mVideoList.size() > 0) {
             currentPosition = mVideoList.size() - 1;
@@ -212,25 +212,25 @@ public class LookAtVideoActivity extends AppCompatActivity {
 
     private void refreshContent(int time) {
         VideoContentManager contentManager = VideoContentManager.getInstance(this);
-        VideoContent videoContent= contentManager.findVideoContentByVideoIdAndTime(mCurrentVideo.getId(), Utils.intToStr(time));
+        VideoContent videoContent = contentManager.findVideoContentByVideoIdAndTime(mCurrentVideo.getId(), Utils.intToStr(time));
         if (videoContent != null) {
             if (!TextUtil.isEmpty(videoContent.getText())) {
                 mContent.setVisibility(View.VISIBLE);
                 mContent.setText(videoContent.getText());
             } else {
-                mContent.setVisibility(View.GONE);
+                mContent.setVisibility(View.INVISIBLE);
             }
-            if (videoContent.getLineId() == -1) {
+            if (videoContent.getLineId() != -1) {
                 mLine.setVisibility(View.VISIBLE);
                 mLine.setImageResource(gifs[videoContent.getLineId()]);
             } else {
-                mLine.setVisibility(View.GONE);
+                mLine.setVisibility(View.INVISIBLE);
             }
-            if (videoContent.getIconId()!=-1) {
+            if (videoContent.getIconId() != -1) {
                 mEmoticon.setVisibility(View.VISIBLE);
-               mFaceImage.setImageResource(emoticons[videoContent.getIconId()]);
+                mEmoticon.setImageResource(emoticons[videoContent.getIconId()]);
             } else {
-                mEmoticon.setVisibility(View.GONE);
+                mEmoticon.setVisibility(View.INVISIBLE);
             }
 
         }
@@ -244,7 +244,7 @@ public class LookAtVideoActivity extends AppCompatActivity {
             mVideo.start();
             isPlay = true; //修改播放状态
             mPlay.setImageResource(R.mipmap.icon_play_pause);//设置播放状态
-            mFaceImage.setVisibility(View.GONE);
+            mFaceImage.setVisibility(View.INVISIBLE);
             mHandler.sendEmptyMessageDelayed(UPDATE_UI, 500);
         } else if (isPlay == true) { //此时为正在播放
             mVideo.pause();
