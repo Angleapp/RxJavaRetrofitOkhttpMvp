@@ -464,7 +464,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                 mCurrentVideoContent.setTime(Utils.intToStr(i));
                 VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(i));
                 if (videoContent == null) {
-                    videoContent = mCurrentVideoContent;
+                    videoContent = new VideoContent(Utils.getuuid(),mVideo.getId(),Utils.intToStr(i),mCurrentVideoContent.getLineId(),mCurrentVideoContent.getPicPath(),mCurrentVideoContent.getIconId(),mCurrentVideoContent.getText());
                     list.add(videoContent);
                 } else {
                     mCurrentVideoContent.setId(videoContent.getId());
