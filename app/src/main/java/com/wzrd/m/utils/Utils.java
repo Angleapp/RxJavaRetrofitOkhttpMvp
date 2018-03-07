@@ -2,6 +2,9 @@ package com.wzrd.m.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -163,12 +166,29 @@ public class Utils {
      *
      * @param filePath 文件的路径
      */
-    public static String chageFileName(String filePath, String reName) {
+    public static String chageFileName(String filePath, String reName,Context mcontext) {
         File file = new File(filePath);
+        Log.e("b---","file----"+file.exists());
         //前面路径必须一样才能修改成功
         String path = filePath.substring(0, filePath.lastIndexOf("/") + 1) + reName + filePath.substring(filePath.lastIndexOf("."), filePath.length());
         File newFile = new File(path);
-        file.renameTo(newFile);
+        Log.e("b---","newFile1----"+newFile.exists());
+        boolean b = file.renameTo(newFile);
+
+        Intent mediaScanIntent = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(new File(path));
+        mediaScanIntent.setData(contentUri);
+        mcontext.sendBroadcast(mediaScanIntent);
+        Intent mediaScanIntent2 = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri2 = Uri.fromFile(new File(filePath));
+        mediaScanIntent2.setData(contentUri2);
+        mediaScanIntent2.setData(contentUri2);
+        mcontext.sendBroadcast(mediaScanIntent2);
+
+        Log.e("b---","newFile2----"+newFile.exists());
+        Log.e("b---","b----"+b);
         return  path;
     }
 }

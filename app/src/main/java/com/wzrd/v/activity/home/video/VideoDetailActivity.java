@@ -15,6 +15,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -372,6 +373,7 @@ public class VideoDetailActivity extends AppCompatActivity {
 
         mVideoView.setVideoPath(path);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        Log.e("path","path---->"+file.getAbsolutePath());
         mmr.setDataSource(file.getAbsolutePath());
         Bitmap firstFrame = mmr.getFrameAtTime();
         mFirstFrame.setImageBitmap(firstFrame);

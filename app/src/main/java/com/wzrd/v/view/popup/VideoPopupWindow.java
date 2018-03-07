@@ -91,6 +91,7 @@ public class VideoPopupWindow extends PopupWindow {
                 dismiss();
                 RenamePopupWindow popupWindow = new RenamePopupWindow(context, video, videoActivity);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
             }
         });
 

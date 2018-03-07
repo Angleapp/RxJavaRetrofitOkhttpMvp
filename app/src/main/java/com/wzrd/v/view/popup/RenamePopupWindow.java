@@ -78,13 +78,20 @@ public class RenamePopupWindow extends PopupWindow {
             public void onClick(View view) {
                 String s = et_message.getText().toString();
                 if (s != null && s.length() > 0 && s.length() < 15) {
+                    String filepath = Utils.chageFileName(video.getVideo_path(), s,context);
+                    String[]   strs=filepath.split("/");
+//                    for(int i=0,len=strs.length;i<len;i++){
+//                        System.out.println(strs[i].toString());
+//                    }
+                    if(strs!=null&&strs.length>0){
+                       String  filename=strs[strs.length-1].toString();
+                        videoActivity.refreshList(filepath,filename);
+                    }
                     dismiss();
                 } else {
                     Utils.ToastShort(context, "命名不规范");
                 }
-                String fileName = Utils.chageFileName(video.getVideo_path(), s);
-                video.setVideo_path(fileName);
-                videoActivity.refreshList();
+
             }
         });
 
