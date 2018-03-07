@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
@@ -30,15 +31,23 @@ import io.reactivex.disposables.Disposable;
 
 public class AddContactsActivity extends AppCompatActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.et_contactphonenum)
-    EditText etContactphonenum;
-    @BindView(R.id.iv_contants)
-    ImageView ivContants;
-    @BindView(R.id.bt_add)
-    Button btAdd;
+
     private final int CONTSCTRESULT = 0x09;
+    @BindView(R.id.toolbar_back)
+    ImageView mToolbarBack;
+    @BindView(R.id.toolbar_title)
+    TextView mToolbarTitle;
+    @BindView(R.id.toolbar_menu)
+    ImageView mToolbarMenu;
+    @BindView(R.id.toolbar_menu_text)
+    TextView mToolbarMenuText;
+    @BindView(R.id.et_contactphonenum)
+    EditText mEtContactphonenum;
+    @BindView(R.id.iv_contants)
+    ImageView mIvContants;
+    @BindView(R.id.bt_add)
+    Button mBtAdd;
+
     private String name;
     private String lovenum;
     private String message;
@@ -47,16 +56,14 @@ public class AddContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contacts);
-        message = getIntent().getExtras().getString("message");
         ButterKnife.bind(this);
+        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "添加家人与朋友", mToolbarMenu, 0, null, mToolbarMenuText, "");
+        message = getIntent().getExtras().getString("message");
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_contants, R.id.bt_add})
+    @OnClick({R.id.iv_contants, R.id.bt_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
             case R.id.iv_contants:
                 start();
                 break;
@@ -77,10 +84,9 @@ public class AddContactsActivity extends AppCompatActivity {
                     tsysuser.setT_sys_id(userphonenum);
                     tsysuser.setT_sys_username(username);
                     tsysuser.setT_sys_modify_id(userphonenum);
-                    SharedPreferencesUtil.saveString(this,"lovename",name);
-                    SharedPreferencesUtil.saveString(this,"lovephone",lovenum);
+                    SharedPreferencesUtil.saveString(this, "lovename", name);
+                    SharedPreferencesUtil.saveString(this, "lovephone", lovenum);
                     manager.insertUser(tsysuser);
-
 
 
                 } else {
@@ -111,7 +117,7 @@ public class AddContactsActivity extends AppCompatActivity {
         if (requestCode == CONTSCTRESULT && data != null) {
             name = (String) data.getExtras().get("lovename");
             lovenum = (String) data.getExtras().get("lovenum");
-            etContactphonenum.setText(name);
+            mEtContactphonenum.setText(name);
         }
     }
 

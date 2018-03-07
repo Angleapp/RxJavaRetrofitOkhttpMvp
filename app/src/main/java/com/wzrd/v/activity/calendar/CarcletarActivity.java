@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import com.wzrd.m.utils.ActivityCollector;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.DateUtils;
 import com.wzrd.m.utils.Utils;
+import com.wzrd.p.impl.AbsToolBarMenuPresenter;
 import com.wzrd.p.inteface.TimeInteface.TimeInfer;
 import com.wzrd.v.view.calentar.CustomCalendar;
 import com.wzrd.v.view.pick.PickerMinView;
@@ -30,9 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class CarcletarActivity extends AppCompatActivity implements TimeInfer.getTime {
+public class CarcletarActivity extends AppCompatActivity implements TimeInfer.getTime, AbsToolBarMenuPresenter {
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.cal)
@@ -43,10 +42,14 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
     TextView hourText;
     @BindView(R.id.minute_pv)
     PickerMinView minutePv;
-    @BindView(R.id.tv_send)
-    TextView tvSend;
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
+    @BindView(R.id.toolbar_back)
+    ImageView mToolbarBack;
+    @BindView(R.id.toolbar_title)
+    TextView mToolbarTitle;
+    @BindView(R.id.toolbar_menu)
+    ImageView mToolbarMenu;
+    @BindView(R.id.toolbar_menu_text)
+    TextView mToolbarMenuText;
     private TimeSelector timeSelector;
     private String lastdate;
     private String lastfen;
@@ -60,6 +63,7 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carcletar);
         ButterKnife.bind(this);
+        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "定时发送", mToolbarMenu, 0, null, mToolbarMenuText, "发送");
         ActivityCollector.addTimerActivity(this);
         ActivityCollector.addActivity(this);
 
@@ -272,39 +276,28 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
         return lastdate1 + lasthours + ":" + lastfen;
     }
 
-
-    @OnClick({R.id.iv_back, R.id.tv_send})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.tv_send:
-                String lasttime = gettime();
-                lasttime = lasttime.replace("年", "-");
-                lasttime = lasttime.replace("月", "-");
-                lasttime = lasttime.replace("日", "");
-                lasttime = lasttime.replace("  ", " ");
-//                Log.e("tiem", "lasttime0--->" + lasttime);
-//                Log.e("tiem", "lasttime1--->" + DateUtils.getCurrentDate());
-                boolean time = Utils.compareTime(lasttime, DateUtils.getCurrentDate());
-//                Log.e("tiem", "time--->" + time);
-                if (time) {
-                    Intent intent = new Intent();
-                    intent.setAction(Constants.timeconstactsexit);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("list", (Serializable) list);
-                    bundle.putString("time", lasttime);
-                    intent.putExtra("id", exituser);
-                    intent.putExtras(bundle);
-                    sendBroadcast(intent);
-                    ActivityCollector.finishAllTimer();
+    @Override
+    public void setToolBarMenu() {
+        String lasttime = gettime();
+        lasttime = lasttime.replace("年", "-");
+        lasttime = lasttime.replace("月", "-");
+        lasttime = lasttime.replace("日", "");
+        lasttime = lasttime.replace("  ", " ");
+        boolean time = Utils.compareTime(lasttime, DateUtils.getCurrentDate());
+        if (time) {
+            Intent intent = new Intent();
+            intent.setAction(Constants.timeconstactsexit);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("list", (Serializable) list);
+            bundle.putString("time", lasttime);
+            intent.putExtra("id", exituser);
+            intent.putExtras(bundle);
+            sendBroadcast(intent);
+            ActivityCollector.finishAllTimer();
 
 
-                } else {
-                    Utils.ToastShort(this, "选择定时发送的时间必须大于当前时间,请重新选择");
-                }
-                break;
+        } else {
+            Utils.ToastShort(this, "选择定时发送的时间必须大于当前时间,请重新选择");
         }
     }
 

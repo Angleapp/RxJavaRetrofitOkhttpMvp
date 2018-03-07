@@ -1,6 +1,5 @@
 package com.wzrd.v.activity.contacts;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -96,16 +95,12 @@ public class ContanctsMessageActivity extends AppCompatActivity {
     private void setTextState(int i) {
         switch (i) {
             case 0:
-                rbA.setBackgroundColor(Color.parseColor("#007AFF"));
-                rbA.setTextColor(Color.WHITE);
-                rbB.setTextColor(Color.parseColor("#007AFF"));
-                rbB.setBackgroundColor(Color.BLACK);
+                rbA.setSelected(true);
+                rbB.setSelected(false);
                 break;
             case 1:
-                rbB.setBackgroundColor(Color.parseColor("#007AFF"));
-                rbB.setTextColor(Color.WHITE);
-                rbA.setTextColor(Color.parseColor("#007AFF"));
-                rbA.setBackgroundColor(Color.BLACK);
+                rbA.setSelected(false);
+                rbB.setSelected(true);
                 break;
 
         }

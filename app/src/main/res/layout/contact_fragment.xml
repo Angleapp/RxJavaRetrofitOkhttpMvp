@@ -1,70 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/contant_bag_all"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/bg_blured"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/settingBg"
+        android:gravity="center"
+        android:text="联系人"
+        android:textColor="@color/white"
+        android:textSize="17sp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="3dp"
-        android:text="联系人"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0.4"
+        android:text="我的爱人"
+        android:textColor="@color/white"
+        android:textSize="14sp"/>
 
-    <LinearLayout
-
+    <TextView
+        android:id="@+id/tv_addlover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/dafen_on"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="我的爱人"
-            android:textColor="#969696"
-            android:textSize="18sp"
-
-            />
-
-    </LinearLayout>
-
+        android:layout_height="70dp"
+        android:background="@color/settingBg"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="绑定爱人"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/ll_lover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_addlover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1A2027"
-            android:gravity="left"
-            android:paddingBottom="15dp"
-            android:paddingLeft="25dp"
-            android:paddingTop="15dp"
-            android:text="绑定爱人"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:visibility="gone" />
+        android:layout_height="70dp"
+        android:background="@color/settingBg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <com.wzrd.v.view.SwipeMenuLayout
             android:id="@+id/sm"
@@ -80,16 +62,13 @@
                 android:id="@+id/ll_startlove"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:background="@color/contant_bag"
-                android:gravity="center"
-
-                >
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/iv_lover_iocn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"/>
 
                 <TextView
                     android:id="@+id/tv_lover_name"
@@ -100,79 +79,52 @@
                     android:paddingLeft="10dp"
                     android:text="我的爱人"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="17sp"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnDelete"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:background="#ff4a57"
+                android:background="#FFDE2727"
                 android:text="删除"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"/>
         </com.wzrd.v.view.SwipeMenuLayout>
 
     </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/dafen_on"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="家人与朋友"
-                android:textColor="@color/white_9"
-                android:textSize="18sp"
-
-                />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:gravity="right">
+            android:alpha="0.4"
+            android:text="家人与朋友"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
 
-            <ImageView
-                android:id="@+id/iv_add_family"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:src="@mipmap/icon_contacts_add" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_add_family"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_contacts_add"/>
+    </RelativeLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_contacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_contacts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
+
+

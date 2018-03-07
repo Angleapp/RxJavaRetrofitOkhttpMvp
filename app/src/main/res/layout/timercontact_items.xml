@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/contant_bag">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/settingBg">
 
+    <LinearLayout
+        android:id="@+id/ll_item"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
+        <ImageView
+            android:id="@+id/iv_contact_iocn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"/>
 
+        <TextView
+            android:id="@+id/tv_contact_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="17sp"/>
 
-        <LinearLayout
-            android:id="@+id/ll_item"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingBottom="5dp"
-            android:orientation="horizontal"
-            >
-
-            <ImageView
-                android:layout_marginLeft="10dp"
-                android:id="@+id/iv_contact_iocn"
-                android:layout_gravity="center"
-                android:layout_width="45dp"
-                android:layout_height="45dp" />
-            <TextView
-                android:id="@+id/tv_contact_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|center"
-                android:gravity="left|center"
-                android:paddingLeft="10dp"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <CheckBox
-                android:id="@+id/iv_lovered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                style="@style/MyCheckBox"
-
-                />
-        </LinearLayout>
+        <CheckBox
+            android:id="@+id/iv_lovered"
+            style="@style/MyCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
 </LinearLayout>

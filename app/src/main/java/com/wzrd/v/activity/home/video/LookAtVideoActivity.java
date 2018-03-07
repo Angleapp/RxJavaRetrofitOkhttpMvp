@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -186,7 +185,7 @@ public class LookAtVideoActivity extends AppCompatActivity {
      */
 
     private void initVideoPath() {
-        String pathname = Environment.getExternalStorageDirectory().getAbsoluteFile() + File.separator + mCurrentVideo.getVideo_path();
+        String pathname =  mCurrentVideo.getVideo_path();
         File file = new File(pathname);
         mVideo.setVideoPath(pathname);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();

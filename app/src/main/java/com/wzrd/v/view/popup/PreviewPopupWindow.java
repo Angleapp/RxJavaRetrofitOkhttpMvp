@@ -110,8 +110,10 @@ public class PreviewPopupWindow extends PopupWindow {
                         dismiss();
                     }
                 } else {//删除
-                    videoManager.deleteVideo(lastVideo);
-                    dismiss();
+                    if (lastVideo!=null){
+                        videoManager.deleteVideo(lastVideo);
+                        dismiss();
+                    }
                 }
                 break;
             case 2:

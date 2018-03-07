@@ -45,8 +45,6 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
     RecyclerView rvContacts;
     @BindView(R.id.iv_lovered)
     ImageView ivLovered;
-    @BindView(R.id.ll_lovers)
-    LinearLayout llLovers;
     @BindView(R.id.tv_cancle)
     TextView tvCancle;
     @BindView(R.id.tv_sure)

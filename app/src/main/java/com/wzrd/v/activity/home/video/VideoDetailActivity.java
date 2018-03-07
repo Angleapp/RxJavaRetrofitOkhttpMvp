@@ -484,7 +484,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                 }
             }
             mVideo.setIsEdit(1);
-            VideoManager.getInstance(this).updateVideo(mVideo);
+            VideoManager.getInstance(this).insertVideo(mVideo);
             mVideoContentManager.insertMultVideoContent(list);
             setToolbarContent(3);
             mVideoContent.setVisibility(View.GONE);
