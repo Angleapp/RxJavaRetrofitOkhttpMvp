@@ -3,7 +3,7 @@
     android:id="@+id/ll_title_all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/haha"
+    android:background="@drawable/haha1"
     android:orientation="vertical">
 
     <LinearLayout
