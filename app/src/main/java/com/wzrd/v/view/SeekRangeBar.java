@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -16,6 +18,8 @@ import com.wzrd.R;
 import com.wzrd.m.utils.MoviceDateUtils;
 
 import java.math.BigDecimal;
+
+import static com.makeramen.roundedimageview.RoundedDrawable.drawableToBitmap;
 
 /**
  * 双向滑块的进度条（区域选择）
@@ -71,8 +75,9 @@ public class SeekRangeBar extends View {
         _context = context;
         notScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.select_line_bg);
         hasScrollBarBg = ContextCompat.getDrawable(_context, R.drawable.selected_line_bg);
-        mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
-        mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
+        mThumbLow = ContextCompat.getDrawable(_context, R.drawable.bai1);//clip_time_shape_start
+        mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.lan);//clip_time_shape_end
+//        mThumbLow=zoomDrawable(mThumbLow,300,300);
 
         mThumbLow.setState(STATE_NORMAL);
         mThumbHigh.setState(STATE_NORMAL);
@@ -370,5 +375,18 @@ public class SeekRangeBar extends View {
      */
     public void setTotal(int total) {
         this.total = total;
+    }
+
+
+    private Drawable zoomDrawable(Drawable drawable, int w, int h) {
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+        Bitmap oldbmp = drawableToBitmap(drawable); // drawable 转换成 bitmap
+        Matrix matrix = new Matrix();   // 创建操作图片用的 Matrix 对象
+        float scaleWidth = ((float) w / width);   // 计算缩放比例
+        float scaleHeight = ((float) h / height);
+        matrix.postScale(scaleWidth, scaleHeight);         // 设置缩放比例
+        Bitmap newbmp = Bitmap.createBitmap(oldbmp, 0, 0, width, height, matrix, true);       // 建立新的 bitmap ，其内容是对原 bitmap 的缩放后的图
+        return new BitmapDrawable(newbmp);       // 把 bitmap 转换成 drawable 并返回
     }
 }
