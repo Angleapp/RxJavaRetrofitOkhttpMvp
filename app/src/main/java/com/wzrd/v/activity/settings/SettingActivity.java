@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.wzrd.R;
 import com.wzrd.m.utils.Utils;
@@ -18,11 +18,11 @@ public class SettingActivity extends AppCompatActivity {
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.ll_setting1)
-    LinearLayout llSetting1;
+    RelativeLayout llSetting1;
     @BindView(R.id.ll_setting2)
-    LinearLayout llSetting2;
+    RelativeLayout llSetting2;
     @BindView(R.id.ll_about)
-    LinearLayout llAbout;
+    RelativeLayout llAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

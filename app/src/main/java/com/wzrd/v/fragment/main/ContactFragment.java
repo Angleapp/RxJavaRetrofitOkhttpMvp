@@ -94,6 +94,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
         if (userName != null && userName.size() > 0) {
             tvAddlover.setVisibility(View.GONE);
             sm.setVisibility(View.VISIBLE);
+            llLover.setVisibility(View.VISIBLE);
             tvAddlover.setVisibility(View.GONE);
             Glide.with(view.getContext())
                     .load(userName.get(0).getT_sys_usericonpath())
@@ -104,13 +105,12 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
             tvLoverName.setText(userName.get(0).getT_sys_lover_name());
         } else {
             sm.setVisibility(View.GONE);
+            llLover.setVisibility(View.GONE);
             tvAddlover.setVisibility(View.VISIBLE);
         }
 
         ContactsManager contactsManager = new ContactsManager(getActivity());
         tsyscontantsList = contactsManager.getAllUser();
-//        tsyscontantsList = contactsManager.getByid(id);
-//        TSYSCONTANTS
         for (int i = 0; i < 10; i++) {
             String uuid = Utils.getuuid();
             TSYSCONTANTS modle = new TSYSCONTANTS(uuid, uuid, "测试" + i, uuid, uuid, "/storage/emulated/0/Photo_LJ/fd0bf2e399684aa29740baf6d83e865e.jpg",
@@ -118,9 +118,6 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                     DateUtils.getCurrentDate(), "", false);
             tsyscontantsList.add(modle);
         }
-//
-//        List<TSYSCONTANTS>
-
     }
 
     @Override
@@ -158,6 +155,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                 }
                 sm.setVisibility(View.GONE);
                 tvAddlover.setVisibility(View.VISIBLE);
+                llLover.setVisibility(View.GONE);
                 close();
 
                 break;
@@ -229,7 +227,6 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
      */
     @Override
     public void adapterposition(int position) {
-//        Utils.ToastShort(getActivity(),"posiotion--"+position);
         TSYSCONTANTS item = tsyscontantsList.get(position);
         Intent intent = new Intent(getActivity(), ContanctsMessageActivity.class);
         intent.putExtra("name", item.getT_sys_contacts_name());

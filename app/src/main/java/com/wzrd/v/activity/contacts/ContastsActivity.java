@@ -109,11 +109,13 @@ public class ContastsActivity extends AppCompatActivity implements AdapterClickP
                     .into(ivLoverIocn);
             tvLoverName.setText(userName.get(0).getT_sys_lover_name());
         } else {
-            if ("0".equals(type)) {
-                tvAddlover.setVisibility(View.INVISIBLE);
-            }else{
-                tvAddlover.setVisibility(View.VISIBLE);
-            }
+//            if ("0".equals(type)) {
+//                tvAddlover.setVisibility(View.INVISIBLE);
+//            }else{
+//                tvAddlover.setVisibility(View.VISIBLE);
+//            }
+            llLover.setVisibility(View.GONE);
+            tvAddlover.setVisibility(View.INVISIBLE);
         }
 
         ContactsManager contactsManager = new ContactsManager(ContastsActivity.this);
