@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wzrd.R;
@@ -20,6 +23,7 @@ import com.wzrd.m.been.Video;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.adapter.VideoGridViewAdapter;
+import com.wzrd.v.view.popup.VideoDownloadPopwindow;
 import com.wzrd.v.view.popup.VideoPopupWindow;
 
 import java.util.ArrayList;
@@ -53,10 +57,27 @@ public class VideoActivity extends AppCompatActivity {
     @BindView(R.id.video_list)
     GridView mVideoList;
     List<Video> mList = new ArrayList<>();
+    @BindView(R.id.root_layout)
+    LinearLayout mRootLayout;
     private VideoGridViewAdapter mGridViewAdpter;
     private VideoManager mVideoManager;
     private Map<String, Bitmap> mMap = new HashMap<>();
     private int position = 0;
+    VideoDownloadPopwindow videoDownloadPopwindow;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 100) {
+                videoDownloadPopwindow.dismiss();
+                mGridViewAdpter = new VideoGridViewAdapter(mList, VideoActivity.this, mMap);
+                mVideoList.setAdapter(mGridViewAdpter);
+            } else if (msg.what == 200) {
+                videoDownloadPopwindow = new VideoDownloadPopwindow(VideoActivity.this);
+                videoDownloadPopwindow.showAtLocation(mRootLayout, Gravity.CENTER, 0, 0);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +87,16 @@ public class VideoActivity extends AppCompatActivity {
         Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "短视频", mToolbarMenu, 0, null, mToolbarMenuText, "");
         mExpressLove.setSelected(true);
         mContentResolver = this.getContentResolver();
-        mList = getLoadMedia("0");
-        getFirstFrame();
-        mGridViewAdpter = new VideoGridViewAdapter(mList, this, mMap);
-        mVideoList.setAdapter(mGridViewAdpter);
+        mHandler.sendEmptyMessageDelayed(200, 100);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mList = getLoadMedia("0");
+                getFirstFrame();
+                mHandler.sendEmptyMessageDelayed(100, 1000);
+            }
+        }).start();
+        mHandler.sendEmptyMessageDelayed(100, 1000);
         mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> view, View view1, int i, long l) {
@@ -116,7 +143,7 @@ public class VideoActivity extends AppCompatActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        bitmap = MediaStore.Video.Thumbnails.getThumbnail(mContentResolver, id, MediaStore.Images.Thumbnails.MICRO_KIND, options);
+        bitmap = MediaStore.Video.Thumbnails.getThumbnail(mContentResolver, id, MediaStore.Images.Thumbnails.MINI_KIND, options);
         return bitmap;
     }
 
@@ -148,10 +175,20 @@ public class VideoActivity extends AppCompatActivity {
      * @param type
      */
     private void updateListData(String type) {
-        List<Video> videoType = getLoadMedia(type);
+        List<Video> videoType = changeList(type);
         mList.clear();
         mList.addAll(videoType);
         mGridViewAdpter.notifyDataSetChanged();
+    }
+
+    private List<Video> changeList(String type) {
+        List<Video> list = new ArrayList<>();
+        for (int i = 0; i < mList.size(); i++) {
+            Video video = mList.get(i);
+            video.setVideo_type(type);
+            list.add(video);
+        }
+        return list;
     }
 
     /**
@@ -168,19 +205,12 @@ public class VideoActivity extends AppCompatActivity {
     }
 
     public void refreshList(String path, String name) {
-        mList.get(position).setVideo_path(path);
-        mList.get(position).setTitle(name);
-        List<Video> list2 = new ArrayList<>();
-        list2.addAll(mList);
-        mList.clear();
-        mList.addAll(list2);
-        /**
-         * 耗时...需要改用子线程或者替换相应的key
-         */
-        mMap.clear();
-        getFirstFrame();
-
-
+        Video video = mList.get(position);
+        mMap.remove(video.getVideo_path());
+        video.setVideo_path(path);
+        video.setTitle(name);
+        Bitmap bitmap = getVideoThumbnail(Integer.parseInt(video.getId()));
+        mMap.put(path, bitmap);
         mGridViewAdpter.notifyDataSetChanged();
     }
 

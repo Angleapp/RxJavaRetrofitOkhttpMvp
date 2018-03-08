@@ -31,7 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CarcletarActivity extends AppCompatActivity implements TimeInfer.getTime, AbsToolBarMenuPresenter {
+public class CarcletarActivity extends AppCompatActivity implements TimeInfer.getTime, AbsToolBarMenuPresenter{
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.cal)
@@ -63,7 +63,7 @@ public class CarcletarActivity extends AppCompatActivity implements TimeInfer.ge
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carcletar);
         ButterKnife.bind(this);
-        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "定时发送", mToolbarMenu, 0, null, mToolbarMenuText, "发送");
+        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "定时发送", mToolbarMenu, 0, this, mToolbarMenuText, "发送");
         ActivityCollector.addTimerActivity(this);
         ActivityCollector.addActivity(this);
 
