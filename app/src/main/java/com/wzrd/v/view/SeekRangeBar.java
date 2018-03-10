@@ -108,7 +108,7 @@ public class SeekRangeBar extends View {
         if (defaultScreenHigh != total) {
             mOffsetHigh = formatInt(defaultScreenHigh / total * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 100);
+        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 140);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {

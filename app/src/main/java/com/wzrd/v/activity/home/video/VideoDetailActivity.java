@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -61,7 +62,6 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class VideoDetailActivity extends AppCompatActivity {
 
-
     @BindView(R.id.close)
     ImageView mClose;
     @BindView(R.id.save)
@@ -84,6 +84,8 @@ public class VideoDetailActivity extends AppCompatActivity {
     GifImageView mEmoticon;
     @BindView(R.id.videoContent)
     LinearLayout mVideoContent;
+    @BindView(R.id.videoLayout)
+    PercentRelativeLayout mVideoLayout;
     @BindView(R.id.start_play)
     ImageView mStartPlay;
     @BindView(R.id.seekbar)
@@ -100,10 +102,14 @@ public class VideoDetailActivity extends AppCompatActivity {
     TextView mTextTime;
     @BindView(R.id.plus)
     ImageView mPlus;
+    @BindView(R.id.timeArea)
+    LinearLayout mTimeArea;
     @BindView(R.id.seekRangeBar)
     SeekRangeBar mSeekRangeBar;
     @BindView(R.id.selectTextType)
     LinearLayout mSelectTextType;
+    @BindView(R.id.handleArea)
+    PercentRelativeLayout mHandleArea;
     @BindView(R.id.clip)
     ImageView mClip;
     @BindView(R.id.text)
@@ -112,8 +118,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     ImageView mIcon;
     @BindView(R.id.bottom_layout)
     LinearLayout mBottomLayout;
-    @BindView(R.id.handleArea)
-    LinearLayout mHandlerArea;
     private Unbinder mUnbinder;
     private int PLAY_BNT_STATE = 0;//0  未播放 1 播放
     private boolean isFullScreen = false;//是否是全屏
@@ -156,7 +160,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         String path = intent.getStringExtra("path");
         String type = intent.getStringExtra("type");
         String title = intent.getStringExtra("title");
-        mVideo = new Video(Utils.getuuid(),type,path,"",title,0);
+        mVideo = new Video(Utils.getuuid(), type, path, "", title, 0);
         mSeekRangeBar.setEditable(true);
         mUnbinder = ButterKnife.bind(this);
         //获取数据
@@ -185,7 +189,7 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 设置操作区域布局
      */
     private void setHandlerAreaContent() {
-        mHandlerArea.setVisibility(View.INVISIBLE);//操作内容区域
+        mHandleArea.setVisibility(View.INVISIBLE);//操作内容区域
     }
 
     /**
@@ -368,12 +372,12 @@ public class VideoDetailActivity extends AppCompatActivity {
                 updateTime(mTextTime, (int) progressHigh);
             }
         });
-        String path =mVideo.getVideo_path();
+        String path = mVideo.getVideo_path();
         File file = new File(path);
 
         mVideoView.setVideoPath(path);
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        Log.e("path","path---->"+file.getAbsolutePath());
+        Log.e("path", "path---->" + file.getAbsolutePath());
         mmr.setDataSource(file.getAbsolutePath());
         Bitmap firstFrame = mmr.getFrameAtTime();
         mFirstFrame.setImageBitmap(firstFrame);
@@ -412,7 +416,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                     finish();
                 } else {
                     setToolbarContent(1);
-                    mHandlerArea.setVisibility(View.INVISIBLE);
+                    mHandleArea.setVisibility(View.INVISIBLE);
                     //当前选中的按钮状态的更改
                     if (currentEditContent == 0) {
                         mClip.setImageResource(R.mipmap.icon_video_cut);
@@ -488,7 +492,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mVideoContentManager.insertMultVideoContent(list);
             setToolbarContent(3);
             mVideoContent.setVisibility(View.GONE);
-            mHandlerArea.setVisibility(View.INVISIBLE);
+            mHandleArea.setVisibility(View.INVISIBLE);
             mClip.setEnabled(true);
             mIcon.setEnabled(true);
             mText.setEnabled(true);
@@ -541,7 +545,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         }
         setToolbarContent(2);
         mVideoContent.setVisibility(View.VISIBLE);
-        mHandlerArea.setVisibility(View.VISIBLE);
+        mHandleArea.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -550,7 +554,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     private void setGoneLayout() {
         setToolbarContent(1);
         mVideoContent.setVisibility(View.GONE);
-        mHandlerArea.setVisibility(View.INVISIBLE);
+        mHandleArea.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -635,7 +639,7 @@ public class VideoDetailActivity extends AppCompatActivity {
     }
 
     private void updateClipList() {
-        getBitmapsFromVideo( mVideo.getVideo_path());
+        getBitmapsFromVideo(mVideo.getVideo_path());
     }
 
     /**
@@ -789,10 +793,10 @@ public class VideoDetailActivity extends AppCompatActivity {
         //设置VideoView的宽和高
         if ("1".equals(type)) {
             mFirstFrame.setVisibility(View.GONE);
-            mHandlerArea.setVisibility(View.GONE);
+            mHandleArea.setVisibility(View.GONE);
         } else {
             mFirstFrame.setVisibility(View.VISIBLE);
-            mHandlerArea.setVisibility(View.INVISIBLE);
+            mHandleArea.setVisibility(View.INVISIBLE);
         }
         mVideoView.setLayoutParams(layoutParams);
     }
