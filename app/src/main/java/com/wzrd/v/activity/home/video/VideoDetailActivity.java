@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.percent.PercentRelativeLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -84,8 +83,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     GifImageView mEmoticon;
     @BindView(R.id.videoContent)
     LinearLayout mVideoContent;
-    @BindView(R.id.videoLayout)
-    PercentRelativeLayout mVideoLayout;
     @BindView(R.id.start_play)
     ImageView mStartPlay;
     @BindView(R.id.seekbar)
@@ -96,20 +93,6 @@ public class VideoDetailActivity extends AppCompatActivity {
     ImageView mFullScreen;
     @BindView(R.id.control)
     LinearLayout mControl;
-    @BindView(R.id.reduce)
-    ImageView mReduce;
-    @BindView(R.id.text_time)
-    TextView mTextTime;
-    @BindView(R.id.plus)
-    ImageView mPlus;
-    @BindView(R.id.timeArea)
-    LinearLayout mTimeArea;
-    @BindView(R.id.seekRangeBar)
-    SeekRangeBar mSeekRangeBar;
-    @BindView(R.id.selectTextType)
-    LinearLayout mSelectTextType;
-    @BindView(R.id.handleArea)
-    PercentRelativeLayout mHandleArea;
     @BindView(R.id.clip)
     ImageView mClip;
     @BindView(R.id.text)
@@ -118,6 +101,18 @@ public class VideoDetailActivity extends AppCompatActivity {
     ImageView mIcon;
     @BindView(R.id.bottom_layout)
     LinearLayout mBottomLayout;
+    @BindView(R.id.reduce)
+    ImageView mReduce;
+    @BindView(R.id.text_time)
+    TextView mTextTime;
+    @BindView(R.id.plus)
+    ImageView mPlus;
+    @BindView(R.id.seekRangeBar)
+    SeekRangeBar mSeekRangeBar;
+    @BindView(R.id.selectTextType)
+    LinearLayout mSelectTextType;
+    @BindView(R.id.handleArea)
+    LinearLayout mHandleArea;
     private Unbinder mUnbinder;
     private int PLAY_BNT_STATE = 0;//0  未播放 1 播放
     private boolean isFullScreen = false;//是否是全屏

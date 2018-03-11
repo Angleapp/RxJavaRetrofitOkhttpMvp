@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FF13171C"
-    android:orientation="vertical"
-    tools:context="com.wzrd.v.activity.home.video.VideoDetailActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FF13171C"
+              android:orientation="vertical"
+              tools:context="com.wzrd.v.activity.home.video.VideoDetailActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -22,7 +22,7 @@
             android:layout_marginBottom="14dp"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="14dp"
-            android:src="@mipmap/icon_video_close" />
+            android:src="@mipmap/icon_video_close"/>
 
         <ImageView
             android:id="@+id/save"
@@ -33,26 +33,25 @@
             android:layout_marginBottom="14.5dp"
             android:layout_marginLeft="14.5dp"
             android:layout_marginRight="13dp"
-            android:src="@mipmap/icon_video_done" />
+            android:src="@mipmap/icon_video_done"/>
     </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        >
+        android:layout_weight="0">
 
         <com.wzrd.v.view.MyVideoView
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_below="@id/toolbar" />
+            android:layout_below="@id/toolbar"/>
 
         <ImageView
             android:id="@+id/first_frame"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"/>
     </FrameLayout>
 
     <LinearLayout
@@ -86,7 +85,7 @@
                 android:text="点击编辑文本"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <ImageView
                 android:id="@+id/delete"
@@ -94,7 +93,7 @@
                 android:layout_height="20dp"
                 android:layout_marginRight="-10dp"
                 android:layout_toLeftOf="@id/video_text"
-                android:src="@mipmap/icon_video_addtext_delete" />
+                android:src="@mipmap/icon_video_addtext_delete"/>
 
 
         </RelativeLayout>
@@ -102,7 +101,7 @@
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/line_gif"
             android:layout_width="wrap_content"
-            android:layout_height="15dp" />
+            android:layout_height="15dp"/>
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/emoticon"
@@ -110,7 +109,7 @@
             android:layout_height="40dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
 
@@ -127,7 +126,7 @@
             android:id="@+id/start_play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_video_play" />
+            android:src="@mipmap/icon_video_play"/>
 
         <SeekBar
             android:id="@+id/seekbar"
@@ -141,7 +140,7 @@
             android:minHeight="4dp"
             android:progress="50"
             android:progressDrawable="@drawable/seekbar_progress_bg"
-            android:thumb="@drawable/thumb_shape" />
+            android:thumb="@drawable/thumb_shape"/>
 
         <TextView
             android:id="@+id/time"
@@ -149,88 +148,20 @@
             android:layout_height="wrap_content"
             android:text="00:46"
             android:textColor="#FFFFFFFF"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <ImageView
             android:id="@+id/fullScreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="17.5dp"
-            android:src="@mipmap/icon_video_fullscreen" />
+            android:src="@mipmap/icon_video_fullscreen"/>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/handleArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical"
-        android:visibility="invisible">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/reduce"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/icon_video_addtext_time_j" />
-
-            <TextView
-                android:id="@+id/text_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/text_round_bg"
-                android:paddingBottom="2dp"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp"
-                android:paddingTop="2dp"
-                android:text="00:58"
-                android:textColor="#FFFFFFFF"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/plus"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/icon_video_addtext_time_a" />
-        </LinearLayout>
-
-        <com.wzrd.v.view.SeekRangeBar
-            android:id="@+id/seekRangeBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp" />
-
-
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/selectTextType"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:background="@color/black_2"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:visibility="gone"></LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/bottom_layout"
@@ -247,21 +178,90 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_video_cut" />
+                android:src="@mipmap/icon_video_cut"/>
 
             <ImageView
                 android:id="@+id/text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_video_text" />
+                android:src="@mipmap/icon_video_text"/>
 
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_video_expression" />
+                android:src="@mipmap/icon_video_expression"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/handleArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_layout"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/reduce"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_video_addtext_time_j"/>
+
+                <TextView
+                    android:id="@+id/text_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/text_round_bg"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:paddingTop="2dp"
+                    android:text="00:58"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="12sp"/>
+
+                <ImageView
+                    android:id="@+id/plus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_video_addtext_time_a"/>
+            </LinearLayout>
+
+            <com.wzrd.v.view.SeekRangeBar
+                android:id="@+id/seekRangeBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"/>
+
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/selectTextType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:background="@color/black_2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"></LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+
     </RelativeLayout>
 </LinearLayout>
