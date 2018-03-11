@@ -35,7 +35,6 @@
             android:layout_marginRight="13dp"
             android:src="@mipmap/icon_video_done"/>
     </RelativeLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +52,6 @@
             android:layout_height="160dp"
             android:scaleType="fitXY"/>
     </FrameLayout>
-
     <LinearLayout
         android:id="@+id/videoContent"
         android:layout_width="match_parent"
@@ -155,7 +153,6 @@
             android:layout_marginLeft="17.5dp"
             android:src="@mipmap/icon_video_fullscreen"/>
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
