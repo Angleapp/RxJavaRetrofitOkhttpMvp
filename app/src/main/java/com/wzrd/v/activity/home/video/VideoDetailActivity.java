@@ -15,6 +15,8 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ import com.wzrd.m.db.manger.VideoContentManager;
 import com.wzrd.m.db.manger.VideoManager;
 import com.wzrd.m.utils.Constants;
 import com.wzrd.m.utils.DensityUtils;
+import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.m.utils.TextUtil;
 import com.wzrd.m.utils.Utils;
 import com.wzrd.v.view.MyVideoView;
@@ -46,7 +49,6 @@ import com.wzrd.v.view.popup.VideoSavePopwindow;
 import com.yyx.beautifylib.utils.ToastUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,12 +141,13 @@ public class VideoDetailActivity extends AppCompatActivity {
     private int endTime = 0;
     private int lineId = -1;
     private int iconId = -1;
-    private Bitmap mBitmap = null;
+    private boolean isSave = false;//记录当前数据是否保存过
     private boolean isBack = false;
     private int max = 0;//视频总共的毫秒值
     private int high;
     private VideoContent mCurrentVideoContent;
     private Thread mThread;
+    private String beforeContent;//编辑文本之前的内容
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,37 @@ public class VideoDetailActivity extends AppCompatActivity {
         synchScrollSeekBarAndTime();
         //初始化view
         initViewData();
+        getTempSaveData(path);//获取上次未保存的内容
+    }
+
+    /**
+     * 获取上次退出是未保存的数据
+     *
+     * @param path
+     */
+    private void getTempSaveData(String path) {
+        //获取值
+        int iconId = SharedPreferencesUtil.getInt(this, path + "IconId", -1);
+        int lineId = SharedPreferencesUtil.getInt(this, path + "LineId", -1);
+        String videoText = SharedPreferencesUtil.getString(this, path + "VideoText", "");
+        int startTime = SharedPreferencesUtil.getInt(this, path + "PauseTime", 0);
+        //初始化
+        if (mCurrentVideoContent == null) {
+            mCurrentVideoContent = new VideoContent(Utils.getuuid(), mVideo.getId(), Utils.intToStr(startTime), lineId, "", iconId, "");
+        } else {
+            mCurrentVideoContent.setIconId(iconId);
+            mCurrentVideoContent.setLineId(lineId);
+            mCurrentVideoContent.setText(videoText);
+            mCurrentVideoContent.setTime(Utils.intToStr(startTime));
+        }
+        setVideoContentLayout();
+        mVideoView.seekTo(startTime);
+        if (startTime == 0) {
+            mStartPlay.setImageResource(R.mipmap.icon_video_play);
+        } else {
+            mStartPlay.setImageResource(R.mipmap.icon_video_close);
+        }
+        mSeekbar.setProgress(startTime);
     }
 
     /**
@@ -273,6 +307,25 @@ public class VideoDetailActivity extends AppCompatActivity {
         mSeekRangeBar.setFontSizea(24);
         mSeekRangeBar.setColorb(Color.parseColor("#FF007AFF"));
         updateTime(mTextTime, mVideoView.getDuration());
+
+        mVideoText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence sequence, int i, int i1, int i2) {
+                beforeContent = sequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence sequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!mVideoText.getText().toString().equals(beforeContent)) {
+                    isSave = false;
+                }
+            }
+        });
     }
 
     /**
@@ -409,6 +462,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             case R.id.close:
                 if (isBack) {
                     finish();
+                    saveTempData();
                 } else {
                     setToolbarContent(1);
                     mHandleArea.setVisibility(View.INVISIBLE);
@@ -485,6 +539,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mVideo.setIsEdit(1);
             VideoManager.getInstance(this).insertVideo(mVideo);
             mVideoContentManager.insertMultVideoContent(list);
+            isSave = true;
             setToolbarContent(3);
             mVideoContent.setVisibility(View.GONE);
             mHandleArea.setVisibility(View.INVISIBLE);
@@ -665,6 +720,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                         } else {
                             mCurrentVideoContent.setIconId(index);
                         }
+                        isSave = false;
                         setVideoContentLayout();
                     }
                 });
@@ -698,6 +754,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                     mCurrentVideoContent.setText("点击编辑文本");
                 }
                 mCurrentVideoContent.setText("点击编辑文本");
+                isSave = false;
                 setVideoContentLayout();
             }
         });
@@ -721,6 +778,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                     } else {
                         mCurrentVideoContent.setLineId(lineId);
                     }
+                    isSave = false;
                     setVideoContentLayout();
                 }
             });
@@ -883,20 +941,33 @@ public class VideoDetailActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveTempData();
+    }
+
     /**
-     * 保存帧图片
-     *
-     * @param savePath
-     * @param bitmap
+     * 保存未保存的数据
      */
-    private void saveFrameBitmap(String savePath, Bitmap bitmap) {
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(savePath);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void saveTempData() {
+        if (isSave == false) {
+            if (mCurrentVideoContent != null) {
+                int iconId = mCurrentVideoContent.getIconId();//表情id
+                int lineId = mCurrentVideoContent.getLineId();//下划线id
+                String text = mCurrentVideoContent.getText();//内容
+                String path = mVideo.getVideo_path();
+                SharedPreferencesUtil.saveInt(this, path + "IconId", iconId);
+                SharedPreferencesUtil.saveInt(this, path + "LineId", lineId);
+                SharedPreferencesUtil.saveString(this, path + "VideoText", text);
+                SharedPreferencesUtil.saveInt(this, path + "PauseTime", startTime);
+            }
         }
     }
 }
