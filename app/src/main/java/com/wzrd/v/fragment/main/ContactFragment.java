@@ -31,6 +31,7 @@ import com.wzrd.v.adapter.ReclycleContactAdapter;
 import com.wzrd.v.adapter.RecycleViewDivider;
 import com.wzrd.v.fragment.base.NoNetBaseLayFragment;
 import com.wzrd.v.view.GlideCircleTransform;
+import com.wzrd.v.view.NumImageView;
 import com.wzrd.v.view.SwipeMenuLayout;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     @BindView(R.id.tv_addlover)
     TextView tvAddlover;
     @BindView(R.id.iv_lover_iocn)
-    ImageView ivLoverIocn;
+    NumImageView ivLoverIocn;
     @BindView(R.id.tv_lover_name)
     TextView tvLoverName;
     @BindView(R.id.ll_lover)
@@ -118,6 +119,30 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                     DateUtils.getCurrentDate(), "", false);
             tsyscontantsList.add(modle);
         }
+
+        llStartlove.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        llLover.setBackgroundColor(getResources().getColor(R.color.white_b9));
+                        if (userName != null && userName.size() > 0) {
+                            Intent intent2 = new Intent(getActivity(), ContanctsMessageActivity.class);
+                            intent2.putExtra("name", userName.get(0).getT_sys_lover_name());
+                            getActivity().startActivity(intent2);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_MOVE:
+                        llLover.setBackgroundColor(0);
+                        break;
+                }
+
+
+                return true;
+            }
+
+        });
     }
 
     @Override
@@ -129,6 +154,7 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     @Override
     public void onResume() {
         super.onResume();
+        llLover.setBackgroundColor(this.getResources().getColor(R.color.settingBg));
         isPrepared = true;
         lazyLoad();
     }
@@ -161,13 +187,12 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                 break;
             case R.id.ll_startlove:
                 Log.e("123", "1234");
+//                llLover.setBackgroundColor(this.getResources().getColor(R.color.white_b9));
                 if (userName != null && userName.size() > 0) {
                     Intent intent2 = new Intent(getActivity(), ContanctsMessageActivity.class);
                     intent2.putExtra("name", userName.get(0).getT_sys_lover_name());
                     getActivity().startActivity(intent2);
                 }
-
-
                 break;
         }
     }
@@ -189,7 +214,6 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
     private void setadapter() {
 
         ReclycleContactAdapter adapter = new ReclycleContactAdapter(getContext(), tsyscontantsList, this);
-//        Log.e(TAG, "tsyscontantsList-->" + tsyscontantsList.size());
         rvContacts.addItemDecoration(new RecycleViewDivider(
                 getActivity(), LinearLayoutManager.VERTICAL, 1, getResources().getColor(R.color.cardview_shadow_start_color)));
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

@@ -1,12 +1,13 @@
 package com.wzrd.v.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.wzrd.m.been.TSYSCONTANTS;
 import com.wzrd.m.db.manger.ContactsManager;
 import com.wzrd.p.inteface.AdapterClickPosition;
 import com.wzrd.v.view.GlideCircleTransform;
+import com.wzrd.v.view.NumImageView;
 import com.wzrd.v.view.SwipeMenuLayout;
 
 import java.util.List;
@@ -45,15 +47,35 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         View view = holder.itemView;
         holder.ll_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Utils.ToastShort(mContext,"posiotion--"+position);
-                adapterClickPosition.adapterposition(position);
+//                holder.cl_all.setBackgroundColor(mContext.getResources().getColor(R.color.white_b9));
 
             }
+        });
+        holder.cl_all.setBackgroundColor(0);
+        holder.ll_item.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        holder.cl_all.setBackgroundColor(mContext.getResources().getColor(R.color.white_b9));
+                        adapterClickPosition.adapterposition(position);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_MOVE:
+                        holder.cl_all.setBackgroundColor(0);
+                        break;
+                }
+
+
+                return true;
+            }
+
         });
 
 
@@ -107,16 +129,17 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_contact_name;
-        ImageView iv_contact_iocn;
+        NumImageView iv_contact_iocn;
         Button btn_delcontact;
         LinearLayout ll_item;
-
+        ConstraintLayout cl_all;
         public ViewHolder(View itemView) {
             super(itemView);
             tv_contact_name = (TextView) itemView.findViewById(R.id.tv_contact_name);
-            iv_contact_iocn = (ImageView) itemView.findViewById(R.id.iv_contact_iocn);
+            iv_contact_iocn = (NumImageView) itemView.findViewById(R.id.iv_contact_iocn);
             btn_delcontact = (Button) itemView.findViewById(R.id.btn_delcontact);
             ll_item = (LinearLayout) itemView.findViewById(R.id.ll_item);
+            cl_all = (ConstraintLayout) itemView.findViewById(R.id.cl_all);
 
         }
     }

@@ -14,6 +14,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_out_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -32,6 +33,7 @@
             app:swipeEnable="true">
 
             <LinearLayout
+                android:id="@+id/ll_out_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

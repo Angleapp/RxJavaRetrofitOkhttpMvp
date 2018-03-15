@@ -4,8 +4,10 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.wzrd.BR;
 import com.wzrd.R;
@@ -42,6 +44,26 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
         holder.getBinding().setVariable(BR.message, data.get(position));
         // 立刻刷新界面
         holder.getBinding().executePendingBindings();
+        final LinearLayout cl_out_all= (LinearLayout) holder.getBinding().getRoot().findViewById(R.id.ll_out_all);
+        cl_out_all.setBackgroundColor(0);
+        cl_out_all.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        cl_out_all.setBackgroundColor(context.getResources().getColor(R.color.white_b9));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_MOVE:
+                        cl_out_all.setBackgroundColor(0);
+                        break;
+                }
+
+
+                return true;
+            }
+
+        });
         holder.getBinding().getRoot().findViewById(R.id.btn_deloutbox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

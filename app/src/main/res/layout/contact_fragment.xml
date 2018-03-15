@@ -64,11 +64,11 @@
                 android:layout_height="70dp"
                 android:gravity="center">
 
-                <ImageView
+                <com.wzrd.v.view.NumImageView
                     android:id="@+id/iv_lover_iocn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"/>
+                    />
 
                 <TextView
                     android:id="@+id/tv_lover_name"
