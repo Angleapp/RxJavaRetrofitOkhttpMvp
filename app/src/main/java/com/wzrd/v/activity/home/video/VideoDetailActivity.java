@@ -148,6 +148,9 @@ public class VideoDetailActivity extends AppCompatActivity {
     private VideoContent mCurrentVideoContent;
     private Thread mThread;
     private String beforeContent;//编辑文本之前的内容
+    private int clipNum = 1;//裁剪点击次数
+    private int textNum = 1;//文本点击次数
+    private int iconNum = 1;//文本点击次数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -417,7 +420,11 @@ public class VideoDetailActivity extends AppCompatActivity {
                 startTime = (int) progressLow;
                 endTime = (int) progressHigh;
                 //设置终止时间
-                updateTime(mTextTime, (int) progressHigh);
+                if (seekBar.getIsNumText()==0){
+                    updateTime(mTextTime, (int) progressLow);
+                }else{
+                    updateTime(mTextTime, (int) progressHigh);
+                }
             }
         });
         String path = mVideo.getVideo_path();
@@ -489,32 +496,78 @@ public class VideoDetailActivity extends AppCompatActivity {
                 setFullScreen();
                 break;
             case R.id.reduce:
-                if (endTime >= 1000) {
-                    endTime = endTime - 1000;
-                    mSeekRangeBar.setProgressHigh(endTime);
-                    updateTime(mTextTime, endTime);
+                if (mSeekRangeBar.getIsNumText() == 0) {
+                    if (startTime >= 1000) {
+                        startTime = startTime - 1000;
+                        updateTime(mTextTime, startTime);
+                        mSeekRangeBar.setProgressLow(startTime);
+                    }
+                } else {
+                    if (endTime >= 1000) {
+                        endTime = endTime - 1000;
+                        updateTime(mTextTime, endTime);
+                        mSeekRangeBar.setProgressHigh(endTime);
+                    }
                 }
                 break;
             case R.id.plus:
-                if (endTime < max) {
-                    endTime = endTime + 1000;
-                    mSeekRangeBar.setProgressHigh(endTime);
-                    updateTime(mTextTime, endTime);
+                if (mSeekRangeBar.getIsNumText() == 0) {
+                    if (startTime <= endTime - 1000) {
+                        startTime = startTime + 1000;
+                        updateTime(mTextTime, startTime);
+                        mSeekRangeBar.setProgressLow(startTime);
+                    }
+                } else {
+                    if (endTime < max) {
+                        endTime = endTime + 1000;
+                        updateTime(mTextTime, endTime);
+                        mSeekRangeBar.setProgressHigh(endTime);
+                    }
                 }
                 break;
             case R.id.clip:
-                currentEditContent = 0;
-                setTimeAreaClip();
+                if (clipNum == 1) {
+                    currentEditContent = 0;
+                    clipNum = 2;
+                    setTimeAreaClip();
+                } else {
+                    //第二次点击收回菜单
+                    hideMenu();
+                }
                 break;
             case R.id.text:
-                currentEditContent = 1;
-                setTimeAreaText();
+                if (textNum == 1) {
+                    currentEditContent = 1;
+                    setTimeAreaText();
+                } else {
+                    hideMenu();
+                }
                 break;
             case R.id.icon:
-                currentEditContent = 2;
-                setTimeAreaIcon();
+                if (iconNum == 1) {
+                    currentEditContent = 2;
+                    setTimeAreaIcon();
+                    iconNum = 2;
+                } else {
+                    hideMenu();
+                }
                 break;
         }
+    }
+
+    /**
+     * 收回菜单选项
+     */
+    private void hideMenu() {
+        mClip.setImageResource(R.mipmap.icon_video_cut);
+        mText.setImageResource(R.mipmap.icon_video_text);
+        mIcon.setImageResource(R.mipmap.icon_video_expression);
+        clipNum = 1;
+        textNum = 1;
+        iconNum = 1;
+        mSelectTextType.removeAllViews();
+        setGoneLayout();
+        isEditText = false;
     }
 
     /**
@@ -566,21 +619,14 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 设置表情图标
      */
     private void setTimeAreaClip() {
-        if (isEditText) {
-            mClip.setImageResource(R.mipmap.icon_video_cut);
-            mSelectTextType.removeAllViews();
-            setGoneLayout();
-            mIcon.setEnabled(true);
-            mText.setEnabled(true);
-            isEditText = false;
-        } else {
-            mClip.setImageResource(R.mipmap.icon_video_cut_edit);
-            setVisibleLayout();
-            updateList("裁剪");
-            mText.setEnabled(false);
-            mIcon.setEnabled(false);
-            isEditText = true;
-        }
+        mClip.setImageResource(R.mipmap.icon_video_cut_edit);
+        mText.setImageResource(R.mipmap.icon_video_text);
+        mIcon.setImageResource(R.mipmap.icon_video_expression);
+        textNum = 1;
+        iconNum = 1;
+        setVisibleLayout();
+        updateList("裁剪");
+        isEditText = true;
     }
 
     /**
@@ -611,20 +657,14 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 设置表情图标
      */
     private void setTimeAreaIcon() {
-        if (isEditText) {
-            mIcon.setImageResource(R.mipmap.icon_video_expression);
-            setGoneLayout();
-            mClip.setEnabled(true);
-            mText.setEnabled(true);
-            isEditText = false;
-        } else {
-            mIcon.setImageResource(R.mipmap.icon_video_expression_edit);
-            setVisibleLayout();
-            updateList("表情");
-            mText.setEnabled(false);
-            mClip.setEnabled(false);
-            isEditText = true;
-        }
+        mIcon.setImageResource(R.mipmap.icon_video_expression_edit);
+        mText.setImageResource(R.mipmap.icon_video_text);
+        mClip.setImageResource(R.mipmap.icon_video_cut);
+        clipNum = 1;
+        textNum = 1;
+        setVisibleLayout();
+        updateList("表情");
+        isEditText = true;
     }
 
     /**
@@ -650,20 +690,14 @@ public class VideoDetailActivity extends AppCompatActivity {
      * 设置文本
      */
     private void setTimeAreaText() {
-        if (isEditText) {
-            mText.setImageResource(R.mipmap.icon_video_text);
-            setGoneLayout();
-            mClip.setEnabled(true);
-            mIcon.setEnabled(true);
-            isEditText = false;
-        } else {
-            mText.setImageResource(R.mipmap.icon_video_text_edit);
-            setVisibleLayout();
-            updateList("文本");
-            mClip.setEnabled(false);
-            mIcon.setEnabled(false);
-            isEditText = true;
-        }
+        mText.setImageResource(R.mipmap.icon_video_text_edit);
+        mClip.setImageResource(R.mipmap.icon_video_cut);
+        mIcon.setImageResource(R.mipmap.icon_video_expression);
+        clipNum = 1;
+        textNum = 1;
+        setVisibleLayout();
+        updateList("文本");
+        isEditText = true;
     }
 
     /**

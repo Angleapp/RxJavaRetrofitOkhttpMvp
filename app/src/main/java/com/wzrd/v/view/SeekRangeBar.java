@@ -60,8 +60,19 @@ public class SeekRangeBar extends View {
     private int fontsizeb = 20;//字体的大小
     private int coclora = Color.BLACK;//字体的颜色
     private int coclorb = Color.BLACK;//字体的颜色
-    private int hight=30;
+    private int hight = 30;
+    private Paint painta;
+    private Paint paintb;
+    private int isNumText = 1;//默认选中的第二个 0 表示第一个 1表示第二个
+    private String selectedColor = "#FF007AFF";
+    private String unSelectColor = "#FFFFFFFF";
+    public int getIsNumText() {
+        return isNumText;
+    }
 
+    public void setIsNumText(int isNumText) {
+        this.isNumText = isNumText;
+    }
 
     public SeekRangeBar(Context context) {
         this(context, null);
@@ -85,7 +96,7 @@ public class SeekRangeBar extends View {
         //设置滑动条高度
         mScollBarHeight = notScrollBarBg.getIntrinsicHeight();
         //设置滑动块直径
-        mThumbWidth = mThumbHigh.getIntrinsicWidth()+10;
+        mThumbWidth = mThumbHigh.getIntrinsicWidth() + 10;
 
 
     }
@@ -110,7 +121,7 @@ public class SeekRangeBar extends View {
         if (defaultScreenHigh != total) {
             mOffsetHigh = formatInt(defaultScreenHigh / total * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 140);
+        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 200);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -119,7 +130,7 @@ public class SeekRangeBar extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int top = mThumbMarginTop + mThumbWidth / 2 - mScollBarHeight / 2 + hight;
+        int top = mThumbMarginTop + mThumbHigh.getIntrinsicHeight() / 2 - mScollBarHeight / 2 + hight;
         int bottom = top + mScollBarHeight;
 
         if (editable) {//仅可编辑状态下显示进度条
@@ -144,12 +155,12 @@ public class SeekRangeBar extends View {
         //当前滑块刻度
         progressLow = formatInt((mOffsetLow - mThumbWidth / 2) * total / mDistance);
         progressHigh = formatInt((mOffsetHigh - mThumbWidth / 2) * total / mDistance);
-        Paint painta = new Paint();
+        painta = new Paint();
         //写文字
         painta.setColor(coclora);
         painta.setTextAlign(Paint.Align.CENTER);
         painta.setTextSize(fontsizea); //以px为单位
-        Paint paintb = new Paint();
+        paintb = new Paint();
         paintb.setColor(coclorb);
         paintb.setTextAlign(Paint.Align.CENTER);
         paintb.setTextSize(fontsizeb); //以px为单位
@@ -174,6 +185,11 @@ public class SeekRangeBar extends View {
             } else if (mFlag == CLICK_ON_HIGH) {
                 mThumbHigh.setState(STATE_PRESSED);
             } else if (mFlag == CLICK_IN_LOW_AREA) {
+                isNumText = 0;//第一个亮
+                coclora = Color.parseColor(selectedColor);
+                coclorb = Color.parseColor(unSelectColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
                 mThumbLow.setState(STATE_PRESSED);
                 mThumbHigh.setState(STATE_NORMAL);
                 //如果点击0-mThumbWidth/2坐标
@@ -186,6 +202,11 @@ public class SeekRangeBar extends View {
 
                 }
             } else if (mFlag == CLICK_IN_HIGH_AREA) {
+                isNumText = 1;//第二个亮
+                coclora = Color.parseColor(unSelectColor);
+                coclorb = Color.parseColor(selectedColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
                 mThumbHigh.setState(STATE_PRESSED);
                 mThumbLow.setState(STATE_NORMAL);
                 if (e.getX() >= mScollBarWidth - mThumbWidth / 2) {
