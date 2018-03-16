@@ -54,13 +54,18 @@ public class OutboxAdapter extends RecyclerView.Adapter<BindingHolder> {
                         cl_out_all.setBackgroundColor(context.getResources().getColor(R.color.white_b9));
                         break;
                     case MotionEvent.ACTION_UP:
+                        cl_out_all.setBackgroundColor(0);
+                        break;
                     case MotionEvent.ACTION_MOVE:
+                        cl_out_all.setBackgroundColor(0);
+                        break;
+                    default:
                         cl_out_all.setBackgroundColor(0);
                         break;
                 }
 
 
-                return true;
+                return false;
             }
 
         });

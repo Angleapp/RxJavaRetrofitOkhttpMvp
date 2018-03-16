@@ -61,7 +61,12 @@ public class InboxAdapter extends RecyclerView.Adapter<BindingHolder> {
                         ll_inbox.setBackgroundColor(context.getResources().getColor(R.color.white_b9));
                         break;
                     case MotionEvent.ACTION_UP:
+                        ll_inbox.setBackgroundColor(0);
+                        break;
                     case MotionEvent.ACTION_MOVE:
+                        ll_inbox.setBackgroundColor(0);
+                        break;
+                    default:
                         ll_inbox.setBackgroundColor(0);
                         break;
                 }

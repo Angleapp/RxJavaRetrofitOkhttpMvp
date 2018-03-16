@@ -34,6 +34,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_out_all"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -47,6 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView

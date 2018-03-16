@@ -54,7 +54,7 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
             public void onClick(View view) {
 //                Utils.ToastShort(mContext,"posiotion--"+position);
 //                holder.cl_all.setBackgroundColor(mContext.getResources().getColor(R.color.white_b9));
-
+                adapterClickPosition.adapterposition(position);
             }
         });
         holder.cl_all.setBackgroundColor(0);
@@ -64,16 +64,21 @@ public class ReclycleContactAdapter extends RecyclerView.Adapter<ReclycleContact
                 switch (motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
                         holder.cl_all.setBackgroundColor(mContext.getResources().getColor(R.color.white_b9));
-                        adapterClickPosition.adapterposition(position);
+
                         break;
                     case MotionEvent.ACTION_UP:
+                        holder.cl_all.setBackgroundColor(0);
+                        break;
                     case MotionEvent.ACTION_MOVE:
                         holder.cl_all.setBackgroundColor(0);
                         break;
+                        default:
+                            holder.cl_all.setBackgroundColor(0);
+                            break;
                 }
 
 
-                return true;
+                return false;
             }
 
         });
