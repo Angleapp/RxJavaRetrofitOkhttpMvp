@@ -227,6 +227,7 @@ public class SeekRangeBar extends View {
             if(cha(mOffsetHigh,mOffsetLow)){
                 //更新滑块
                 invalidate();
+
             }
         } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
             if (mFlag == CLICK_ON_LOW) {
