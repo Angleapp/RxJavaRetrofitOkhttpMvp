@@ -883,7 +883,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             mHandleArea.setVisibility(View.GONE);
         } else {
             mFirstFrame.setVisibility(View.VISIBLE);
-            mHandleArea.setVisibility(View.INVISIBLE);
+            mHandleArea.setVisibility(View.VISIBLE);
         }
         mVideoView.setLayoutParams(layoutParams);
     }
@@ -907,8 +907,6 @@ public class VideoDetailActivity extends AppCompatActivity {
                 mSeekbar.setMax(totalDuration);
                 updateTime(mTime, currentPosition);
                 updateTime(mTextTime, totalDuration);
-                startTime = currentPosition;
-                mSeekRangeBar.setProgressLow(currentPosition);
                 mSeekbar.setProgress(currentPosition);
                 VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(currentPosition));
                 mCurrentVideoContent = videoContent;
