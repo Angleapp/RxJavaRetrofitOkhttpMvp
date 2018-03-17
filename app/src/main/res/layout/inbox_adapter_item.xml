@@ -10,13 +10,16 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/ll_inbox"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:gravity="center|left"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.wzrd.v.view.NumImageView
+            android:id="@+id/num_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
@@ -27,6 +30,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="15dp"
+            android:layout_gravity="center|left"
+            android:gravity="center|left"
 
            >
 

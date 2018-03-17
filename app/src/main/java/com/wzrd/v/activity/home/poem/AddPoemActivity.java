@@ -2,8 +2,8 @@ package com.wzrd.v.activity.home.poem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -75,22 +75,20 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
         Intent intent = getIntent();
         mId = intent.getStringExtra("id");
         mPoemManager = PoemManager.getInstance(this);
+        Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, this, mToolbarMenuText, "完成");
         if (TextUtil.isEmpty(mId)) {
             //新增
-            Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, this, mToolbarMenuText, "完成");
             mLetterBg.setBackgroundResource(R.drawable.a19049ea3874d0bb4837f114095abd601);
             mContent.setText("");
             mTitle.setHint("请输入诗标题");
             mAuthor.setHint("请输入作者姓名");
             mContent.setHint("请输入诗内容");
         } else {
-            //详情页面
-            Utils.backToolbar(this, mToolbarBack, mToolbarTitle, "文字", mToolbarMenu, 0, null, mToolbarMenuText, "");
-            mChangeLetter.setVisibility(View.INVISIBLE);
             mPoem = mPoemManager.findPoemById(mId);
             mTitle.setText(mPoem.getTitle());
             mAuthor.setText(mPoem.getAuthor());
-            mContent.setText(Html.fromHtml(mPoem.getContent()));
+            String content = mPoem.getContent();
+            mContent.setText(content);
             mTitle.setEnabled(false);
             mAuthor.setEnabled(false);
             mContent.setEnabled(false);
@@ -115,12 +113,17 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
                     mTime.start();
                 } else {
                     //播放录音
+                    //重新录音
+                    mStartSpeak.setVisibility(View.GONE);
+                    mPlaySpeak.setVisibility(View.VISIBLE);
+                    mTime.start();
                 }
                 break;
             case R.id.down_arrow:
                 //放弃录音
                 mStartSpeak.setVisibility(View.VISIBLE);
                 mPlaySpeak.setVisibility(View.GONE);
+                mTime.setBase(SystemClock.elapsedRealtime());//计时器清零
                 break;
             case R.id.stop:
                 //录音停止
@@ -129,14 +132,29 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
                 mTime.stop();
                 break;
             case R.id.unSave:
+                mTime.setBase(SystemClock.elapsedRealtime());//计时器清零
                 mStartSpeak.setVisibility(View.VISIBLE);
                 mEndSpeak.setVisibility(View.GONE);
                 break;
             case R.id.save:
+                mTime.setBase(SystemClock.elapsedRealtime());//计时器清零
                 mStartSpeak.setVisibility(View.VISIBLE);
                 mEndSpeak.setVisibility(View.GONE);
                 //保存录音
+                saveSoundRecording();
                 break;
+        }
+    }
+
+    /**
+     * 保存录音
+     */
+    private void saveSoundRecording() {
+        if (mPoem!=null){
+            //重新录音
+        }else{
+            //第一次录音
+
         }
     }
 
@@ -147,11 +165,17 @@ public class AddPoemActivity extends AppCompatActivity implements AbsToolBarMenu
         if (mSelectBean != null) {
             path = mSelectBean.getPath();
         }
-
-        Poem poem = new Poem(Utils.getuuid(), mTitle.getText().toString(), mAuthor.getText().toString(), mContent.getText().toString(), "0", "", path);
-        mPoemManager.insertPoem(poem);
+        if (mPoem!=null){
+            //重新编辑
+            mPoem.setBgPath(path);
+        }else{
+           //第一次编辑诗歌
+            String content = mContent.getText().toString();
+            Poem poem = new Poem(Utils.getuuid(), mTitle.getText().toString(), mAuthor.getText().toString(), content, "0", "", path);
+            mPoemManager.insertPoem(poem);
+        }
         ToastUtils.toast(this, "保存成功");
-        mTime = null;
+        mTime.setBase(SystemClock.elapsedRealtime());//计时器清零
         finish();
     }
 

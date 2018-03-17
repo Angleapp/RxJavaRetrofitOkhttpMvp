@@ -136,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(0);
                 bannerList.get(preItem).setRbtLeftIconChecked(false);
                 tabAuslese.setRbtLeftIconChecked(true);
-
+                tabAuslese.setBtMessageState(true);//设置小红点显示
                 preItem = 0;
                 break;
             case R.id.tab_classfition:
                 viewPager.setCurrentItem(1);
                 bannerList.get(preItem).setRbtLeftIconChecked(false);
                 tabClassfition.setRbtLeftIconChecked(true);
+                tabClassfition.setBtMessageState(true);//设置小红点显示
                 preItem = 1;
                 break;
             case R.id.tab_host:
