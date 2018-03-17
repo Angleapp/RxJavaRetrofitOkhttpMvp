@@ -66,6 +66,7 @@ public class SeekRangeBar extends View {
     private int isNumText = 1;//默认选中的第二个 0 表示第一个 1表示第二个
     private String selectedColor = "#FF007AFF";
     private String unSelectColor = "#FFFFFFFF";
+
     public int getIsNumText() {
         return isNumText;
     }
@@ -181,8 +182,14 @@ public class SeekRangeBar extends View {
         if (e.getAction() == MotionEvent.ACTION_DOWN) {
             mFlag = getAreaFlag(e);
             if (mFlag == CLICK_ON_LOW) {
+                isNumText = 0;//第一个亮
+                coclora = Color.parseColor(selectedColor);
+                coclorb = Color.parseColor(unSelectColor);
                 mThumbLow.setState(STATE_PRESSED);
             } else if (mFlag == CLICK_ON_HIGH) {
+                isNumText = 1;//第二个亮
+                coclora = Color.parseColor(unSelectColor);
+                coclorb = Color.parseColor(selectedColor);
                 mThumbHigh.setState(STATE_PRESSED);
             } else if (mFlag == CLICK_IN_LOW_AREA) {
                 isNumText = 0;//第一个亮
@@ -217,9 +224,15 @@ public class SeekRangeBar extends View {
             }
             //更新滑块
             Log.d("LOGCAT", "refresh down");
-            invalidate();
+            if(cha(mOffsetHigh,mOffsetLow)){
+                //更新滑块
+                invalidate();
+            }
         } else if (e.getAction() == MotionEvent.ACTION_MOVE) {
             if (mFlag == CLICK_ON_LOW) {
+                isNumText = 0;//第一个亮
+                coclora = Color.parseColor(selectedColor);
+                coclorb = Color.parseColor(unSelectColor);
                 if (e.getX() < 0 || e.getX() <= mThumbWidth / 2) {
                     mOffsetLow = mThumbWidth / 2;
                 } else if (e.getX() >= mScollBarWidth - mThumbWidth / 2) {
@@ -232,7 +245,13 @@ public class SeekRangeBar extends View {
                     }
                 }
             } else if (mFlag == CLICK_ON_HIGH) {
+                isNumText = 1;//第二个亮
+                coclora = Color.parseColor(unSelectColor);
+                coclorb = Color.parseColor(selectedColor);
                 if (e.getX() < mThumbWidth / 2) {
+                    if(cha(mThumbWidth / 2,mThumbWidth / 2)){
+
+                    }
                     mOffsetHigh = mThumbWidth / 2;
                     mOffsetLow = mThumbWidth / 2;
                 } else if (e.getX() > mScollBarWidth - mThumbWidth / 2) {
@@ -244,20 +263,34 @@ public class SeekRangeBar extends View {
                     }
                 }
             }
-            //更新滑块
-            invalidate();
+            if(cha(mOffsetHigh,mOffsetLow)){
+                //更新滑块
+                invalidate();
+            }
+
         } else if (e.getAction() == MotionEvent.ACTION_UP) {
             Log.d("LOGCAT", "ACTION UP:" + progressHigh + "-" + progressLow);
             mThumbLow.setState(STATE_NORMAL);
             mThumbHigh.setState(STATE_NORMAL);
-            if (miniGap > 0 && progressHigh < progressLow + miniGap) {
+            if (cha(progressHigh, progressLow) && progressHigh < progressLow + miniGap) {
                 progressHigh = progressLow + miniGap;
                 this.defaultScreenHigh = progressHigh;
                 mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
-                invalidate();
+
+                if(cha(mOffsetHigh,mOffsetLow)){
+                    //更新滑块
+                    invalidate();
+                }
             }
         }
         return true;
+    }
+
+    private boolean cha(double progressHigh, double progressLow) {
+        double less =  Math.abs(progressHigh - progressLow);
+
+        Log.e("less", "less--->" + less);
+        return less>100;
     }
 
     /**
