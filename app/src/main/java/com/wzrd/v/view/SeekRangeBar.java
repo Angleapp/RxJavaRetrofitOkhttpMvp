@@ -185,11 +185,15 @@ public class SeekRangeBar extends View {
                 isNumText = 0;//第一个亮
                 coclora = Color.parseColor(selectedColor);
                 coclorb = Color.parseColor(unSelectColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
                 mThumbLow.setState(STATE_PRESSED);
             } else if (mFlag == CLICK_ON_HIGH) {
                 isNumText = 1;//第二个亮
                 coclora = Color.parseColor(unSelectColor);
                 coclorb = Color.parseColor(selectedColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
                 mThumbHigh.setState(STATE_PRESSED);
             } else if (mFlag == CLICK_IN_LOW_AREA) {
                 isNumText = 0;//第一个亮

@@ -503,7 +503,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                         mSeekRangeBar.setProgressLow(startTime);
                     }
                 } else {
-                    if (endTime >= 1000) {
+                    if (endTime >= startTime+1000) {
                         endTime = endTime - 1000;
                         updateTime(mTextTime, endTime);
                         mSeekRangeBar.setProgressHigh(endTime);
@@ -831,6 +831,8 @@ public class VideoDetailActivity extends AppCompatActivity {
             mFullScreen.setImageResource(R.mipmap.icon_video_fullscreen);
             //显示底部操作布局
             mBottomLayout.setVisibility(View.VISIBLE);
+            //显示toolbar
+            setToolbarContent(0);
             isFullScreen = false;
         } else {
             //切换为横屏
@@ -839,6 +841,8 @@ public class VideoDetailActivity extends AppCompatActivity {
             mFullScreen.setImageResource(R.mipmap.icon_video_close);
             //显示底部操作布局
             mBottomLayout.setVisibility(View.GONE);
+            //显示toolbar
+            setToolbarContent(0);
 //            mVideoView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             isFullScreen = true;
         }
@@ -881,9 +885,12 @@ public class VideoDetailActivity extends AppCompatActivity {
         if ("1".equals(type)) {
             mFirstFrame.setVisibility(View.GONE);
             mHandleArea.setVisibility(View.GONE);
+            mToolbar.setVisibility(View.GONE);
+            mControl.setVisibility(View.VISIBLE);
         } else {
             mFirstFrame.setVisibility(View.VISIBLE);
-            mHandleArea.setVisibility(View.VISIBLE);
+            mHandleArea.setVisibility(View.INVISIBLE);
+            mControl.setVisibility(View.VISIBLE);
         }
         mVideoView.setLayoutParams(layoutParams);
     }
@@ -906,7 +913,6 @@ public class VideoDetailActivity extends AppCompatActivity {
                 int totalDuration = mVideoView.getDuration();
                 mSeekbar.setMax(totalDuration);
                 updateTime(mTime, currentPosition);
-                updateTime(mTextTime, totalDuration);
                 mSeekbar.setProgress(currentPosition);
                 VideoContent videoContent = mVideoContentManager.findVideoContentByVideoIdAndTime(mVideo.getId(), Utils.intToStr(currentPosition));
                 mCurrentVideoContent = videoContent;
