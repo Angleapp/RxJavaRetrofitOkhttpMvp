@@ -126,11 +126,6 @@ public class ContactFragment extends NoNetBaseLayFragment implements AdapterClic
                 switch (motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
                         llLover.setBackgroundColor(getResources().getColor(R.color.white_b9));
-//                        if (userName != null && userName.size() > 0) {
-//                            Intent intent2 = new Intent(getActivity(), ContanctsMessageActivity.class);
-//                            intent2.putExtra("name", userName.get(0).getT_sys_lover_name());
-//                            getActivity().startActivity(intent2);
-//                        }
                         break;
                     case MotionEvent.ACTION_UP:
                         llLover.setBackgroundColor(0);
