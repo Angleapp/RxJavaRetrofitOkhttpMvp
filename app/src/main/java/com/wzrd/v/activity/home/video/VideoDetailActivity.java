@@ -559,6 +559,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                 } else {
                     hideMenu();
                 }
+
                 break;
             case R.id.icon:
                 if (iconNum == 1) {
