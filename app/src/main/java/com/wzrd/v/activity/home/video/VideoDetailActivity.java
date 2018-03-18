@@ -296,12 +296,14 @@ public class VideoDetailActivity extends AppCompatActivity {
         mTime.setText("00:00");
         mSeekRangeBar.setProgressLow(0);
         high = mVideoView.getDuration();
+        mSeekRangeBar.setddefaultScreenLow(0);
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 high = mediaPlayer.getDuration();
                 mSeekRangeBar.setTotal(high);
                 mSeekRangeBar.setProgressHigh(high);
+                mSeekRangeBar.setdefaultScreenHigh(high);
                 endTime = high;
                 max = high;
             }

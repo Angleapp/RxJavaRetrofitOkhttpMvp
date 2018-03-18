@@ -386,9 +386,10 @@ public class SeekRangeBar extends View {
      * @param progressLow
      */
     public boolean setProgressLow(double progressLow) {
-        this.defaultScreenLow = progressLow;
-        double mOffsetLow = formatInt(progressLow / total * (mDistance)) + mThumbWidth / 2;
+
+         mOffsetLow = formatInt(progressLow / total * (mDistance)) + mThumbWidth / 2;
         if (cha(mOffsetHigh, mOffsetLow)) {
+//            this.defaultScreenLow = progressLow;
             invalidate();
             return true;
         } else {
@@ -402,13 +403,34 @@ public class SeekRangeBar extends View {
      * @param progressHigh
      */
     public boolean setProgressHigh(double progressHigh) {
-        this.defaultScreenHigh = progressHigh;
-        double mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
+         mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
         if (cha(mOffsetHigh, mOffsetLow)) {
+//            this.defaultScreenHigh = progressHigh;
             invalidate();
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 设置后滑块位置百分比
+     * @param progressHigh
+     */
+    public  void setdefaultScreenHigh(double progressHigh){
+        this.defaultScreenHigh=progressHigh;
+        invalidate();
+
+    }
+
+    /**
+     * 设置前滑块位置百分比
+     * @param progressLow
+     */
+    public  void setddefaultScreenLow(double progressLow){
+        this.defaultScreenLow=progressLow;
+        invalidate();
+
     }
 
     /**
