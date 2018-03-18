@@ -503,7 +503,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                         if (is) {
                             updateTime(mTextTime, startTime);
                         }else{
-                            endTime = endTime +1000;
+                            startTime = startTime +1000;
                         }
                     }
                 } else {
@@ -526,7 +526,7 @@ public class VideoDetailActivity extends AppCompatActivity {
                         if (is) {
                             updateTime(mTextTime, startTime);
                         }else{
-                            endTime = endTime -1000;
+                            startTime = startTime -1000;
                         }
                     }
                 } else {
@@ -554,6 +554,7 @@ public class VideoDetailActivity extends AppCompatActivity {
             case R.id.text:
                 if (textNum == 1) {
                     currentEditContent = 1;
+                    textNum = 2;
                     setTimeAreaText();
                 } else {
                     hideMenu();
@@ -710,7 +711,7 @@ public class VideoDetailActivity extends AppCompatActivity {
         mClip.setImageResource(R.mipmap.icon_video_cut);
         mIcon.setImageResource(R.mipmap.icon_video_expression);
         clipNum = 1;
-        textNum = 1;
+        iconNum = 1;
         setVisibleLayout();
         updateList("文本");
         isEditText = true;

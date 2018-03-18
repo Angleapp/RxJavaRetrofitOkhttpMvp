@@ -238,6 +238,8 @@ public class SeekRangeBar extends View {
                 isNumText = 0;//第一个亮
                 coclora = Color.parseColor(selectedColor);
                 coclorb = Color.parseColor(unSelectColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
                 if (e.getX() < 0 || e.getX() <= mThumbWidth / 2) {
                     mOffsetLow = mThumbWidth / 2;
                 } else if (e.getX() >= mScollBarWidth - mThumbWidth / 2) {
@@ -253,6 +255,8 @@ public class SeekRangeBar extends View {
                 isNumText = 1;//第二个亮
                 coclora = Color.parseColor(unSelectColor);
                 coclorb = Color.parseColor(selectedColor);
+                mThumbLow = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_start);
+                mThumbHigh = ContextCompat.getDrawable(_context, R.drawable.clip_time_shape_end);
                 if (e.getX() < mThumbWidth / 2) {
                     if (cha(mThumbWidth / 2, mThumbWidth / 2)) {
 
@@ -292,7 +296,7 @@ public class SeekRangeBar extends View {
     }
 
     private boolean cha(double progressHigh, double progressLow) {
-        double less = Math.abs(progressHigh - progressLow);
+        double less = Math.abs(progressHigh) - Math.abs(progressLow);
         Log.e("less", "less--->" + less);
         return less > 100;
     }
