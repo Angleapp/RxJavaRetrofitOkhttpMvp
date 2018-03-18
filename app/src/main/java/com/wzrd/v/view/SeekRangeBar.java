@@ -228,7 +228,7 @@ public class SeekRangeBar extends View {
             }
             //更新滑块
             Log.d("LOGCAT", "refresh down");
-            if(cha(mOffsetHigh,mOffsetLow)){
+            if (cha(mOffsetHigh, mOffsetLow)) {
                 //更新滑块
                 invalidate();
 
@@ -254,7 +254,7 @@ public class SeekRangeBar extends View {
                 coclora = Color.parseColor(unSelectColor);
                 coclorb = Color.parseColor(selectedColor);
                 if (e.getX() < mThumbWidth / 2) {
-                    if(cha(mThumbWidth / 2,mThumbWidth / 2)){
+                    if (cha(mThumbWidth / 2, mThumbWidth / 2)) {
 
                     }
                     mOffsetHigh = mThumbWidth / 2;
@@ -268,7 +268,7 @@ public class SeekRangeBar extends View {
                     }
                 }
             }
-            if(cha(mOffsetHigh,mOffsetLow)){
+            if (cha(mOffsetHigh, mOffsetLow)) {
                 //更新滑块
                 invalidate();
             }
@@ -282,7 +282,7 @@ public class SeekRangeBar extends View {
                 this.defaultScreenHigh = progressHigh;
                 mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
 
-                if(cha(mOffsetHigh,mOffsetLow)){
+                if (cha(mOffsetHigh, mOffsetLow)) {
                     //更新滑块
                     invalidate();
                 }
@@ -292,10 +292,9 @@ public class SeekRangeBar extends View {
     }
 
     private boolean cha(double progressHigh, double progressLow) {
-        double less =  Math.abs(progressHigh - progressLow);
-
+        double less = Math.abs(progressHigh - progressLow);
         Log.e("less", "less--->" + less);
-        return less>100;
+        return less > 100;
     }
 
     /**
@@ -382,10 +381,15 @@ public class SeekRangeBar extends View {
      *
      * @param progressLow
      */
-    public void setProgressLow(double progressLow) {
+    public boolean setProgressLow(double progressLow) {
         this.defaultScreenLow = progressLow;
-        mOffsetLow = formatInt(progressLow / total * (mDistance)) + mThumbWidth / 2;
-        invalidate();
+        double mOffsetLow = formatInt(progressLow / total * (mDistance)) + mThumbWidth / 2;
+        if (cha(mOffsetHigh, mOffsetLow)) {
+            invalidate();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -393,10 +397,14 @@ public class SeekRangeBar extends View {
      *
      * @param progressHigh
      */
-    public void setProgressHigh(double progressHigh) {
+    public boolean setProgressHigh(double progressHigh) {
         this.defaultScreenHigh = progressHigh;
-        mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
-        invalidate();
+        double mOffsetHigh = formatInt(progressHigh / total * (mDistance)) + mThumbWidth / 2;
+        if (cha(mOffsetHigh, mOffsetLow)) {
+            invalidate();
+            return true;
+        }
+        return false;
     }
 
     /**

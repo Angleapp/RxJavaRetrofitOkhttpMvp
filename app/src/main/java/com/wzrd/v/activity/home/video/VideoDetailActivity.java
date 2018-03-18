@@ -420,9 +420,9 @@ public class VideoDetailActivity extends AppCompatActivity {
                 startTime = (int) progressLow;
                 endTime = (int) progressHigh;
                 //设置终止时间
-                if (seekBar.getIsNumText()==0){
+                if (seekBar.getIsNumText() == 0) {
                     updateTime(mTextTime, (int) progressLow);
-                }else{
+                } else {
                     updateTime(mTextTime, (int) progressHigh);
                 }
             }
@@ -499,29 +499,45 @@ public class VideoDetailActivity extends AppCompatActivity {
                 if (mSeekRangeBar.getIsNumText() == 0) {
                     if (startTime >= 1000) {
                         startTime = startTime - 1000;
-                        updateTime(mTextTime, startTime);
-                        mSeekRangeBar.setProgressLow(startTime);
+                        boolean is = mSeekRangeBar.setProgressLow(startTime);
+                        if (is) {
+                            updateTime(mTextTime, startTime);
+                        }else{
+                            endTime = endTime +1000;
+                        }
                     }
                 } else {
-                    if (endTime >= startTime+1000) {
-                        endTime = endTime - 1000;
-                        updateTime(mTextTime, endTime);
-                        mSeekRangeBar.setProgressHigh(endTime);
+                    if (endTime >= startTime + 1000) {
+                        endTime = endTime -1000;
+                        boolean is = mSeekRangeBar.setProgressHigh(endTime);
+                        if (is) {
+                            updateTime(mTextTime, endTime);
+                        }else{
+                            endTime = endTime +1000;
+                        }
                     }
                 }
                 break;
             case R.id.plus:
                 if (mSeekRangeBar.getIsNumText() == 0) {
                     if (startTime <= endTime - 1000) {
-                        startTime = startTime + 1000;
-                        updateTime(mTextTime, startTime);
-                        mSeekRangeBar.setProgressLow(startTime);
+                        startTime = startTime +1000;
+                        boolean is = mSeekRangeBar.setProgressLow(startTime);
+                        if (is) {
+                            updateTime(mTextTime, startTime);
+                        }else{
+                            endTime = endTime -1000;
+                        }
                     }
                 } else {
                     if (endTime < max) {
                         endTime = endTime + 1000;
-                        updateTime(mTextTime, endTime);
-                        mSeekRangeBar.setProgressHigh(endTime);
+                        boolean is = mSeekRangeBar.setProgressHigh(endTime);
+                        if (is) {
+                            updateTime(mTextTime, endTime);
+                        }else{
+                            endTime = endTime -1000;
+                        }
                     }
                 }
                 break;
