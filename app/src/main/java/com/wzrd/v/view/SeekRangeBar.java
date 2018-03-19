@@ -60,7 +60,7 @@ public class SeekRangeBar extends View {
     private int fontsizeb = 20;//字体的大小
     private int coclora = Color.BLACK;//字体的颜色
     private int coclorb = Color.BLACK;//字体的颜色
-    private int hight = 30;
+    private int hight = 20;
     private Paint painta;
     private Paint paintb;
     private int isNumText = 1;//默认选中的第二个 0 表示第一个 1表示第二个
@@ -122,7 +122,7 @@ public class SeekRangeBar extends View {
         if (defaultScreenHigh != total) {
             mOffsetHigh = formatInt(defaultScreenHigh / total * (mDistance)) + mThumbWidth / 2;
         }
-        setMeasuredDimension(width, mThumbWidth + mThumbMarginTop + 2 + 200);
+        setMeasuredDimension(width, mThumbHigh.getIntrinsicHeight() + mThumbMarginTop+2+10);
     }
 
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
