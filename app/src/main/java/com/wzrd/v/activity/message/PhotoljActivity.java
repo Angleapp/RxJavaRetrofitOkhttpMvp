@@ -21,7 +21,6 @@ import com.muzhi.camerasdk.library.views.HorizontalListView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wzrd.R;
 import com.wzrd.m.utils.SharedPreferencesUtil;
-import com.wzrd.m.utils.Utils;
 import com.yyx.beautifylib.adapter.Filter_Effect_Adapter;
 import com.yyx.beautifylib.model.Filter_Effect_Info;
 import com.yyx.beautifylib.utils.FilterUtils;
@@ -57,7 +56,7 @@ public class PhotoljActivity extends AppCompatActivity implements View.OnClickLi
         startPhoto();
         setadapter();
         setlistener();
-        SharedPreferencesUtil.saveString(this,"PhotoljActivity","Photolj");
+
 
     }
 
@@ -172,7 +171,9 @@ public class PhotoljActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.tv_photocomplete:
                 String path = imageView.save();
-                Utils.ToastShort(this, "图片保存地址--->" + path);
+                SharedPreferencesUtil.saveString(PhotoljActivity.this,"photolj",path);
+                SharedPreferencesUtil.saveString(this,"PhotoljActivity","Photolj");
+//                Utils.ToastShort(this, "图片保存地址--->" + path);
                 finish();
                 break;
 

@@ -25,6 +25,7 @@ import com.wzrd.m.utils.SharedPreferencesUtil;
 import com.wzrd.v.activity.home.poem.AddPoemActivity;
 import com.wzrd.v.activity.home.video.LookAtVideoActivity;
 import com.wzrd.v.activity.homepage.WisdomActivity;
+import com.wzrd.v.activity.message.ImageActivity;
 import com.wzrd.v.activity.preview.TextPreviewActivity;
 
 import java.util.ArrayList;
@@ -216,6 +217,13 @@ public class PreviewPopupWindow extends PopupWindow {
             case 11:
 
                 if (del == 0) {
+                    String photolj = SharedPreferencesUtil.getString(context, "photolj", "");
+                    if("".equals(photolj)){
+
+                    }else{
+                        Intent intent11 = new Intent(context, ImageActivity.class);
+                        context.startActivity(intent11);
+                    }
                     dismiss();
                 } else {
                     SharedPreferencesUtil.saveString(context, "PhotoljActivity", "");
