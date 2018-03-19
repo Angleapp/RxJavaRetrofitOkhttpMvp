@@ -97,7 +97,7 @@ public class PoemManager {
 
     public Poem getLastPoem() {
         List<Poem> poems = mPoemDao.loadAll();
-        if (poems != null) {
+        if (poems != null && poems.size() > 0) {
             return poems.get(poems.size() - 1);
         } else {
             return null;
